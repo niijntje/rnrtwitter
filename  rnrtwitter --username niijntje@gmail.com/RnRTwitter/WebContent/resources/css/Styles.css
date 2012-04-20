@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+body{
+	font-family: helvetica, arial;
+}
+
+.true{
+	
+	background-color: grey;
+}
+
+.false{
+	background-color: lightgrey;
+}
+.errorMessage {
+   color:red; 
+}

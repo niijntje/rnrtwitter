@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>#{msgs.windowTitle}</title>
+</h:head>
+
+<h:body>
+
+	<p:panel header="#{msgs.existingUser}">
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:outputLabel for="userName" value="#{msgs.userName}"></h:outputLabel>
+				<h:inputText id="userName" value="#{userBean.currentUser.userName}"></h:inputText>
+				<h:outputLabel for="password" value="#{msgs.password}"></h:outputLabel>
+				<h:inputText id="password" value="#{userBean.currentUser.password}"></h:inputText>
+			</h:panelGrid>
+			<p:commandButton value="#{msgs.login}" action="userprofile"
+				ajax="false"></p:commandButton>
+		</h:form>
+	</p:panel>
+	<h:form>
+		<p:panel header="#{msgs.newUser}">
+			<h:panelGrid columns="3">
+				<h:outputLabel for="userName" value="#{msgs.userName}" />
+				<h:inputText id="userName" value="#{userBean.currentUser.userName}" validator="#{userBean.validateNewUserName}" validatorMessage="#{msgs.validateNewUserName}">
+					<f:ajax event="keyup" render="availableError"></f:ajax>
+				</h:inputText>
+				<p:message id="availableError" label="User name" for="userName"></p:message>
+				<h:outputLabel for="password" value="#{msgs.password}" />
+				<p:password id="password" value="#{userBean.currentUser.password}" required="true" feedback="true"> 
+				<f:ajax event="keyup" render="pwerror"></f:ajax></p:password>
+				<p:message id="pwerror" for="password"></p:message>
+				<h:outputLabel for="repeatpassword" value="#{msgs.repeatPassword}" />
+				<p:password id="repeatpassword" value="#{userBean.currentUser.password}" match="password" validatorMessage="#{msgs.validatePasswordRepeat}" required="true">
+				<f:ajax event="keyup" render="pwrepeaterror"></f:ajax></p:password>
+				<p:message id="pwrepeaterror" for="repeatpassword" ></p:message>
+			</h:panelGrid>
+			<p:commandButton value="#{msgs.createNewUser}" action="userprofile"
+				ajax="false"></p:commandButton>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>
