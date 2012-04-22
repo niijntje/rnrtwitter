@@ -40,4 +40,13 @@ public class UserBean implements Serializable {
 		         new FacesMessage("Userbean says: Username not available"));
 		}
 	}
+	
+	public String verifyUser(){
+		System.out.println(currentUser);
+		if(service.verifyUser(currentUser)){
+			return "home";
+		} else return "index";
+	}
+	
+	
 }
