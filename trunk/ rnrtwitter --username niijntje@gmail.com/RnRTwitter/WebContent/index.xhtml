@@ -9,39 +9,50 @@
 
 <h:head>
 	<title>#{msgs.windowTitle}</title>
-		<h:outputStylesheet library="css" name="Styles.css" />
+	<h:outputStylesheet library="css" name="Styles.css" />
 </h:head>
 
 <h:body>
 
 	<p:panel header="#{msgs.existingUser}">
 		<h:form>
-			<h:panelGrid columns="2">
-				<h:outputLabel for="userName" value="#{msgs.userName}"></h:outputLabel>
-				<p:inputText id="userName" value="#{userBean.currentUser.userName}"></p:inputText>
+			<h:panelGrid columns="3">
+				<h:outputLabel for="userName" value="#{msgs.userName}" />
+				<p:inputText id="userName" value="#{userBean.currentUser.userName}"
+					required="true" requiredMessage="#{msgs.requiredUserName}" />
+				<p:message for="userName" />
 				<h:outputLabel for="password" value="#{msgs.password}"></h:outputLabel>
-				<p:inputText id="password" value="#{userBean.currentUser.password}"></p:inputText>
+				<p:password id="password" value="#{userBean.currentUser.password}"
+					required="true" requiredMessage="#{msgs.requiredPassword}" />
+				<p:message for="password" />
 			</h:panelGrid>
-			<p:commandButton value="#{msgs.login}" action="userprofile"
-				ajax="false"></p:commandButton>
+			<p:commandButton value="#{msgs.login}" ajax="false" action="#{userBean.verifyUser()}"/>
+
 		</h:form>
 	</p:panel>
 	<h:form>
 		<p:panel header="#{msgs.newUser}">
 			<h:panelGrid columns="3">
 				<h:outputLabel for="userName" value="#{msgs.userName}" />
-				<p:inputText id="userName" value="#{userBean.currentUser.userName}" validator="#{userBean.validateNewUserName}" validatorMessage="#{msgs.validateNewUserName}">
+				<p:inputText id="userName" value="#{userBean.currentUser.userName}"
+					validator="#{userBean.validateNewUserName}"
+					validatorMessage="#{msgs.validateNewUserName}">
 					<f:ajax event="keyup" render="availableError"></f:ajax>
 				</p:inputText>
-				<p:message id="availableError" label="User name" for="userName"></p:message>
+				<p:message id="availableError" for="userName"></p:message>
 				<h:outputLabel for="password" value="#{msgs.password}" />
-				<p:password id="password" value="#{userBean.currentUser.password}" required="true" feedback="true"> 
-				<f:ajax event="keyup" render="pwerror"></f:ajax></p:password>
+				<p:password id="password" value="#{userBean.currentUser.password}"
+					required="true" feedback="true">
+					<f:ajax event="keyup" render="pwerror"></f:ajax>
+				</p:password>
 				<p:message id="pwerror" for="password"></p:message>
 				<h:outputLabel for="repeatpassword" value="#{msgs.repeatPassword}" />
-				<p:password id="repeatpassword" value="#{userBean.currentUser.password}" match="password" validatorMessage="#{msgs.validatePasswordRepeat}" required="true">
-				<f:ajax event="keyup" render="pwrepeaterror"></f:ajax></p:password>
-				<p:message id="pwrepeaterror" for="repeatpassword" ></p:message>
+				<p:password id="repeatpassword"
+					value="#{userBean.currentUser.password}" match="password"
+					validatorMessage="#{msgs.validatePasswordRepeat}" required="true">
+					<f:ajax event="keyup" render="pwrepeaterror"></f:ajax>
+				</p:password>
+				<p:message id="pwrepeaterror" for="repeatpassword"></p:message>
 			</h:panelGrid>
 			<p:commandButton value="#{msgs.createNewUser}" action="userprofile"
 				ajax="false"></p:commandButton>
