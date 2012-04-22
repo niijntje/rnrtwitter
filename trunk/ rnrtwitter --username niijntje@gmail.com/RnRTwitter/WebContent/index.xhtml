@@ -9,6 +9,7 @@
 
 <h:head>
 	<title>#{msgs.windowTitle}</title>
+		<h:outputStylesheet library="css" name="Styles.css" />
 </h:head>
 
 <h:body>
@@ -17,9 +18,9 @@
 		<h:form>
 			<h:panelGrid columns="2">
 				<h:outputLabel for="userName" value="#{msgs.userName}"></h:outputLabel>
-				<h:inputText id="userName" value="#{userBean.currentUser.userName}"></h:inputText>
+				<p:inputText id="userName" value="#{userBean.currentUser.userName}"></p:inputText>
 				<h:outputLabel for="password" value="#{msgs.password}"></h:outputLabel>
-				<h:inputText id="password" value="#{userBean.currentUser.password}"></h:inputText>
+				<p:inputText id="password" value="#{userBean.currentUser.password}"></p:inputText>
 			</h:panelGrid>
 			<p:commandButton value="#{msgs.login}" action="userprofile"
 				ajax="false"></p:commandButton>
@@ -29,9 +30,9 @@
 		<p:panel header="#{msgs.newUser}">
 			<h:panelGrid columns="3">
 				<h:outputLabel for="userName" value="#{msgs.userName}" />
-				<h:inputText id="userName" value="#{userBean.currentUser.userName}" validator="#{userBean.validateNewUserName}" validatorMessage="#{msgs.validateNewUserName}">
+				<p:inputText id="userName" value="#{userBean.currentUser.userName}" validator="#{userBean.validateNewUserName}" validatorMessage="#{msgs.validateNewUserName}">
 					<f:ajax event="keyup" render="availableError"></f:ajax>
-				</h:inputText>
+				</p:inputText>
 				<p:message id="availableError" label="User name" for="userName"></p:message>
 				<h:outputLabel for="password" value="#{msgs.password}" />
 				<p:password id="password" value="#{userBean.currentUser.password}" required="true" feedback="true"> 
