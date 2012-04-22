@@ -19,19 +19,23 @@
 			<h:panelGrid columns="3">
 				<h:outputLabel for="userName" value="#{msgs.userName}" />
 				<p:inputText id="userName" value="#{userBean.currentUser.userName}"
-					required="true" requiredMessage="#{msgs.requiredUserName}" />
-				<p:message for="userName" />
+
+					validator="#{userBean.validateUserName}" validatorMessage="#{msgs.validateUserName}">
+					</p:inputText>
+				<p:message id="userNameError" for="userName" />
+				
 				<h:outputLabel for="password" value="#{msgs.password}"></h:outputLabel>
 				<p:password id="password" value="#{userBean.currentUser.password}"
 					required="true" requiredMessage="#{msgs.requiredPassword}" />
-				<p:message for="password" />
+				<p:message id="pwError" for="password" />
 			</h:panelGrid>
-			<p:commandButton value="#{msgs.login}" ajax="false" action="#{userBean.verifyUser()}"/>
+			<p:commandButton value="#{msgs.login}"
+				action="userprofile" update="userNameError pwError"/>
 
 		</h:form>
 	</p:panel>
 	<h:form>
-		<p:panel header="#{msgs.newUser}">
+		<p:panel header="#{msgs.newUser}" toggleable="true">
 			<h:panelGrid columns="3">
 				<h:outputLabel for="userName" value="#{msgs.userName}" />
 				<p:inputText id="userName" value="#{userBean.currentUser.userName}"
