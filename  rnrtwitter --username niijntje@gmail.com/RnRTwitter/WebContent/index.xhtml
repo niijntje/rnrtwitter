@@ -46,22 +46,25 @@
 				<p:inputText id="userName" value="#{userBean.currentUser.userName}"
 					validator="#{userBean.validateNewUserName}"
 					validatorMessage="#{msgs.validateNewUserName}">
-					<p:ajax event="keyup" render="availableError"></p:ajax>
+					<f:ajax event="keyup" render="availableError"></f:ajax>
 				</p:inputText>
-				<p:message id="availableError" for="userName"></p:message>
+				<p:message id="availableError" for="userName" display="true"></p:message>
 
 				<h:outputLabel for="password" value="#{msgs.password}" />
 				<p:password id="password" value="#{userBean.currentUser.password}"
 					label="#{msgs.password}" required="true" match="repeatpassword"
 					feedback="true" inline="true">
+
 					<p:ajax event="keyup" render="pwerror"></p:ajax>
 				</p:password>
 				<p:message id="pwerror" for="password"></p:message>
 
 				<h:outputLabel for="repeatpassword" value="#{msgs.repeatPassword}" />
 				<p:password id="repeatpassword" label="#{msgs.repeatPassword}"
-					value="#{userBean.currentUser.password}" required="true">
-					<p:ajax event="blur" render="pwrepeaterror"></p:ajax>
+					value="#{userBean.currentUser.password}" required="true" 
+					match="password" >
+					<f:ajax event="keyup" render="pwrepeaterror pwerror"></f:ajax>
+					<p:ajax event="keyup" render="pwrepeaterror"></p:ajax>
 				</p:password>
 				<p:message id="pwrepeaterror" for="repeatpassword"></p:message>
 			</h:panelGrid>
