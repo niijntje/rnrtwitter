@@ -52,9 +52,8 @@
 
 				<h:outputLabel for="password" value="#{msgs.password}" />
 				<p:password id="password" value="#{userBean.currentUser.password}"
-					label="#{msgs.password}" required="true" match="repeatpassword"
+					label="#{msgs.password}" required="true" 
 					feedback="true" inline="true">
-
 					<p:ajax event="keyup" render="pwerror"></p:ajax>
 				</p:password>
 				<p:message id="pwerror" for="password"></p:message>
@@ -62,8 +61,7 @@
 				<h:outputLabel for="repeatpassword" value="#{msgs.repeatPassword}" />
 				<p:password id="repeatpassword" label="#{msgs.repeatPassword}"
 					value="#{userBean.currentUser.password}" required="true" 
-					match="password" >
-					<f:ajax event="keyup" render="pwrepeaterror pwerror"></f:ajax>
+					match="password" immediate="true">
 					<p:ajax event="keyup" render="pwrepeaterror"></p:ajax>
 				</p:password>
 				<p:message id="pwrepeaterror" for="repeatpassword"></p:message>
