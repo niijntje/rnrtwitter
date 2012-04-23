@@ -11,6 +11,10 @@ import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+/**
+ * @author nijntje
+ *
+ */
 @Named
 @SessionScoped
 public class UserBean implements Serializable {
@@ -35,6 +39,15 @@ public class UserBean implements Serializable {
 		service.createUser(currentUser);
 	}
 
+	/**
+	 * Benyttes af index.xhtml ved (forsøg på) oprettelse af ny bruger
+	 * 
+	 * @author nijntje
+	 * 
+	 * @param fc
+	 * @param c
+	 * @param value
+	 */
 	public void validateNewUserName(FacesContext fc, UIComponent c, Object value) {
 		String proposedUserName = (String) value;
 		if (!service.userNameAvailable(proposedUserName)) {
@@ -68,5 +81,6 @@ public class UserBean implements Serializable {
 		} else
 			return "index";
 	}
+	
 
 }

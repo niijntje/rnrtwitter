@@ -37,30 +37,33 @@
 
 	<h:form>
 		<p:panel header="#{msgs.newUser}" toggleable="true">
+		<!-- <p:messages id="messages" showDetail="true" autoUpdate="true"/>  -->
 			<h:panelGrid columns="3">
 				<h:outputLabel for="userName" value="#{msgs.userName}" />
 				<p:inputText id="userName" value="#{userBean.currentUser.userName}"
 					validator="#{userBean.validateNewUserName}"
 					validatorMessage="#{msgs.validateNewUserName}">
-					<f:ajax event="keyup" render="availableError"></f:ajax>
+					<p:ajax event="keyup" render="availableError"></p:ajax>
 				</p:inputText>
 				<p:message id="availableError" for="userName"></p:message>
+				
 				<h:outputLabel for="password" value="#{msgs.password}" />
-				<p:password id="password" value="#{userBean.currentUser.password}"
-					required="true" feedback="true">
-					<f:ajax event="keyup" render="pwerror"></f:ajax>
+				<p:password id="password" value="#{userBean.currentUser.password}" label="#{msgs.password}"
+					required="true" match="repeatpassword" feedback="true" inline="true">
+					<p:ajax event="keyup" render="pwerror"></p:ajax>
 				</p:password>
 				<p:message id="pwerror" for="password"></p:message>
+				
 				<h:outputLabel for="repeatpassword" value="#{msgs.repeatPassword}" />
-				<p:password id="repeatpassword"
-					value="#{userBean.currentUser.password}" match="password"
-					validatorMessage="#{msgs.validatePasswordRepeat}" required="true">
-					<f:ajax event="keyup" render="pwrepeaterror"></f:ajax>
+				<p:password id="repeatpassword" label="#{msgs.repeatPassword}"
+					value="#{userBean.currentUser.password}" 
+					required="true" >
+					<p:ajax event="blur" render="pwrepeaterror"></p:ajax>
 				</p:password>
-				<p:message id="pwrepeaterror" for="repeatpassword"></p:message>
+				<p:message id="pwrepeaterror" for="repeatpassword" ></p:message>
 			</h:panelGrid>
-			<p:commandButton value="#{msgs.createNewUser}" action="userprofile"
-				ajax="false"></p:commandButton>
+			<p:commandButton value="#{msgs.createNewUser}" action="userprofile" 
+			ajax="false"></p:commandButton>
 		</p:panel>
 	</h:form>
 </h:body>
