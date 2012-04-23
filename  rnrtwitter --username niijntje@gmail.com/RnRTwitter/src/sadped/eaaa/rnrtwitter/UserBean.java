@@ -13,7 +13,7 @@ import javax.inject.Named;
 
 /**
  * @author nijntje
- *
+ * 
  */
 @Named
 @SessionScoped
@@ -66,13 +66,15 @@ public class UserBean implements Serializable {
 		}
 
 	}
-	
-//	public boolean vUserName(){
-//		System.out.println("hallo!!!! "+currentUser.getUserName());
-//		if (!service.userNameAvailable(currentUser.getUserName())) {
-//			return false;
-//		} else return true;
-//	}
+
+	public void validateUserPassword(FacesContext context,
+			UIComponent component, Object value) throws ValidatorException {
+		User u = new User(currentUser.getUserName(), (String) value);
+		if (!service.verifyUser(u)) {
+			throw new ValidatorException(new FacesMessage(
+					"Userbean says: Wrong password!"));
+		}
+	}
 
 	public String verifyUser() {
 		System.out.println(currentUser);
@@ -81,6 +83,5 @@ public class UserBean implements Serializable {
 		} else
 			return "index";
 	}
-	
 
 }
