@@ -52,7 +52,7 @@ public class UserBean implements Serializable {
 		String proposedUserName = (String) value;
 		if (!service.userNameAvailable(proposedUserName)) {
 			throw new ValidatorException(new FacesMessage(
-					"Userbean says: Username not available"));
+					"Userbean says: Username not available")); //Only there for debugging-purposes
 		}
 	}
 
@@ -76,20 +76,41 @@ public class UserBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Sørger, ud over at tjekke password, for, at der ikke hænger en gammel currentUser med
+	 * dertilhørende private informationer, fast i userBean'en.
+	 * 
+	 * @return
+	 */
 	public String verifyUser() {
 		System.out.println(currentUser);
 		if (service.verifyUser(currentUser)) {
+			currentUser = service.getCleanCopy(currentUser);
 			return "profile";
 		} else
+			resetCurrentUser();
 			return "index";
+	}
+	public User resetCurrentUser(){
+		currentUser = new User(currentUser.getUserName(), "", "");
+		return currentUser;
 	}
 	
 	public String createNew(){
 		service.createUser(currentUser);
+		currentUser = service.getCleanCopy(currentUser);
 		return "profile";
 	}
 
 	public void saveProfileText(){
 		service.saveProfileText(currentUser);
+		service.saveRealName(currentUser);
+	}
+	public void cancelProfileTextEdit(){
+//		currentUser.setProfileText(service.getProf);
+	}
+	
+	public void cancelProfileEdit(){
+		currentUser = service.getCleanCopy(currentUser);
 	}
 }

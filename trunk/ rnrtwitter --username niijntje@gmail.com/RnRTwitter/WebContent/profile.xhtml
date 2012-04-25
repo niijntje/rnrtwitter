@@ -13,26 +13,43 @@
 </h:head>
 
 <h:body>
-	<p:panel header="#{userBean.currentUser.userName}!">
+<p:panel>
+<h:form enctype="multipart/form-data">  
+  
+    <p:fileUpload fileUploadListener="#{fileUploadController.handleFileUpload}"  
+            mode="advanced"   
+            update="messages"  
+            sizeLimit="100000"   
+            allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />  
+  
+    <p:growl id="messages" showDetail="true"/>  
+  
+</h:form> 
+
+</p:panel>
+	<p:panel header="#{userBean.currentUser.userName}">
 		<h:form>
 			<h:panelGrid columns="2" border="0">
-				<h:outputText for="userName" value="#{msgs.userName}">
-				</h:outputText>
-				<p:inplace id="userName">
-					<p:inputText value="#{userBean.currentUser.userName}" />
+				<h:outputText for="userName" value="#{msgs.userName}" />
+				<h:outputText value="#{userBean.currentUser.userName}" />
+				<h:outputText for="realName" value="#{msgs.realName}" />
+				<p:inplace emptyLabel="#{msgs.optional}" editor="true" saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}">
+					<p:inputText id="realName" value="#{userBean.currentUser.realName}"></p:inputText>
+					<p:ajax event="save" listener="#{userBean.saveRealName}" />
 				</p:inplace>
-
+				<h:outputText for="email" value="#{msgs.email}" />
+				<p:inplace emptyLabel="#{msgs.yourEmail}" editor="true" saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}">
+					<p:inputText id="email" value="#{userBean.currentUser.email}"></p:inputText>
+					<p:ajax event="save" listener="#{userBean.saveEmail}" />
+				</p:inplace>
 				<h:outputText for="aboutUser" value="#{msgs.aboutUser}  "></h:outputText>
-				<p:inplace  emptyLabel="#{msgs.writeSomething}">
+				<p:inplace emptyLabel="#{msgs.writeSomething}" editor="true" saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}">
 					<p:inputTextarea id="aboutUser" label="#{aboutUser}"
-						
 						value="#{userBean.currentUser.profileText}"></p:inputTextarea>
+					<p:ajax event="save" listener="#{userBean.saveProfileText}" />
+					<p:ajax event="cancel" listener="#{userBean.cancelProfileTextEdit}" />
 				</p:inplace>
-				
-				<p:commandButton ajax="false" value="#{msgs.save}"
-					action="#{userBean.saveProfileText}"></p:commandButton>
 			</h:panelGrid>
-			<h:outputText value="#{userBean.currentUser.profileText}"></h:outputText>
 		</h:form>
 	</p:panel>
 

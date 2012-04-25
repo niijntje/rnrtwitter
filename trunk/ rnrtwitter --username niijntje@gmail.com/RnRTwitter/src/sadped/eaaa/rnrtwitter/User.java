@@ -5,15 +5,24 @@ import java.util.List;
 
 public class User {
 
+	//Login-info
 	private String userName;
 	private String password;
+	
+	//Profile-info
+	private String realName;
+	private String email;
 	private String profileText;
+	//Andre forslag: alder, køn, dato for oprettelse
+	
 	private List<Tweet> tweets;
 	private List<User> subscriptions;
 
 	public User(String userName, String password, String profileText) {
-		this.setUserName(userName);
+		this.userName = userName;
 		this.password = password;
+		this.realName = "";
+		this.email = "";
 		this.profileText = profileText;
 		this.tweets = new ArrayList<Tweet>();
 		this.subscriptions = new ArrayList<User>();
@@ -71,6 +80,22 @@ public class User {
 		System.out.println(this.profileText);
 	}
 	
+
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	@Override
 	public String toString(){
