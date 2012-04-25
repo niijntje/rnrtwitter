@@ -71,5 +71,15 @@ public class Service implements Serializable{
 		User u = findUser(currentUser);
 		u.setProfileText(currentUser.getProfileText());
 	}
+	
+	/**
+	 * Til test af kode (især om ændringer er slået igennem helt ned i service)
+	 * Det er helt ok at ændre på hvad der bliver udskrevet! :-)
+	 */
+	public void printUsers(){
+		for (User u: registeredUsers){
+			System.out.println(u.getUserName()+": "+u.getProfileText());
+		}
+	}
 
 }

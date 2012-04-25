@@ -24,7 +24,7 @@ public class UserBean implements Serializable {
 	Service service;
 
 	public UserBean() {
-		this.setCurrentUser(new User("", "", "Write something"));
+		this.setCurrentUser(new User("", "", ""));
 	}
 
 	public User getCurrentUser() {
