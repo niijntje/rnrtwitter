@@ -14,6 +14,7 @@ Captcha
 Tag-cloud
 Profil-billede-upload
 Evt. regex-validering på email
+Watermark i tekstfelter i stedet for/ud over empty-label
 
 ==TweetFeed==
 autocompletion på søgning af brugere (Rasmus har måske allerede lavet dette?)
