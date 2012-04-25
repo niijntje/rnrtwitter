@@ -66,7 +66,7 @@
 				</p:password>
 				<p:message id="pwrepeaterror" for="repeatpassword"></p:message>
 			</h:panelGrid>
-			<p:commandButton value="#{msgs.createNewUser}" action="userprofile"
+			<p:commandButton value="#{msgs.createNewUser}" action="#{userBean.createNew}"
 				ajax="false"></p:commandButton>
 		</p:panel>
 	</h:form>

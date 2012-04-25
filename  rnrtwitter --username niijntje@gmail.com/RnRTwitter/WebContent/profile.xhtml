@@ -4,7 +4,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>#{msgs.windowTitle}</title>
@@ -12,7 +13,29 @@
 </h:head>
 
 <h:body>
-	<h3>Halløj #{userBean.currentUser.userName}!</h3>
-	
+	<h3></h3>
+
+<p:panel header="#{msgs.greeting} #{userBean.currentUser.userName}!">
+	<p:panel header="#{msgs.editUser}">
+		<h:form>
+			<p:panelGrid columns="3">
+				<h:outputText for="userName" value="#{msgs.userName}">
+				</h:outputText>
+				<p:inplace id="userName">
+					<p:inputText value="#{userBean.currentUser.userName}" />
+				</p:inplace>
+				<p:spacer></p:spacer>
+				<h:outputText for="aboutUser" value="#{msgs.aboutUser}  "></h:outputText>
+				<p:inplace>
+					<p:inputTextarea id="aboutUser"
+						value="#{userBean.currentUser.profileText}"></p:inputTextarea>
+				</p:inplace>
+				<p:commandButton ajax="false" value="#{msgs.save}" action="#{userBean.saveProfileText}"></p:commandButton>
+			</p:panelGrid>
+			<h:outputText value="#{userBean.currentUser.profileText}"></h:outputText>
+		</h:form>
+	</p:panel>
+	</p:panel>
+
 </h:body>
 </html>
