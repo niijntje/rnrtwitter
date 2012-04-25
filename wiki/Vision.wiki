@@ -13,6 +13,7 @@ Captcha
 ==Profile==
 Tag-cloud
 Profil-billede-upload
+Evt. regex-validering på email
 
 ==TweetFeed==
 autocompletion på søgning af brugere (Rasmus har måske allerede lavet dette?)
