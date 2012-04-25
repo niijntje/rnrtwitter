@@ -79,7 +79,7 @@ public class UserBean implements Serializable {
 	public String verifyUser() {
 		System.out.println(currentUser);
 		if (service.verifyUser(currentUser)) {
-			return "home";
+			return "profile";
 		} else
 			return "index";
 	}
