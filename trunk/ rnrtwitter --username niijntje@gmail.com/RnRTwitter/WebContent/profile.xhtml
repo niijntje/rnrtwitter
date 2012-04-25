@@ -13,29 +13,29 @@
 </h:head>
 
 <h:body>
-	<h3></h3>
-
-<p:panel header="#{msgs.greeting} #{userBean.currentUser.userName}!">
-	<p:panel header="#{msgs.editUser}">
+	<p:panel header="#{userBean.currentUser.userName}!">
 		<h:form>
-			<p:panelGrid columns="3">
+			<h:panelGrid columns="2" border="0">
 				<h:outputText for="userName" value="#{msgs.userName}">
 				</h:outputText>
 				<p:inplace id="userName">
 					<p:inputText value="#{userBean.currentUser.userName}" />
 				</p:inplace>
-				<p:spacer></p:spacer>
+
 				<h:outputText for="aboutUser" value="#{msgs.aboutUser}  "></h:outputText>
-				<p:inplace>
-					<p:inputTextarea id="aboutUser"
+				<p:inplace  emptyLabel="#{msgs.writeSomething}">
+					<p:inputTextarea id="aboutUser" label="#{aboutUser}"
+						
 						value="#{userBean.currentUser.profileText}"></p:inputTextarea>
 				</p:inplace>
-				<p:commandButton ajax="false" value="#{msgs.save}" action="#{userBean.saveProfileText}"></p:commandButton>
-			</p:panelGrid>
+				
+				<p:commandButton ajax="false" value="#{msgs.save}"
+					action="#{userBean.saveProfileText}"></p:commandButton>
+			</h:panelGrid>
 			<h:outputText value="#{userBean.currentUser.profileText}"></h:outputText>
 		</h:form>
 	</p:panel>
-	</p:panel>
+
 
 </h:body>
 </html>
