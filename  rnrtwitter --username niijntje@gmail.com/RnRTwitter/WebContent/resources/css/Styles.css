@@ -15,3 +15,12 @@ body{
 .errorMessage {
    color:red; 
 }
+
+.infoGrid {
+	border: 0px;
+	width: 90%;
+}
+.mediumImage {
+	height: 100px;
+	width: 100px; 
+}

@@ -13,46 +13,71 @@
 </h:head>
 
 <h:body>
-<p:panel>
-<h:form enctype="multipart/form-data">  
-  
-    <p:fileUpload fileUploadListener="#{fileUploadController.handleFileUpload}"  
-            mode="advanced"   
-            update="messages"  
-            sizeLimit="100000"   
-            allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />  
-  
-    <p:growl id="messages" showDetail="true"/>  
-  
-</h:form> 
 
-</p:panel>
 	<p:panel header="#{userBean.currentUser.userName}">
 		<h:form>
-			<h:panelGrid columns="2" border="0">
+			<h:panelGrid columns="3" styleClass="infoGrid">
 				<h:outputText for="userName" value="#{msgs.userName}" />
 				<h:outputText value="#{userBean.currentUser.userName}" />
+				<h:graphicImage library="imgs" name="iCat.png" styleClass="mediumImage" height="100" width="100" />
+				<h:outputLabel for="password" value="#{msgs.changePassword}" />
+				
+				<p:password id="password" value="#{userBean.currentUser.password}"
+					label="#{msgs.changePassword}" feedback="true"
+					inline="true" immediate="">
+					<p:ajax event="keyup" render="pwerror"></p:ajax>
+				</p:password>
+				<p:message id="pwerror" for="password"></p:message>
+
+				<h:outputLabel for="repeatpassword" value="#{msgs.repeatPassword}" />
+				<p:password id="repeatpassword" label="#{msgs.repeatPassword}"
+					value="#{userBean.currentUser.password}" required="true"
+					match="password" immediate="true">
+					<p:ajax event="keyup" render="pwrepeaterror"></p:ajax>
+				</p:password>
+				<p:message id="pwrepeaterror" for="repeatpassword"></p:message>
+
+
 				<h:outputText for="realName" value="#{msgs.realName}" />
-				<p:inplace emptyLabel="#{msgs.optional}" editor="true" saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}">
+				<p:inplace emptyLabel="#{msgs.optional}" editor="true"
+					saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}">
 					<p:inputText id="realName" value="#{userBean.currentUser.realName}"></p:inputText>
 					<p:ajax event="save" listener="#{userBean.saveRealName}" />
 				</p:inplace>
+				<p:spacer></p:spacer>
 				<h:outputText for="email" value="#{msgs.email}" />
-				<p:inplace emptyLabel="#{msgs.yourEmail}" editor="true" saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}">
+				<p:inplace emptyLabel="#{msgs.yourEmail}" editor="true"
+					saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}">
 					<p:inputText id="email" value="#{userBean.currentUser.email}"></p:inputText>
 					<p:ajax event="save" listener="#{userBean.saveEmail}" />
 				</p:inplace>
+				<p:spacer></p:spacer>
 				<h:outputText for="aboutUser" value="#{msgs.aboutUser}  "></h:outputText>
-				<p:inplace emptyLabel="#{msgs.writeSomething}" editor="true" saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}">
+				<p:inplace emptyLabel="#{msgs.writeSomething}" editor="true"
+					saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}">
 					<p:inputTextarea id="aboutUser" label="#{aboutUser}"
 						value="#{userBean.currentUser.profileText}"></p:inputTextarea>
 					<p:ajax event="save" listener="#{userBean.saveProfileText}" />
 					<p:ajax event="cancel" listener="#{userBean.cancelProfileTextEdit}" />
 				</p:inplace>
+				<p:spacer></p:spacer>
 			</h:panelGrid>
+			
 		</h:form>
 	</p:panel>
+	<p:panel>
+		<h:form enctype="multipart/form-data">
 
+			<p:fileUpload
+				fileUploadListener="#{fileUploadController.handleFileUpload}"
+				mode="advanced" update="messages" sizeLimit="100000"
+				allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+
+			<p:growl id="messages" showDetail="true" />
+
+		</h:form>
+
+	</p:panel>
 
 </h:body>
 </html>
