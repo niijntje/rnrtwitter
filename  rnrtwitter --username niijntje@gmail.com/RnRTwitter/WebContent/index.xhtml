@@ -53,7 +53,7 @@
 				<h:outputLabel for="password" value="#{msgs.password}" />
 				<p:password id="password" value="#{userBean.currentUser.password}"
 					label="#{msgs.password}" required="true" 
-					feedback="true" inline="true">
+					feedback="true" inline="true" immediate="">
 					<p:ajax event="keyup" render="pwerror"></p:ajax>
 				</p:password>
 				<p:message id="pwerror" for="password"></p:message>
