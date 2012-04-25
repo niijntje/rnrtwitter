@@ -24,7 +24,7 @@ public class UserBean implements Serializable {
 	Service service;
 
 	public UserBean() {
-		this.setCurrentUser(new User("", ""));
+		this.setCurrentUser(new User("", "", "Write something"));
 	}
 
 	public User getCurrentUser() {
@@ -69,7 +69,7 @@ public class UserBean implements Serializable {
 
 	public void validateUserPassword(FacesContext context,
 			UIComponent component, Object value) throws ValidatorException {
-		User u = new User(currentUser.getUserName(), (String) value);
+		User u = new User(currentUser.getUserName(), (String) value, "");
 		if (!service.verifyUser(u)) {
 			throw new ValidatorException(new FacesMessage(
 					"Userbean says: Wrong password!"));
@@ -83,5 +83,13 @@ public class UserBean implements Serializable {
 		} else
 			return "index";
 	}
+	
+	public String createNew(){
+		service.createUser(currentUser);
+		return "profile";
+	}
 
+	public void saveProfileText(){
+		service.saveProfileText(currentUser);
+	}
 }

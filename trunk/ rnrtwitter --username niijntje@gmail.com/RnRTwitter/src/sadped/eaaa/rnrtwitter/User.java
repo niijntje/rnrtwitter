@@ -11,10 +11,10 @@ public class User {
 	private List<Tweet> tweets;
 	private List<User> subscriptions;
 
-	public User(String userName, String password) {
+	public User(String userName, String password, String profileText) {
 		this.setUserName(userName);
 		this.password = password;
-		this.profileText = "";
+		this.profileText = profileText;
 		this.tweets = new ArrayList<Tweet>();
 		this.subscriptions = new ArrayList<User>();
 	}
@@ -68,6 +68,7 @@ public class User {
 
 	public void setProfileText(String profileText) {
 		this.profileText = profileText;
+		System.out.println(this.profileText);
 	}
 	
 

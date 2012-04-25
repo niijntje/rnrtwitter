@@ -14,13 +14,24 @@ public class Service implements Serializable{
 	
 	public Service(){
 		this.setRegisteredUsers(new ArrayList<User>());
-		registeredUsers.add(new User("Rasmus", "pw"));
-		registeredUsers.add(new User("Rita", "pw"));
+		registeredUsers.add(new User("Rasmus", "pw", ""));
+		registeredUsers.add(new User("Rita", "pw", ""));
 	}
 	
 	public void createUser(User u){
-		User newUser = new User(u.getUserName(),u.getPassword());
+		User newUser = new User(u.getUserName(),u.getPassword(), u.getProfileText());
 		addUser(newUser);
+		System.out.println("New user:"+newUser.getUserName()+". "+newUser.getProfileText());
+		System.out.println("Updated user list: "+registeredUsers);
+		
+	}
+	
+	private User findUser(User u){
+		User realUser = null;
+		if (registeredUsers.contains(u)){
+			realUser = registeredUsers.get(registeredUsers.indexOf(u));
+		}
+		return realUser;
 	}
 	
 	public void addUser(User u){
@@ -54,6 +65,11 @@ public class Service implements Serializable{
 			}
 		}
 		return available;
+	}
+
+	public void saveProfileText(User currentUser) {
+		User u = findUser(currentUser);
+		u.setProfileText(currentUser.getProfileText());
 	}
 
 }
