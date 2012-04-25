@@ -3,8 +3,19 @@ De idéer til funktionalitet og design, som vi får undervejs.
 
 = Introduction =
 
-
+Diverse idéer, vi får undervejs
 
 = Details =
 
+==Login-side (index.xhtml)==
+Captcha
+
+==Profile==
+Tag-cloud
+Profil-billede-upload
+
+==TweetFeed==
+autocompletion på søgning af brugere (Rasmus har måske allerede lavet dette?)
+
+Oprindelig skitse:
 https://plus.google.com/u/0/photos/fromphone/5734613892120751394
