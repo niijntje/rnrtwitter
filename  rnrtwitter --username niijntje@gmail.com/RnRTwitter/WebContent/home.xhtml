@@ -5,7 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>#{msgs.windowTitle}</title>
@@ -18,7 +19,17 @@
 			<ui:include src="/resources/templates/toolbar.xhtml" />
 		</ui:insert>
 	</h:form>
-	<h3>Home!</h3>
+
+
+	<p:layout style="min-width:400px;min-height:200px;" id="layout">
+		<p:layoutUnit header="Tweets" position="west" size="500" minSize="500">
+
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center" size="200">  
+        Something something 
+    </p:layoutUnit>
+	</p:layout>
 	<h4>#{userBean.currentUser}</h4>
 </h:body>
 </html>

@@ -19,21 +19,18 @@
 			<h:form>
 				<p:toolbar styleClass="toolbar">
 					<p:toolbarGroup align="left">
-						<p:spacer width="7px" />
+						<p:spacer width="15px" />
 						<h:outputText value="RnRTwitter" />
-						<p:spacer width="7px" />
-						<p:separator />
-						<p:spacer width="7px" />
+						<p:spacer width="15px" />
 						<p:commandButton value="Tweet Stream" action="home" ajax="false" />
 						<p:commandButton value="Profile" action="profile" ajax="false" />
 					</p:toolbarGroup>
 
 					<p:toolbarGroup align="right">
-						<h:outputLabel for="search" value="Search"></h:outputLabel>
-						<p:spacer width="7" />
 						<p:autoComplete id="search"
 							completeMethod="#{userBean.autoCompleteSearch}" />
 						<p:spacer width="7" />
+						<p:watermark for="search" value="Search for a user"></p:watermark>
 						<p:commandButton icon="ui-icon-search" />
 						<p:spacer width="7" />
 						<p:separator />
