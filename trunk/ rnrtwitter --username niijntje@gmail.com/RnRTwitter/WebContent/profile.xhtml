@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
@@ -13,26 +14,12 @@
 </h:head>
 
 <h:body>
-	<h:form>
-		<p:toolbar styleClass="toolbar">
-			<p:toolbarGroup align="left">
-				<p:commandButton value="Tweet Stream" action="home" />
-				<p:commandButton value="Profile" action="profile" />
-			</p:toolbarGroup>
-
-			<p:toolbarGroup align="right">
-				<h:outputLabel for="search" value="Search"></h:outputLabel>
-				<p:spacer width="10" />
-				<p:autoComplete id="search"
-					completeMethod="#{userBean.autoCompleteSearch}" />
-				<p:spacer width="3" />
-				<p:separator />
-				<p:commandButton value="Logout" icon="ui-icon-arrowrefresh-1-w"
-					action="#{userBean.logout}" />
-			</p:toolbarGroup>
-		</p:toolbar>
+	<h:form styleClass="toolbar">
+		<ui:insert name="header">
+			<ui:include src="/resources/templates/toolbar.xhtml" />
+		</ui:insert>
 	</h:form>
-	<p:spacer height="15px" />
+
 	<p:panel header="#{userBean.currentUser.userName}">
 		<h:form>
 			<h:panelGrid columns="3" styleClass="infoGrid">
@@ -99,6 +86,5 @@
 		</h:form>
 
 	</p:panel>
-
 </h:body>
 </html>

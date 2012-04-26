@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
@@ -52,22 +53,22 @@
 
 				<h:outputLabel for="password" value="#{msgs.password}" />
 				<p:password id="password" value="#{userBean.currentUser.password}"
-					label="#{msgs.password}" required="true" 
-					feedback="true" inline="true" immediate="">
+					label="#{msgs.password}" required="true" feedback="true"
+					inline="true" immediate="">
 					<p:ajax event="keyup" render="pwerror"></p:ajax>
 				</p:password>
 				<p:message id="pwerror" for="password"></p:message>
 
 				<h:outputLabel for="repeatpassword" value="#{msgs.repeatPassword}" />
 				<p:password id="repeatpassword" label="#{msgs.repeatPassword}"
-					value="#{userBean.currentUser.password}" required="true" 
+					value="#{userBean.currentUser.password}" required="true"
 					match="password" immediate="true">
 					<p:ajax event="keyup" render="pwrepeaterror"></p:ajax>
 				</p:password>
 				<p:message id="pwrepeaterror" for="repeatpassword"></p:message>
 			</h:panelGrid>
-			<p:commandButton value="#{msgs.createNewUser}" action="#{userBean.createNew}"
-				ajax="false"></p:commandButton>
+			<p:commandButton value="#{msgs.createNewUser}"
+				action="#{userBean.createNew}" ajax="false"></p:commandButton>
 		</p:panel>
 	</h:form>
 </h:body>

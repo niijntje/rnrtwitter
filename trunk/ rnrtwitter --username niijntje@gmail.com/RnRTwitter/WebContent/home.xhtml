@@ -4,6 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
@@ -12,6 +13,11 @@
 </h:head>
 
 <h:body>
+	<h:form styleClass="toolbar">
+		<ui:insert name="header">
+			<ui:include src="/resources/templates/toolbar.xhtml" />
+		</ui:insert>
+	</h:form>
 	<h3>Home!</h3>
 	<h4>#{userBean.currentUser}</h4>
 </h:body>
