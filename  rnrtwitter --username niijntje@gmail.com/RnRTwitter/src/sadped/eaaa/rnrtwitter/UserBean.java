@@ -87,8 +87,8 @@ public class UserBean implements Serializable {
 		System.out.println(currentUser);
 		if (service.verifyUser(currentUser)) {
 			currentUser = service.getCleanCopy(currentUser);
-			return "profile";
-		} else
+			return "login";
+		} else	//Måske overflødig, da validering (ovenfor) forhindrer, at værdier submittes
 			resetCurrentUser();
 			return "index";
 	}
@@ -118,6 +118,7 @@ public class UserBean implements Serializable {
 	}
 
 
+	//-----Profil-opdateringer-----//
 	public void saveProfileText(){
 		service.saveProfileText(currentUser);
 		service.saveRealName(currentUser);
@@ -126,9 +127,18 @@ public class UserBean implements Serializable {
 	public void cancelProfileTextEdit(){
 //		currentUser.setProfileText(service.getProf);
 	}
+	public void saveRealName(){
+		service.saveRealName(currentUser);
+	}
+	public void saveEmail(){
+		service.saveEmail(currentUser);
+	}
 	
+	/**
+	 * Tænkes brugt når man forlader profilsiden uden at have gemt sine ændringer
+	 */
 	public void cancelProfileEdit(){
 		currentUser = service.getCleanCopy(currentUser);
 	}
-
+	//-----.-----//
 }
