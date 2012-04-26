@@ -7,6 +7,9 @@ Diverse idéer, vi får undervejs
 
 = Details =
 
+==Generelt==
+Rita: Overvejer om vi skal ændre vores equals-metode, så den ikke tjekker på password, og så lige tilpasse verifyUser(). Får nemlig problemer med at gøre det på en pæn måde, når man skal skifte password lige nu...
+
 ==Login-side (index.xhtml)==
 Navigationsregel til login i stedet for konkret sidehenvisning i bean'en. DONE
 Captcha
