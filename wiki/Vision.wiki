@@ -8,6 +8,7 @@ Diverse idéer, vi får undervejs
 = Details =
 
 ==Login-side (index.xhtml)==
+Navigationsregel til login i stedet for konkret sidehenvisning i bean'en.
 Captcha
 
 ==Profile==
