@@ -15,6 +15,9 @@ body{
 .errorMessage {
    color:red; 
 }
+.toolbar{
+	font-size: 12px;
+}
 
 .infoGrid {
 	border: 0px;
