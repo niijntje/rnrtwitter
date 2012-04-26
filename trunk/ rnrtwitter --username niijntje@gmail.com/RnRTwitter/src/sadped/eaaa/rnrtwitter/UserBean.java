@@ -1,12 +1,13 @@
 package sadped.eaaa.rnrtwitter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -102,10 +103,26 @@ public class UserBean implements Serializable {
 		return "profile";
 	}
 
+
+	public String logout() {
+		resetCurrentUser();
+		return "index";
+	}
+	
+	public List<String> autoCompleteSearch(String s){
+		List<String> results = new ArrayList<String>();
+		
+		results.add("hej");
+		
+		return results;
+	}
+
+
 	public void saveProfileText(){
 		service.saveProfileText(currentUser);
 		service.saveRealName(currentUser);
 	}
+
 	public void cancelProfileTextEdit(){
 //		currentUser.setProfileText(service.getProf);
 	}
@@ -113,4 +130,5 @@ public class UserBean implements Serializable {
 	public void cancelProfileEdit(){
 		currentUser = service.getCleanCopy(currentUser);
 	}
+
 }
