@@ -20,7 +20,8 @@ Captcha
  * Evt. regex-validering på email
  * Watermark i tekstfelter i stedet for/ud over empty-label DONE
  * Visning af tweets (Rita)
- * Integrering af userBean.viewedUser (Rita
+ * Integrering af userBean.viewedUser (Rita)
+ * Gøre det muligt at sætte hak ved hvilke oplysninger andre brugere skal kunne se
 
 ==TweetStream==
  * autocompletion på søgning af brugere (Rasmus har måske allerede lavet dette?) DONE - men kan ikke endnu gå til brugerside
