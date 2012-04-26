@@ -19,7 +19,7 @@ Captcha
  * Visning af tweets (Rita)
  * Integrering af userBean.viewedUser (Rita
 
-==TweetFeed==
+==TweetStream==
  * autocompletion på søgning af brugere (Rasmus har måske allerede lavet dette?) DONE - men kan ikke endnu gå til brugerside
  * Watermark til ovenstående DONE
 
