@@ -20,8 +20,8 @@ Captcha
  * Integrering af userBean.viewedUser (Rita
 
 ==TweetFeed==
-autocompletion på søgning af brugere (Rasmus har måske allerede lavet dette?)
-* Watermark til ovenstående
+ * autocompletion på søgning af brugere (Rasmus har måske allerede lavet dette?) DONE - men kan ikke endnu gå til brugerside
+ * Watermark til ovenstående DONE
 
 Oprindelig skitse:
 https://plus.google.com/u/0/photos/fromphone/5734613892120751394
