@@ -8,17 +8,20 @@ Diverse idéer, vi får undervejs
 = Details =
 
 ==Login-side (index.xhtml)==
-Navigationsregel til login i stedet for konkret sidehenvisning i bean'en.
+Navigationsregel til login i stedet for konkret sidehenvisning i bean'en. DONE
 Captcha
 
 ==Profile==
  * Tag-cloud
- * Profil-billede-upload
+ * Profil-billede-upload (Rita)
  * Evt. regex-validering på email
- * Watermark i tekstfelter i stedet for/ud over empty-label
+ * Watermark i tekstfelter i stedet for/ud over empty-label DONE
+ * Visning af tweets (Rita)
+ * Integrering af userBean.viewedUser (Rita
 
 ==TweetFeed==
 autocompletion på søgning af brugere (Rasmus har måske allerede lavet dette?)
+* Watermark til ovenstående
 
 Oprindelig skitse:
 https://plus.google.com/u/0/photos/fromphone/5734613892120751394
