@@ -11,5 +11,15 @@
 		<var>msgs</var>
 		</resource-bundle>
 	</application>
+	<navigation-rule>
+		<display-name>index.xhtml</display-name>
+		<from-view-id>/index.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{userBean.verifyUser}</from-action>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/profile.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 
 </faces-config>

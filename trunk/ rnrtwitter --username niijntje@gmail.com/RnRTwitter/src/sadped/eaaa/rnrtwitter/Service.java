@@ -9,23 +9,23 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class Service implements Serializable{
-	
+
 	private ArrayList<User> registeredUsers;
-	
+
 	public Service(){
 		this.setRegisteredUsers(new ArrayList<User>());
 		registeredUsers.add(new User("Rasmus", "pw", ""));
 		registeredUsers.add(new User("Rita", "pw", ""));
 	}
-	
+
 	public void createUser(User currentUser){
 		User newUser = new User(currentUser.getUserName(),currentUser.getPassword(), currentUser.getProfileText());
 		addUser(newUser);
 		System.out.println("New user:"+newUser.getUserName()+". "+newUser.getProfileText());
 		System.out.println("Updated user list: "+registeredUsers);
-		
+
 	}
-	
+
 	private User findUser(User u){
 		User realUser = null;
 		if (registeredUsers.contains(u)){
@@ -33,11 +33,11 @@ public class Service implements Serializable{
 		}
 		return realUser;
 	}
-	
+
 	public void addUser(User u){
 		registeredUsers.add(u);
 	}
-	
+
 	public void removeUser(User u){
 		registeredUsers.remove(u);
 	}
@@ -49,14 +49,14 @@ public class Service implements Serializable{
 	public void setRegisteredUsers(ArrayList<User> registeredUsers) {
 		this.registeredUsers = registeredUsers;
 	}
-	
+
 	public boolean verifyUser(User u){
 		if (registeredUsers.contains(u)){
 			return true;
 		}
 		else return false;
 	}
-	
+
 	/**
 	 * Finder en user ud fra username og password og returnerer en kopi,
 	 * hvor alle de andre felter er korrekte eller sat til null.
@@ -90,14 +90,19 @@ public class Service implements Serializable{
 	 * det gør det nemmere at genbruge koden, og fastholder den skarpe adskillelse
 	 * mellem userBean og 'rigtige' User-objekter.
 	 */
-	public void saveProfileText(User currentUser) {
-		User u = findUser(currentUser);
-		u.setProfileText(currentUser.getProfileText());
-	}
 	public void saveRealName(User currentUser) {
 		User u = findUser(currentUser);
 		u.setRealName(currentUser.getRealName());
 	}	
+	public void saveEmail(User currentUser){
+		User u = findUser(currentUser);
+		u.setEmail(currentUser.getEmail());
+	}
+	public void saveProfileText(User currentUser) {
+		User u = findUser(currentUser);
+		u.setProfileText(currentUser.getProfileText());
+	}
+
 	/**
 	 * Til test af kode (især om ændringer er slået igennem helt ned i service)
 	 * Det er helt ok at ændre på hvad der bliver udskrevet! :-)
