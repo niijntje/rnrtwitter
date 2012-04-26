@@ -13,18 +13,38 @@
 </h:head>
 
 <h:body>
+	<h:form>
+		<p:toolbar styleClass="toolbar">
+			<p:toolbarGroup align="left">
+				<p:commandButton value="Tweet Stream" action="home" />
+				<p:commandButton value="Profile" action="profile" />
+			</p:toolbarGroup>
 
+			<p:toolbarGroup align="right">
+				<h:outputLabel for="search" value="Search"></h:outputLabel>
+				<p:spacer width="10" />
+				<p:autoComplete id="search"
+					completeMethod="#{userBean.autoCompleteSearch}" />
+				<p:spacer width="3" />
+				<p:separator />
+				<p:commandButton value="Logout" icon="ui-icon-arrowrefresh-1-w"
+					action="#{userBean.logout}"/>
+			</p:toolbarGroup>
+		</p:toolbar>
+	</h:form>
+	<p:spacer height="15px" />
 	<p:panel header="#{userBean.currentUser.userName}">
 		<h:form>
 			<h:panelGrid columns="3" styleClass="infoGrid">
 				<h:outputText for="userName" value="#{msgs.userName}" />
 				<h:outputText value="#{userBean.currentUser.userName}" />
-				<h:graphicImage library="imgs" name="iCat.png" styleClass="mediumImage" height="100" width="100" />
+				<h:graphicImage library="imgs" name="iCat.png"
+					styleClass="mediumImage" height="100" width="100" />
 				<h:outputLabel for="password" value="#{msgs.changePassword}" />
-				
+
 				<p:password id="password" value="#{userBean.currentUser.password}"
-					label="#{msgs.changePassword}" feedback="true"
-					inline="true" immediate="">
+					label="#{msgs.changePassword}" feedback="true" inline="true"
+					immediate="">
 					<p:ajax event="keyup" render="pwerror"></p:ajax>
 				</p:password>
 				<p:message id="pwerror" for="password"></p:message>
@@ -62,9 +82,10 @@
 				</p:inplace>
 				<p:spacer></p:spacer>
 			</h:panelGrid>
-			
+
 		</h:form>
 	</p:panel>
+
 	<p:panel>
 		<h:form enctype="multipart/form-data">
 
