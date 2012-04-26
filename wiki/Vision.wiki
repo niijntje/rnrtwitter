@@ -12,6 +12,7 @@ Rita: Overvejer om vi skal ændre vores equals-metode, så den ikke tjekker på 
 
 ==Login-side (index.xhtml)==
  * Navigationsregel til login i stedet for konkret sidehenvisning i bean'en. DONE (Men vi skal huske at ændre    profile til home, når home er kommet op at køre.
+ * Gøre login muligt fra top-bjælken - evt. bare et link til login-siden, der vises i stedet for logout, når man ikke er logget ind.
  * Captcha
  * login-felt der ryster sidelæns hvis man taster forkert (<p:effect> ;-) )
 
