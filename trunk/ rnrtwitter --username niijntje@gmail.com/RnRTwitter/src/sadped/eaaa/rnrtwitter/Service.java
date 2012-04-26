@@ -2,6 +2,7 @@ package sadped.eaaa.rnrtwitter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -50,6 +51,14 @@ public class Service implements Serializable{
 		this.registeredUsers = registeredUsers;
 	}
 
+	public List<String> getUserNames(){
+		List<String> names = new ArrayList<String>();
+		for(User u : registeredUsers){
+			names.add(u.getUserName());
+		}
+		return names;
+	}
+	
 	public boolean verifyUser(User u){
 		if (registeredUsers.contains(u)){
 			return true;

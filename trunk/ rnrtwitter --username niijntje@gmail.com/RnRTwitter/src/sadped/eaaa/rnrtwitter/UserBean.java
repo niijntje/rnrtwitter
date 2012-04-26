@@ -109,10 +109,16 @@ public class UserBean implements Serializable {
 		return "index";
 	}
 	
-	public List<String> autoCompleteSearch(String s){
+	public List<String> autoCompleteSearch(String input){
 		List<String> results = new ArrayList<String>();
+		List<String> names = new ArrayList<String>(service.getUserNames());
 		
-		results.add("hej");
+		for(int i = 0; i < names.size(); i++){
+			String match = names.get(i).substring(0, input.length());
+			if(match.equalsIgnoreCase(input)){
+				results.add(names.get(i));
+			}
+		}
 		
 		return results;
 	}
