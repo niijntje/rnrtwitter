@@ -12,10 +12,10 @@ Navigationsregel til login i stedet for konkret sidehenvisning i bean'en.
 Captcha
 
 ==Profile==
-*Tag-cloud
-*Profil-billede-upload
-*Evt. regex-validering på email
-*Watermark i tekstfelter i stedet for/ud over empty-label
+* Tag-cloud
+* Profil-billede-upload
+* Evt. regex-validering på email
+* Watermark i tekstfelter i stedet for/ud over empty-label
 
 ==TweetFeed==
 autocompletion på søgning af brugere (Rasmus har måske allerede lavet dette?)
