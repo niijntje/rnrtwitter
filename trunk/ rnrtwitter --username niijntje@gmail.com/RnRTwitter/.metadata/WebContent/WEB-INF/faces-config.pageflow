@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13348274642101" configfile="/RnRTwitter/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="168" y="120" id="pf13354234751200" outlinks="pf13354234751201" path="/index.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="profile.xhtml" x="476" y="331" id="pf13354234751202" inlinks="pf13354234751201" path="/profile.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="72" y="36" id="pf13354234751200" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf13354234751201" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="profile.xhtml" x="348" y="144" id="pf13354234751202" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf13354234751201" path="/profile.xhtml"/>
   <links id="pf13354234751201" target="pf13354234751202" source="pf13354234751200" outcome="login" redirect="true" fromaction="#{userBean.verifyUser}"/>
 </pageflow:Pageflow>
