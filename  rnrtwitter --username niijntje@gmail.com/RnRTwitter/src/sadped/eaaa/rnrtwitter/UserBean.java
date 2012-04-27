@@ -21,11 +21,13 @@ import javax.inject.Named;
 public class UserBean implements Serializable {
 
 	private User currentUser;
+	private User viewedUser;
 	private @Inject
 	Service service;
 
 	public UserBean() {
 		this.setCurrentUser(new User("", "", ""));
+		this.setViewedUser(currentUser);
 	}
 
 	public User getCurrentUser() {
@@ -34,6 +36,14 @@ public class UserBean implements Serializable {
 
 	public void setCurrentUser(User currentUser) {
 		this.currentUser = currentUser;
+	}
+
+	public User getViewedUser() {
+		return viewedUser;
+	}
+
+	public void setViewedUser(User viewedUser) {
+		this.viewedUser = viewedUser;
 	}
 
 	public void createNewUser() {
@@ -57,17 +67,32 @@ public class UserBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Faktisk tjekker service.verifyUser(), som bruges nedenfor, allerede på både 
+	 * username og password. Var der tale om et rigtigt system, hvor sikkerhed 
+	 * talte med, burde man nok ikke få at vide om et brugernavn fandtes - udelukkende
+	 * at en af delene var forkert.
+	 * 
+	 * @param context
+	 * @param component
+	 * @param value
+	 * @throws ValidatorException
+	 */
 	public void validateUserName(FacesContext context, UIComponent component,
 			Object value) throws ValidatorException {
 		String userName = (String) value;
-
 		if (service.userNameAvailable(userName)) {
 			throw new ValidatorException(new FacesMessage(
 					"Userbean says: Username does not exist"));
 		}
-
 	}
 
+	/**
+	 * @param context
+	 * @param component
+	 * @param value
+	 * @throws ValidatorException
+	 */
 	public void validateUserPassword(FacesContext context,
 			UIComponent component, Object value) throws ValidatorException {
 		User u = new User(currentUser.getUserName(), (String) value, "");
@@ -97,12 +122,19 @@ public class UserBean implements Serializable {
 		return currentUser;
 	}
 	
+	/**
+	 * @return
+	 */
 	public String createNew(){
 		service.createUser(currentUser);
 		currentUser = service.getCleanCopy(currentUser);
-		return "profile";
+		if (viewedUser==null || viewedUser.getUserName().equals("")){	
+			//Hvis der allerede findes en viewedUser, går vi ud fra, at personen ønsker at
+			//se dennes profil igen efter login - altså fortsætte hvor man kom fra
+			viewedUser = service.getCleanCopy(currentUser);
+		}
+		return "login";
 	}
-
 
 	public String logout() {
 		resetCurrentUser();
@@ -123,6 +155,9 @@ public class UserBean implements Serializable {
 		return results;
 	}
 
+	public boolean ownProfile(){
+		return viewedUser.equals(currentUser);
+	}
 
 	//-----Profil-opdateringer-----//
 	public void saveProfileText(){

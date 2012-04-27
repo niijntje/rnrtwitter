@@ -17,6 +17,10 @@ public class Service implements Serializable{
 		this.setRegisteredUsers(new ArrayList<User>());
 		registeredUsers.add(new User("Rasmus", "pw", ""));
 		registeredUsers.add(new User("Rita", "pw", ""));
+		registeredUsers.get(0).addTweet("Min allerførste tweet");
+		registeredUsers.get(0).addTweet("Min anden tweet - nu vil jeg også tagge nogen: @Rita");
+		registeredUsers.get(1).addTweet("Jeg kan også tweete!");
+		registeredUsers.get(1).addTweet("Og her er MIN anden (eller er det 'mit andet?') tweet :-D");
 	}
 
 	public void createUser(User currentUser){
@@ -58,7 +62,7 @@ public class Service implements Serializable{
 		}
 		return names;
 	}
-	
+
 	public boolean verifyUser(User u){
 		if (registeredUsers.contains(u)){
 			return true;
@@ -110,6 +114,22 @@ public class Service implements Serializable{
 	public void saveProfileText(User currentUser) {
 		User u = findUser(currentUser);
 		u.setProfileText(currentUser.getProfileText());
+	}
+	/**
+	 * for-løkken kan udskiftes med den udkommenterede linje, hvis vi opdaterer equals-metoden i User
+	 * @param currentUser
+	 */
+	public void changePassword(User currentUser){
+		//		User realUser = findUser(currentUser);
+		User realUser = null;
+		for (User u: registeredUsers){
+			if(u.getUserName().equals(currentUser.getUserName())){
+				realUser = u;
+			}
+		}
+		if (realUser!=null){
+			realUser.setPassword(currentUser.getPassword());
+		}
 	}
 
 	/**

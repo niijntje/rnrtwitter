@@ -19,10 +19,14 @@ body{
 }
 
 .infoGrid {
-	border: 0px;
+	border: 1px;
 	width: 90%;
 }
 .mediumImage {
 	height: 100px;
 	width: 100px; 
+}
+.largeTextArea {
+	width: 500;
+	height: 300;
 }
