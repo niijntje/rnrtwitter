@@ -22,7 +22,7 @@ public class UserBean implements Serializable {
 
 	private User currentUser;
 	private User viewedUser;
-	private String userNameSearch;
+	private String userNameSearch; // Til at holde på indtastning i søgefeltet
 	private @Inject
 	Service service;
 
@@ -114,17 +114,23 @@ public class UserBean implements Serializable {
 		System.out.println(currentUser);
 		if (service.verifyUser(currentUser)) {
 			currentUser = service.getCleanCopy(currentUser);
+			viewedUser = currentUser;
 			return "login";
 		} else
 			// M√•ske overfl√∏dig, da validering (ovenfor) forhindrer, at
 			// v√¶rdier submittes
-			resetCurrentUser();
-		return "index";
+			// resetCurrentUser();
+			return "index";
 	}
 
 	public User resetCurrentUser() {
-		currentUser = new User(currentUser.getUserName(), "", "");
+		currentUser = new User("", "", "");
 		return currentUser;
+	}
+
+	public User resetViewedUser() {
+		viewedUser = new User("", "", "");
+		return viewedUser;
 	}
 
 	/**
@@ -145,7 +151,7 @@ public class UserBean implements Serializable {
 
 	public String logout() {
 		resetCurrentUser();
-		this.viewedUser = currentUser;
+		resetViewedUser();
 		return "index";
 	}
 
@@ -164,12 +170,20 @@ public class UserBean implements Serializable {
 	}
 
 	public String viewUserProfile() {
-		this.viewedUser = service.getUserToView(userNameSearch);
-		this.userNameSearch ="";
+		if (!service.userNameAvailable(userNameSearch)) {
+			if (userNameSearch.equals(currentUser.getUserName())) {
+				this.viewedUser = currentUser;
+			} else {
+				this.viewedUser = service.getUserToView(userNameSearch);
+
+			}
+			this.userNameSearch = "";
+		}
 		return "profile";
+
 	}
-	
-	public String viewOwnProfile(){
+
+	public String viewOwnProfile() {
 		this.viewedUser = currentUser;
 		return "profile";
 	}
@@ -177,9 +191,13 @@ public class UserBean implements Serializable {
 	public boolean ownProfile() {
 		return viewedUser.equals(currentUser);
 	}
-	
+
 	public boolean otherUsersProfile() {
 		return !viewedUser.equals(currentUser);
+	}
+
+	public boolean loggedIn() {
+		return currentUser.equals(new User("", "", ""));
 	}
 
 	// -----Profil-opdateringer-----//

@@ -14,6 +14,11 @@
 </h:head>
 
 <h:body>
+	<h:panelGroup styleClass="toolbar">
+		<ui:insert name="header">
+			<ui:include src="/resources/templates/toolbar.xhtml" />
+		</ui:insert>
+	</h:panelGroup>
 	<h:form>
 		<p:panel header="#{msgs.existingUser}">
 

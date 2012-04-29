@@ -87,7 +87,7 @@
 		</h:form>
 	</p:panel>
 
-	<p:panel render="#{userBean.ownProfile()}">
+	<p:panel rendered="#{userBean.ownProfile()}">
 		<h:form enctype="multipart/form-data">
 			<p:fileUpload
 				fileUploadListener="#{fileUploadController.handleFileUpload}"
