@@ -21,23 +21,31 @@
 					<p:toolbarGroup align="left">
 						<p:spacer width="15px" />
 						<h:outputText value="RnRTwitter" />
-						<p:spacer width="15px" />
-						<p:commandButton value="Tweet Stream" action="home" ajax="false" />
-						<p:commandButton value="Profile" action="#{userBean.viewOwnProfile}" ajax="false" />
+						<p:spacer width="10px" />
+						<p:separator />
+						<p:spacer width="10px" />
+						<p:autoComplete id="search" value="#{userBean.userNameSearch}"
+							completeMethod="#{userBean.autoCompleteSearch}"
+							validator="#{userBean.validateUserName}" />
+						<p:spacer width="7px" />
+						<p:watermark for="search" value="Search for a user" />
+						<p:commandButton id="searchButton" icon="ui-icon-search"
+							action="#{userBean.viewUserProfile}" ajax="false" />
+
 					</p:toolbarGroup>
 
 					<p:toolbarGroup align="right">
-						<p:autoComplete id="search" value="#{userBean.userNameSearch}"
-							completeMethod="#{userBean.autoCompleteSearch}"/>
-						<p:spacer width="7" />
-						<p:watermark for="search" value="Search for a user" />
-						<p:commandButton icon="ui-icon-search"
-							action="#{userBean.viewUserProfile}" ajax="false"/>
-						<p:spacer width="7" />
+						<p:commandButton value="Tweet Stream" action="home" ajax="false"
+							disabled="#{userBean.loggedIn()}" />
+						<p:commandButton value="Profile"
+							action="#{userBean.viewOwnProfile}" ajax="false"
+							disabled="#{userBean.loggedIn()}" />
+						<p:spacer width="10px" />
 						<p:separator />
-						<p:spacer width="7" />
+						<p:spacer width="10px" />
 						<p:commandButton value="Logout" icon="ui-icon-arrowrefresh-1-w"
-							action="#{userBean.logout}" ajax="false" />
+							action="#{userBean.logout}" ajax="false"
+							disabled="#{userBean.loggedIn()}" />
 					</p:toolbarGroup>
 				</p:toolbar>
 			</h:form>
@@ -45,5 +53,6 @@
 
 		</ui:insert>
 	</div>
+
 </h:body>
 </html>

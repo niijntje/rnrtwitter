@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13348274642101" configfile="/RnRTwitter/WebContent/WEB-INF/faces-config.xml">
   <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="122" y="178" id="pf13354234751200" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf13354234751201 pf13357182822570" path="/index.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="profile.xhtml" x="338" y="178" id="pf13354234751202" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf13354234751201 pf13357182822570" path="/profile.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="profile.xhtml" x="312" y="204" id="pf13354234751202" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf13354234751201 pf13357182822570" path="/profile.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="home.xhtml" x="84" y="312" id="pf13357305344875" path="/home.xhtml"/>
   <links id="pf13354234751201" target="pf13354234751202" source="pf13354234751200" outcome="login" redirect="true" fromaction="#{userBean.verifyUser}"/>
   <links id="pf13357182822570" target="pf13354234751202" source="pf13354234751200" outcome="login" redirect="true" fromaction="#{userBean.createNew}"/>
 </pageflow:Pageflow>
