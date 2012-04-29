@@ -14,16 +14,15 @@
 </h:head>
 
 <h:body>
-
-	<h:form styleClass="toolbar">
+	<h:panelGroup styleClass="toolbar">
 		<ui:insert name="header">
 			<ui:include src="/resources/templates/toolbar.xhtml" />
 		</ui:insert>
-	</h:form>
+	</h:panelGroup>
 
 	<p:panel header="#{userBean.viewedUser.userName}">
 		<h:form>
-			<h:panelGrid columns="3" border="1" styleClass="infoGrid">
+			<h:panelGrid columns="3" styleClass="infoGrid">
 				
 				<h:outputText for="userName" value="#{msgs.userName}" />
 				<h:outputText value="#{userBean.viewedUser.userName}" />
