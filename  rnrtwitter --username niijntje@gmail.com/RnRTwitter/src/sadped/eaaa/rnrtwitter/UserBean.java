@@ -22,6 +22,7 @@ public class UserBean implements Serializable {
 
 	private User currentUser;
 	private User viewedUser;
+	private String userNameSearch;
 	private @Inject
 	Service service;
 
@@ -63,15 +64,16 @@ public class UserBean implements Serializable {
 		String proposedUserName = (String) value;
 		if (!service.userNameAvailable(proposedUserName)) {
 			throw new ValidatorException(new FacesMessage(
-					"Userbean says: Username not available")); //Only there for debugging-purposes
+					"Userbean says: Username not available")); // Only there for
+																// debugging-purposes
 		}
 	}
 
 	/**
-	 * Faktisk tjekker service.verifyUser(), som bruges nedenfor, allerede på både 
-	 * username og password. Var der tale om et rigtigt system, hvor sikkerhed 
-	 * talte med, burde man nok ikke få at vide om et brugernavn fandtes - udelukkende
-	 * at en af delene var forkert.
+	 * Faktisk tjekker service.verifyUser(), som bruges nedenfor, allerede på
+	 * både username og password. Var der tale om et rigtigt system, hvor
+	 * sikkerhed talte med, burde man nok ikke få at vide om et brugernavn
+	 * fandtes - udelukkende at en af delene var forkert.
 	 * 
 	 * @param context
 	 * @param component
@@ -103,8 +105,8 @@ public class UserBean implements Serializable {
 	}
 
 	/**
-	 * Sørger, ud over at tjekke password, for, at der ikke hænger en gammel currentUser med
-	 * dertilhørende private informationer, fast i userBean'en.
+	 * Sørger, ud over at tjekke password, for, at der ikke hænger en gammel
+	 * currentUser med dertilhørende private informationer, fast i userBean'en.
 	 * 
 	 * @return
 	 */
@@ -113,24 +115,29 @@ public class UserBean implements Serializable {
 		if (service.verifyUser(currentUser)) {
 			currentUser = service.getCleanCopy(currentUser);
 			return "login";
-		} else	//Måske overflødig, da validering (ovenfor) forhindrer, at værdier submittes
+		} else
+			// Måske overflødig, da validering (ovenfor) forhindrer, at
+			// værdier submittes
 			resetCurrentUser();
-			return "index";
+		return "index";
 	}
-	public User resetCurrentUser(){
+
+	public User resetCurrentUser() {
 		currentUser = new User(currentUser.getUserName(), "", "");
 		return currentUser;
 	}
-	
+
 	/**
 	 * @return
 	 */
-	public String createNew(){
+	public String createNew() {
 		service.createUser(currentUser);
 		currentUser = service.getCleanCopy(currentUser);
-		if (viewedUser==null || viewedUser.getUserName().equals("")){	
-			//Hvis der allerede findes en viewedUser, går vi ud fra, at personen ønsker at
-			//se dennes profil igen efter login - altså fortsætte hvor man kom fra
+		if (viewedUser == null || viewedUser.getUserName().equals("")) {
+			// Hvis der allerede findes en viewedUser, går vi ud fra, at
+			// personen ønsker at
+			// se dennes profil igen efter login - altså fortsætte hvor man
+			// kom fra
 			viewedUser = service.getCleanCopy(currentUser);
 		}
 		return "login";
@@ -138,48 +145,76 @@ public class UserBean implements Serializable {
 
 	public String logout() {
 		resetCurrentUser();
+		this.viewedUser = currentUser;
 		return "index";
 	}
-	
-	public List<String> autoCompleteSearch(String input){
+
+	public List<String> autoCompleteSearch(String input) {
 		List<String> results = new ArrayList<String>();
 		List<String> names = new ArrayList<String>(service.getUserNames());
-		
-		for(int i = 0; i < names.size(); i++){
+
+		for (int i = 0; i < names.size(); i++) {
 			String match = names.get(i).substring(0, input.length());
-			if(match.equalsIgnoreCase(input)){
+			if (match.equalsIgnoreCase(input)) {
 				results.add(names.get(i));
 			}
 		}
-		
+
 		return results;
 	}
 
-	public boolean ownProfile(){
-		return viewedUser.equals(currentUser);
+	public String viewUserProfile() {
+		this.viewedUser = service.getUserToView(userNameSearch);
+		this.userNameSearch ="";
+		return "profile";
+	}
+	
+	public String viewOwnProfile(){
+		this.viewedUser = currentUser;
+		return "profile";
 	}
 
-	//-----Profil-opdateringer-----//
-	public void saveProfileText(){
+	public boolean ownProfile() {
+		return viewedUser.equals(currentUser);
+	}
+	
+	public boolean otherUsersProfile() {
+		return !viewedUser.equals(currentUser);
+	}
+
+	// -----Profil-opdateringer-----//
+	public void saveProfileText() {
 		service.saveProfileText(currentUser);
 		service.saveRealName(currentUser);
 	}
 
-	public void cancelProfileTextEdit(){
-//		currentUser.setProfileText(service.getProf);
+	public void cancelProfileTextEdit() {
+		// currentUser.setProfileText(service.getProf);
 	}
-	public void saveRealName(){
+
+	public void saveRealName() {
 		service.saveRealName(currentUser);
 	}
-	public void saveEmail(){
+
+	public void saveEmail() {
 		service.saveEmail(currentUser);
 	}
-	
+
 	/**
-	 * Tænkes brugt når man forlader profilsiden uden at have gemt sine ændringer
+	 * Tænkes brugt når man forlader profilsiden uden at have gemt sine
+	 * ændringer
 	 */
-	public void cancelProfileEdit(){
+	public void cancelProfileEdit() {
 		currentUser = service.getCleanCopy(currentUser);
 	}
-	//-----.-----//
+
+	// -----.-----//
+
+	public String getUserNameSearch() {
+		return userNameSearch;
+	}
+
+	public void setUserNameSearch(String userNameSearch) {
+		this.userNameSearch = userNameSearch;
+	}
 }
