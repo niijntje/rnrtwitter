@@ -22,6 +22,8 @@ Rita: Overvejer om vi skal ændre vores equals-metode, så den ikke tjekker på 
  * Evt. regex-validering på email
  * Watermark i tekstfelter i stedet for/ud over empty-label DONE
  * Visning af tweets (Rita)
+ ** Evt brug af rss-feed? (måske at gå over åen efter vand...)
+ ** Eller måske field-set?
  * Integrering af userBean.viewedUser (Rita)
  * Gøre det muligt at sætte hak ved hvilke oplysninger andre brugere skal kunne se
 
