@@ -97,8 +97,11 @@ public class UserBean implements Serializable {
 	 */
 	public void validateUserPassword(FacesContext context,
 			UIComponent component, Object value) throws ValidatorException {
-		User u = new User(currentUser.getUserName(), (String) value, "");
+		User u = new User(currentUser.getUserName(), (String) value,
+				"");
 		if (!service.verifyUser(u)) {
+			setCurrentUser(new User(currentUser.getUserName(), "", ""));
+			resetViewedUser();
 			throw new ValidatorException(new FacesMessage(
 					"Userbean says: Wrong password!"));
 		}
@@ -114,13 +117,12 @@ public class UserBean implements Serializable {
 		System.out.println(currentUser);
 		if (service.verifyUser(currentUser)) {
 			currentUser = service.getCleanCopy(currentUser);
-			viewedUser = currentUser;
+//			viewedUser = currentUser;
 			return "login";
-		} else
-			// Måske overflødig, da validering (ovenfor) forhindrer, at
-			// værdier submittes
-			// resetCurrentUser();
-			return "index";
+		} else {			 
+			return "error";
+		}
+
 	}
 
 	public User resetCurrentUser() {
@@ -197,7 +199,11 @@ public class UserBean implements Serializable {
 	}
 
 	public boolean loggedIn() {
-		return currentUser.equals(new User("", "", ""));
+		return currentUser.equals(new User(currentUser.getUserName(), "", ""));
+	}
+
+	public boolean NotloggedIn() {
+		return !currentUser.equals(new User(currentUser.getUserName(), "", ""));
 	}
 
 	// -----Profil-opdateringer-----//

@@ -16,9 +16,11 @@
 <h:body>
 	<div id="heading">
 		<ui:insert name="heading">
-			<h:form>
-				<p:toolbar>
-					<p:toolbarGroup align="left">
+
+			<p:toolbar>
+
+				<p:toolbarGroup align="left">
+					<h:form>
 						<p:spacer width="15px" />
 						<h:outputText value="RnRTwitter" />
 						<p:spacer width="10px" />
@@ -26,29 +28,59 @@
 						<p:spacer width="10px" />
 						<p:autoComplete id="search" value="#{userBean.userNameSearch}"
 							completeMethod="#{userBean.autoCompleteSearch}"
-							validator="#{userBean.validateUserName}" />
+							validator="#{userBean.validateUserName}" immediate="true" />
 						<p:spacer width="7px" />
 						<p:watermark for="search" value="Search for a user" />
 						<p:commandButton id="searchButton" icon="ui-icon-search"
 							action="#{userBean.viewUserProfile}" ajax="false" />
+					</h:form>
+				</p:toolbarGroup>
 
-					</p:toolbarGroup>
+				<p:toolbarGroup id="notLoggedInToolbar" align="right"
+					rendered="#{userBean.loggedIn()}">
+					<h:form>
+						<p:growl id="growl" />
+						<h:outputLabel for="userName" value="#{msgs.userName}" />
+						<p:spacer width="7px" />
+						<p:inputText id="userName"
+							value="#{userBean.currentUser.userName}" required="true"
+							requiredMessage="#{msgs.requiredUserName}"
+							validator="#{userBean.validateUserName}"
+							validatorMessage="#{msgs.validateUserName}">
+							<f:ajax/>
+						</p:inputText>
+						<p:spacer width="10px" />
+						<h:outputLabel for="password" value="#{msgs.password}" />
+						<p:spacer width="7px" />
+						<p:password id="password" value="#{userBean.currentUser.password}"
+							required="true" requiredMessage="#{msgs.requiredPassword}"
+							validator="#{userBean.validateUserPassword}"
+							validatorMessage="#{msgs.validatePassword}">
+							<f:ajax event="valueChange"/>
+						</p:password>
+						<p:spacer width="7px" />
+						<p:commandButton value="#{msgs.login}"
+							action="#{userBean.verifyUser}" update="growl" ajax="false" />
+						<p:spacer width="2px" />
+					</h:form>
+				</p:toolbarGroup>
 
-					<p:toolbarGroup align="right">
-						<p:commandButton value="Tweet Stream" action="home" ajax="false"
-							disabled="#{userBean.loggedIn()}" />
+				<p:toolbarGroup id="loggedInToolbar" align="right"
+					rendered="#{userBean.NotloggedIn()}">
+					<h:form>
+						<p:commandButton value="Tweet Stream" action="home" ajax="false" />
 						<p:commandButton value="Profile"
-							action="#{userBean.viewOwnProfile}" ajax="false"
-							disabled="#{userBean.loggedIn()}" />
+							action="#{userBean.viewOwnProfile()}" ajax="false" />
 						<p:spacer width="10px" />
 						<p:separator />
 						<p:spacer width="10px" />
 						<p:commandButton value="Logout" icon="ui-icon-arrowrefresh-1-w"
-							action="#{userBean.logout}" ajax="false"
-							disabled="#{userBean.loggedIn()}" />
-					</p:toolbarGroup>
-				</p:toolbar>
-			</h:form>
+							action="#{userBean.logout}" ajax="false" />
+						<p:spacer width="2px" />
+					</h:form>
+				</p:toolbarGroup>
+			</p:toolbar>
+
 			<p:spacer height="15px" />
 
 		</ui:insert>
