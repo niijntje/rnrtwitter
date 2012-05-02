@@ -22,13 +22,15 @@ public class UserBean implements Serializable {
 
 	private User currentUser;
 	private User viewedUser;
-	private String userNameSearch; // Til at holde p� indtastning i s�gefeltet
+	private String userNameSearch; // Til at holde p� indtastning i s�gefeltet
+	private List<Tweet> displayedTweets;
 	private @Inject
 	Service service;
 
 	public UserBean() {
 		this.setCurrentUser(new User("", "", ""));
-		this.setViewedUser(currentUser);
+		viewedUser = currentUser;
+
 	}
 
 	public User getCurrentUser() {
@@ -45,6 +47,7 @@ public class UserBean implements Serializable {
 
 	public void setViewedUser(User viewedUser) {
 		this.viewedUser = viewedUser;
+//		this.displayedTweets = service.recentTweets(viewedUser, 20);
 	}
 
 	public void createNewUser() {
@@ -131,7 +134,7 @@ public class UserBean implements Serializable {
 	}
 
 	public User resetViewedUser() {
-		viewedUser = new User("", "", "");
+		setViewedUser(new User("", "", ""));
 		return viewedUser;
 	}
 
@@ -146,7 +149,7 @@ public class UserBean implements Serializable {
 			// personen ønsker at
 			// se dennes profil igen efter login - altså fortsætte hvor man
 			// kom fra
-			viewedUser = service.getCleanCopy(currentUser);
+			setViewedUser(service.getCleanCopy(currentUser));
 		}
 		return "login";
 	}
@@ -174,9 +177,9 @@ public class UserBean implements Serializable {
 	public String viewUserProfile() {
 		if (!service.userNameAvailable(userNameSearch)) {
 			if (userNameSearch.equals(currentUser.getUserName())) {
-				this.viewedUser = currentUser;
+				setViewedUser(currentUser);
 			} else {
-				this.viewedUser = service.getUserToView(userNameSearch);
+				setViewedUser(service.getUserToView(userNameSearch));
 
 			}
 			this.userNameSearch = "";
@@ -186,7 +189,7 @@ public class UserBean implements Serializable {
 	}
 
 	public String viewOwnProfile() {
-		this.viewedUser = currentUser;
+		setViewedUser(currentUser);
 		return "profile";
 	}
 
@@ -207,6 +210,7 @@ public class UserBean implements Serializable {
 	}
 
 	// -----Profil-opdateringer-----//
+
 	public void saveProfileText() {
 		service.saveProfileText(currentUser);
 		service.saveRealName(currentUser);
@@ -232,6 +236,21 @@ public class UserBean implements Serializable {
 		currentUser = service.getCleanCopy(currentUser);
 	}
 
+	public List<Tweet> recentTweets(){
+		return new ArrayList<Tweet>();
+//		System.out.println("UserBean får: "+service.recentTweets(viewedUser, 20));
+//		return service.recentTweets(viewedUser, 20);
+	}
+
+	public Tweet oneTweet(){
+		return new Tweet("Test-tweet", new User("Gunnar","",""));
+	}
+
+	public String viewUser(Tweet t){
+		viewedUser = service.getCleanCopy(t.getUser());
+		return "profile";
+	}
+
 	// -----.-----//
 
 	public String getUserNameSearch() {
@@ -240,5 +259,14 @@ public class UserBean implements Serializable {
 
 	public void setUserNameSearch(String userNameSearch) {
 		this.userNameSearch = userNameSearch;
+	}
+
+	public List<Tweet> getDisplayedTweets() {
+//		this.displayedTweets = service.recentTweets(viewedUser, 20);
+		return displayedTweets;
+	}
+
+	public void setDisplayedTweets(List<Tweet> displayedTweets) {
+		this.displayedTweets = displayedTweets;
 	}
 }
