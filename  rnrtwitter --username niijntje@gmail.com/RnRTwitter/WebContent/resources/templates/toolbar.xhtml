@@ -39,7 +39,7 @@
 				<p:toolbarGroup id="notLoggedInToolbar" align="right"
 					rendered="#{userBean.loggedIn()}">
 					<h:form>
-						<p:growl id="growl" />
+						<p:growl id="growl" life="1500"/>
 						<h:outputLabel for="userName" value="#{msgs.userName}" />
 						<p:spacer width="7px" />
 						<p:inputText id="userName"
@@ -81,7 +81,7 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 
-			<p:spacer height="15px" />
+			<p:spacer height="20px" />
 
 		</ui:insert>
 	</div>
