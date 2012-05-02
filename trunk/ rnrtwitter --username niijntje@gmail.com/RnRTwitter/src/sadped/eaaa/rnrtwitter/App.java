@@ -34,9 +34,9 @@ public class App {
 //			System.out.println(it.next());
 //		}
 		
-		Service service = new Service();
-		User u = service.getRegisteredUsers().get(0);
-		
-		System.out.println(service.tweetFeed(u, 5));
+//		Service service = new Service();
+//		User u = service.getRegisteredUsers().get(0);
+//		
+//		System.out.println(service.tweetFeed(u, 5));
 	}
 }

@@ -13,7 +13,6 @@ public class Tweet implements Comparable<Tweet>{
 		this.text = text;
 		this.user = user;
 		this.time = new Date();
-		System.out.println(time);
 	}
 
 	public String getText() {

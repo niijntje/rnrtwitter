@@ -23,9 +23,6 @@ public class Service implements Serializable {
 		User newUser = new User(currentUser.getUserName(),
 				currentUser.getPassword(), currentUser.getProfileText());
 		addUser(newUser);
-		System.out.println("New user:" + newUser.getUserName() + ". "
-				+ newUser.getProfileText());
-		System.out.println("Updated user list: " + registeredUsers);
 		return newUser;
 	}
 
@@ -225,8 +222,8 @@ public class Service implements Serializable {
 		}
 		return tweetFeed;
 	}
-	
-	
+
+
 	public void createSomeData(){
 		User u1 = createUser(new User("Rasmus", "pw", ""));
 		User u2 = createUser(new User("Rita", "pw", ""));
@@ -238,7 +235,7 @@ public class Service implements Serializable {
 		u2.addSubscription(u3);
 		u2.addSubscription(u4);
 		u2.addSubscription(u5);
-		
+
 		createNewTweet("Min allerførste tweet", u1);
 		createNewTweet("Jeg kan også tweete!", u2);
 		createNewTweet(
@@ -254,6 +251,30 @@ public class Service implements Serializable {
 		createNewTweet("Vi er bare alt for seje her hos RnR!", u1);
 		createNewTweet("RT @Rasmus: Vi er bare alt for seje her hos RnR!", u2);
 		createNewTweet("@Rita Det er fordi vi bruger Mac! ;-)", u1);
+	}
+
+	public String getLastTweet(User u) {
+		User realUser = findUser(u);
+		String lastTweet = " ";
+		if (realUser==null){
+//			throw new RuntimeException("User not found :-(");
+			lastTweet = "Service says: Didn't find user :-(";
+		}
+		else if(realUser.getTweets().size()>0){
+			lastTweet = realUser.getTweets().get(0).getText();
+		}
+		return lastTweet;
+	}
+
+	public List<User> getSubscriptions(User viewedUser) {
+		User realUser = findUser(viewedUser);
+		List<User> subscriptions = new ArrayList<User>();
+		if (realUser!=null){
+			for (User u: realUser.getSubscriptions()){
+				subscriptions.add(getCleanCopy(u));
+			}
+		}
+		return subscriptions;
 	}
 
 }

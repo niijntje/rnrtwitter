@@ -23,14 +23,23 @@
 	<p:panel header="#{userBean.viewedUser.userName}">
 		<h:form>
 			<h:panelGrid columns="3" styleClass="infoGrid">
+				<p:commandButton value="#{msgs.subscribe}"
+					action="#{userBean.subscribe}"
+					rendered="#{userBean.otherUsersProfile()}"></p:commandButton>
+				<h:outputLabel value="#{msgs.editUser}"
+					rendered="#{userBean.ownProfile()}"></h:outputLabel>
+				<p:spacer></p:spacer>
+				<p:spacer></p:spacer>
 
 				<h:outputText for="userName" value="#{msgs.userName}" />
 				<h:outputText value="#{userBean.viewedUser.userName}" />
-				<h:graphicImage library="imgs" name="iCat.png"
+				<h:graphicImage library="profilePics" name="Rita.png"
 					styleClass="mediumImage" height="100" width="100" />
+
 
 				<h:outputLabel for="password" value="#{msgs.changePassword}"
 					rendered="#{userBean.ownProfile()}" />
+
 				<p:password id="password" value="#{userBean.viewedUser.password}"
 					label="#{msgs.changePassword}" feedback="true" inline="true"
 					immediate="true" rendered="#{userBean.ownProfile()}">
@@ -61,7 +70,7 @@
 				<p:spacer></p:spacer>
 
 				<h:outputText for="email" value="#{msgs.email}" />
-				<p:inplace emptyLabel="#{msgs.yourEmail}" editor="true"
+				<p:inplace emptyLabel="#{msgs.noMail}" editor="true"
 					saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}"
 					disabled="#{userBean.otherUsersProfile()}">
 					<p:inputText id="email" value="#{userBean.viewedUser.email}"></p:inputText>
@@ -71,7 +80,7 @@
 				<p:spacer></p:spacer>
 
 				<h:outputText for="aboutUser" value="#{msgs.aboutUser}  "></h:outputText>
-				<p:inplace emptyLabel="#{msgs.writeSomething}" editor="true"
+				<p:inplace emptyLabel="#{msgs.hasntWritten}" editor="true"
 					saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}"
 					disabled="#{userBean.otherUsersProfile()}">
 					<p:inputTextarea id="aboutUser" label="#{aboutUser}"
@@ -87,22 +96,56 @@
 
 		</h:form>
 	</p:panel>
+
 	<p:spacer height="15px" />
-	<p:panel header="#{msgs.recentTweets}">
-		<h:form>
+	<p:layout style="min-width:800px;min-height:400px;" id="layout">
+		<p:layoutUnit header="#{msgs.recentTweets}" position="west"
+			maxSize="600" minSize="350">
+			<h:form>
 
-			<h:dataTable value="#{userBean.displayedTweets}" var="tweet"
-				border="0">
+				<h:dataTable value="#{userBean.displayedTweets}" var="tweet"
+					border="0">
 
-				<h:column>
-					<p:fieldset legend="#{tweet.user}">
-						<h:outputText value="#{tweet.text}"></h:outputText>
-					</p:fieldset>
-				</h:column>
-			</h:dataTable>
-		</h:form>
 
-	</p:panel>
+					<h:column>
+						<p:fieldset legend="#{tweet.user}">
+							<h:outputText value="#{tweet.text}"></h:outputText>
+						</p:fieldset>
+					</h:column>
+				</h:dataTable>
+			</h:form>
+
+		</p:layoutUnit>
+		<p:layoutUnit header="#{msgs.subscriptions}" position="center"
+			size="200" maxSize="200">
+			<h:panelGroup styleClass="tweet">
+				<p:spacer height="10px" />
+				<p:spacer height="10px" />
+
+				<h:form>
+					<p:dataGrid columns="2" value="#{userBean.getSubscriptions()}"
+						var="subscription" border="0">
+						<h:column>
+							<p:panelGrid columns="2" header="#{subscription.userName}">
+								<p:commandLink action="#{userBean.setViewedUser(subscription)}"
+									ajax="false">
+									<h:graphicImage library="profilePics" name="Rita.png"
+										styleClass="smallImage" height="50" width="50" />
+									<h:outputText value="#{subscription.userName}"></h:outputText>
+								</p:commandLink>
+
+							</p:panelGrid>
+
+						</h:column>
+					</p:dataGrid>
+				</h:form>
+
+
+				<p:spacer height="10px" />
+			</h:panelGroup>
+		</p:layoutUnit>
+	</p:layout>
+	<p:spacer height="20px" />
 	<p:panel rendered="#{userBean.ownProfile()}">
 		<h:form enctype="multipart/form-data">
 			<p:fileUpload

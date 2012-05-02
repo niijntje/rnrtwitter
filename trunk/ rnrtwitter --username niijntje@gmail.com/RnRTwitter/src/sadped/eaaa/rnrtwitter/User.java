@@ -1,11 +1,17 @@
 package sadped.eaaa.rnrtwitter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-public class User {
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+
+@Named
+@SessionScoped
+public class User implements Serializable{
 
 	//Login-info
 	private String userName;
@@ -80,7 +86,6 @@ public class User {
 
 	public void setProfileText(String profileText) {
 		this.profileText = profileText;
-		System.out.println(this.profileText);
 	}
 
 
