@@ -3,7 +3,7 @@ package sadped.eaaa.rnrtwitter;
 import java.util.Date;
 
 
-public class Tweet {
+public class Tweet implements Comparable<Tweet>{
 	
 	private String text;
 	private User user;
@@ -13,6 +13,7 @@ public class Tweet {
 		this.text = text;
 		this.user = user;
 		this.time = new Date();
+		System.out.println(time);
 	}
 
 	public String getText() {
@@ -42,5 +43,10 @@ public class Tweet {
 	@Override
 	public String toString(){
 		return text;
+	}
+
+	@Override
+	public int compareTo(Tweet otherTweet) {
+		return this.time.compareTo(otherTweet.getTime());
 	}
 }

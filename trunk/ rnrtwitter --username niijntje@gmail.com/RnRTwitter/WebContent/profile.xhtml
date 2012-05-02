@@ -87,12 +87,10 @@
 
 		</h:form>
 	</p:panel>
-	<p:panel>
+	<p:panel header="#{msgs.recentTweets}">
 		<h:form>
 
-			<h:dataTable value="#{userBean.displayedTweets}" var="tweet"
-				border="0">
-
+			<h:dataTable value="#{userBean.displayedTweets}" var="tweet" border="0">
 
 				<h:column>
 					<p:fieldset legend="#{tweet.user}">
@@ -102,9 +100,6 @@
 			</h:dataTable>
 		</h:form>
 
-	</p:panel>
-	<p:panel header="#{msgs.recentTweets}">
-		<h:outputText value="#{userBean.oneTweet()}"></h:outputText>
 	</p:panel>
 	<p:panel rendered="#{userBean.ownProfile()}">
 		<h:form enctype="multipart/form-data">
