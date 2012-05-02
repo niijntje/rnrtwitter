@@ -2,6 +2,7 @@ package sadped.eaaa.rnrtwitter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
@@ -100,7 +101,7 @@ public class Service implements Serializable {
 
 	/**
 	 * Finder en bruger ud fra userName og returnerer en kopi, hvor alle felter
-	 * er sat undtagen password. Bruges nŒr en "loggedin"-user vil se en anden
+	 * er sat undtagen password. Bruges nï¿½r en "loggedin"-user vil se en anden
 	 * users profil
 	 * 
 	 * @param userName
@@ -176,6 +177,22 @@ public class Service implements Serializable {
 	public void printUsers() {
 		for (User u : registeredUsers) {
 			System.out.println(u.getUserName() + ": " + u.getProfileText());
+		}
+	}
+
+	public List<Tweet> recentTweets(User viewedUser, int howMany) {
+		User u = findUser(viewedUser);
+		List<Tweet> tweets = new ArrayList<Tweet>();
+		if (u != null){
+			tweets = u.getTweets();
+		}
+		System.out.println(tweets);
+		if (tweets.size() < howMany){
+			return tweets;
+		}
+		else
+		{
+			return tweets.subList(tweets.size()-howMany-1, tweets.size());
 		}
 	}
 
