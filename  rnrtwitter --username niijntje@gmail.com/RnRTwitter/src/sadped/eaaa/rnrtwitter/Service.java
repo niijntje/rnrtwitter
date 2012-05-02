@@ -2,7 +2,6 @@ package sadped.eaaa.rnrtwitter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
@@ -30,9 +29,9 @@ public class Service implements Serializable {
 		return newUser;
 	}
 
-	public void createNewTweet(String text, User user){
+	public void createNewTweet(String tweetText, User user){
 		User realUser = findUser(user);
-		realUser.addTweet(text);
+		realUser.addTweet(tweetText);
 	}
 
 	private User findUser(User u) {

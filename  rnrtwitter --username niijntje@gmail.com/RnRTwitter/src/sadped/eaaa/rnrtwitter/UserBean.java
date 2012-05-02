@@ -22,7 +22,8 @@ public class UserBean implements Serializable {
 
 	private User currentUser;
 	private User viewedUser;
-	private String userNameSearch; // Til at holde pï¿½ indtastning i sï¿½gefeltet
+	private String userNameSearch; // Til at holde paa indtastning i soegefeltet
+	private String newTweetText; // til indtastning af ny tweet pŒ home.xhtml
 	private List<Tweet> displayedTweets;
 	private @Inject
 	Service service;
@@ -153,6 +154,12 @@ public class UserBean implements Serializable {
 		}
 		return "login";
 	}
+	
+	public void createNetTweet(String tweetText){
+		if(loggedIn()){
+			service.createNewTweet(tweetText, currentUser);
+		}
+	}
 
 	public String logout() {
 		resetCurrentUser();
@@ -202,11 +209,11 @@ public class UserBean implements Serializable {
 	}
 
 	public boolean loggedIn() {
-		return currentUser.equals(new User(currentUser.getUserName(), "", ""));
+		return !currentUser.equals(new User(currentUser.getUserName(), "", ""));
 	}
 
 	public boolean NotloggedIn() {
-		return !currentUser.equals(new User(currentUser.getUserName(), "", ""));
+		return currentUser.equals(new User(currentUser.getUserName(), "", ""));
 	}
 
 	// -----Profil-opdateringer-----//
@@ -264,9 +271,20 @@ public class UserBean implements Serializable {
 	public void setDisplayedTweets(List<Tweet> displayedTweets) {
 		this.displayedTweets = displayedTweets;
 	}
+
+
+	public String getNewTweetText() {
+		return newTweetText;
+	}
+
+	public void setNewTweetText(String newTweetText) {
+		this.newTweetText = newTweetText;
+	}
+
 	
 	public List<Tweet> getTweetStream(){
 		this.displayedTweets = service.tweetFeed(currentUser, 20);
 		return displayedTweets;
 	}
+
 }
