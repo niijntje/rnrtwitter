@@ -22,7 +22,7 @@
 				<p:toolbarGroup align="left">
 					<h:form>
 						<p:spacer width="15px" />
-						<h:outputText value="RnRTwitter" />
+						<h:outputText value="#{msgs.windowTitle}" />
 						<p:spacer width="10px" />
 						<p:separator />
 						<p:spacer width="10px" />
@@ -30,14 +30,14 @@
 							completeMethod="#{userBean.autoCompleteSearch}"
 							validator="#{userBean.validateUserName}" immediate="true" />
 						<p:spacer width="7px" />
-						<p:watermark for="search" value="Search for a user" />
+						<p:watermark for="search" value="#{msgs.search}" />
 						<p:commandButton id="searchButton" icon="ui-icon-search"
 							action="#{userBean.viewUserProfile}" ajax="false" />
 					</h:form>
 				</p:toolbarGroup>
 
 				<p:toolbarGroup id="notLoggedInToolbar" align="right"
-					rendered="#{userBean.loggedIn()}">
+					rendered="#{userBean.NotloggedIn()}">
 					<h:form>
 						<p:growl id="growl" life="1500"/>
 						<h:outputLabel for="userName" value="#{msgs.userName}" />
@@ -66,15 +66,15 @@
 				</p:toolbarGroup>
 
 				<p:toolbarGroup id="loggedInToolbar" align="right"
-					rendered="#{userBean.NotloggedIn()}">
+					rendered="#{userBean.loggedIn()}">
 					<h:form>
-						<p:commandButton value="Tweet Stream" action="home" ajax="false" />
-						<p:commandButton value="Profile"
+						<p:commandButton value="#{msgs.tweetStream}" action="home" ajax="false" />
+						<p:commandButton value="#{msgs.profile}"
 							action="#{userBean.viewOwnProfile()}" ajax="false" />
 						<p:spacer width="10px" />
 						<p:separator />
 						<p:spacer width="10px" />
-						<p:commandButton value="Logout" icon="ui-icon-arrowrefresh-1-w"
+						<p:commandButton value="#{msgs.logout}" icon="ui-icon-arrowrefresh-1-w"
 							action="#{userBean.logout}" ajax="false" />
 						<p:spacer width="2px" />
 					</h:form>

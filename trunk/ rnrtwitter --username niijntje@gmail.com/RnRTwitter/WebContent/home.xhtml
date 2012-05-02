@@ -19,8 +19,9 @@
 			<ui:include src="/resources/templates/toolbar.xhtml" />
 		</ui:insert>
 	</h:panelGroup>
-
-
+	<p:panel header="Welcome #{userBean.currentUser.userName}!"
+		collapsed="true" />
+	<p:spacer height="15px" />
 	<p:layout style="min-width:800px;min-height:400px;" id="layout">
 		<p:layoutUnit header="#{msgs.tweetStream}" position="west" maxSize="600"
 			minSize="350">
@@ -46,11 +47,16 @@
 		</p:layoutUnit>
 
 
-		<p:layoutUnit position="center" size="200" maxSize="200">
-			<h:panelGroup>
-				<p:panel header="write tweet"></p:panel>
-			</h:panelGroup>
+		<p:layoutUnit position="center" size="200" header="Tweet">
+			<h:form>
+				<h3>Remaining Chars</h3>  
+<p:inputTextarea rows="5" cols="30" counter="counter" maxlength="10"       
+    counterTemplate="{0} characters remaining." autoResize="false"/>  
+  
+<h:outputText id="counter" />  
+			</h:form>
 		</p:layoutUnit>
+
 	</p:layout>
 </h:body>
 </html>
