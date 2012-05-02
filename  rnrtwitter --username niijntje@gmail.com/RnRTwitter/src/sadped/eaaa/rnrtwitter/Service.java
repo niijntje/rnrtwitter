@@ -34,6 +34,11 @@ public class Service implements Serializable {
 		System.out.println("Updated user list: " + registeredUsers);
 
 	}
+	
+	public void createNewTweet(String text, User user){
+		User realUser = findUser(user);
+		realUser.addTweet(text);
+	}
 
 	private User findUser(User u) {
 		User realUser = null;
