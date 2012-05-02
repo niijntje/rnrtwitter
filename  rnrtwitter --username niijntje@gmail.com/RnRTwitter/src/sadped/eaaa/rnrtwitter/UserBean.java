@@ -124,7 +124,7 @@ public class UserBean implements Serializable {
 //			viewedUser = currentUser;
 			return "login";
 		} else {			 
-			return "error";
+			return "";
 		}
 
 	}
