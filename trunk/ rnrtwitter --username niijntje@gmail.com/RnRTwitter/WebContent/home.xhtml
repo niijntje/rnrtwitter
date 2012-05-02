@@ -47,14 +47,19 @@
 				<p:watermark for="newTweetTxt" value="#{msgs.writeTweet}" />
 				<h:panelGrid columns="2">
 					<p:inputTextarea id="newTweetTxt" value="#{userBean.newTweetText}"
-						rows="2" cols="45" maxlength="144" />
+						rows="2" cols="45" maxlength="144">
+						<p:ajax event="keyup" update="remainingCharacters" />
+					</p:inputTextarea>
 					<p:commandButton value="#{msgs.tweet}"
 						action="#{userBean.createNewTweet}" update="tweetStreamForm" />
-
+					<h:outputText styleClass="tweet" id="remainingCharacters" value="Remaining characters: #{userBean.remainingCharacters}"/>
 				</h:panelGrid>
 			</p:layoutUnit>
 
+
 		</p:layout>
+
 	</h:form>
+
 </h:body>
 </html>
