@@ -25,12 +25,15 @@ public class UserBean implements Serializable {
 	private String userNameSearch; // Til at holde paa indtastning i soegefeltet
 	private String newTweetText; // til indtastning af ny tweet på home.xhtml
 	private List<Tweet> displayedTweets;
+	private int remainingCharacters;
 	private @Inject
 	Service service;
 
 	public UserBean() {
 		this.setCurrentUser(new User("", "", ""));
 		viewedUser = currentUser;
+		this.remainingCharacters = 144;
+		this.newTweetText = "";
 
 	}
 
@@ -130,7 +133,7 @@ public class UserBean implements Serializable {
 	}
 
 	public User resetCurrentUser() {
-		currentUser = new User("", "", "");
+		currentUser = new User(currentUser.getUserName(), "", "");
 		return currentUser;
 	}
 
@@ -155,9 +158,10 @@ public class UserBean implements Serializable {
 		return "login";
 	}
 	
-	public void createNetTweet(String tweetText){
+	public void createNewTweet(){
 		if(loggedIn()){
-			service.createNewTweet(tweetText, currentUser);
+			service.createNewTweet(newTweetText, currentUser);
+			this.newTweetText = "";
 		}
 	}
 
@@ -285,6 +289,18 @@ public class UserBean implements Serializable {
 	public List<Tweet> getTweetStream(){
 		this.displayedTweets = service.tweetFeed(currentUser, 20);
 		return displayedTweets;
+	}
+	
+	public void countRemainingCharacters(){
+		this.remainingCharacters--;
+	}
+
+	public int getRemainingCharacters() {
+		return remainingCharacters;
+	}
+
+	public void setRemainingCharacters(int remainingCharacters) {
+		this.remainingCharacters = remainingCharacters;
 	}
 
 }

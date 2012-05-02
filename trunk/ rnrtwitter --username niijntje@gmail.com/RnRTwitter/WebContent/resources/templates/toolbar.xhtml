@@ -56,11 +56,11 @@
 							required="true" requiredMessage="#{msgs.requiredPassword}"
 							validator="#{userBean.validateUserPassword}"
 							validatorMessage="#{msgs.validatePassword}">
-							<f:ajax event="valueChange"/>
+
 						</p:password>
 						<p:spacer width="7px" />
 						<p:commandButton value="#{msgs.login}"
-							action="#{userBean.verifyUser}" update="growl" ajax="true" />
+							action="#{userBean.verifyUser}" update="growl"/>
 						<p:spacer width="2px" />
 					</h:form>
 				</p:toolbarGroup>

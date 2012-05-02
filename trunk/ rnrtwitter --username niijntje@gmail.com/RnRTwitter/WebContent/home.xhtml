@@ -22,41 +22,39 @@
 	<p:panel header="Welcome #{userBean.currentUser.userName}!"
 		collapsed="true" />
 	<p:spacer height="15px" />
-	<p:layout style="min-width:800px;min-height:400px;" id="layout">
-		<p:layoutUnit header="#{msgs.tweetStream}" position="west" maxSize="600"
-			minSize="350">
+	<h:form id="tweetStreamForm">
+		<p:layout style="min-width:700px;min-height:300px;" id="layout">
+			<p:layoutUnit header="#{msgs.tweetStream}" position="west"
+				maxSize="500" minSize="500">
 
-			<h:panelGroup styleClass="tweet">
-				<p:spacer height="10px" />
-				<p:spacer height="10px" />
-
-							<h:form>
-						<h:dataTable value="#{userBean.tweetStream}" var="tweet"
-							border="0">
-							<h:column>
-								<p:fieldset legend="#{tweet.user}"  >
-									<h:outputText value="#{tweet.text}" styleClass="tweets"></h:outputText>
-								</p:fieldset>
-							</h:column>
-						</h:dataTable>
-					</h:form>
+				<h:panelGroup styleClass="tweet">
+					<p:spacer height="10px" />
+					<p:spacer height="10px" />
 
 
-				<p:spacer height="10px" />
-			</h:panelGroup>
-		</p:layoutUnit>
+					<h:dataTable value="#{userBean.tweetStream}" var="tweet" border="0">
+						<h:column>
+							<p:fieldset legend="#{tweet.user}">
+								<h:outputText value="#{tweet.text}" styleClass="tweets"></h:outputText>
+							</p:fieldset>
+						</h:column>
+					</h:dataTable>
+					<p:spacer height="10px" />
+				</h:panelGroup>
+			</p:layoutUnit>
+			<p:layoutUnit position="center" header="#{msgs.tweet}" minSize="200"
+				maxSize="200">
+				<p:watermark for="newTweetTxt" value="#{msgs.writeTweet}" />
+				<h:panelGrid columns="2">
+					<p:inputTextarea id="newTweetTxt" value="#{userBean.newTweetText}"
+						rows="2" cols="45" maxlength="144" />
+					<p:commandButton value="#{msgs.tweet}"
+						action="#{userBean.createNewTweet}" update="tweetStreamForm" />
 
+				</h:panelGrid>
+			</p:layoutUnit>
 
-		<p:layoutUnit position="center" size="200" header="Tweet">
-			<h:form>
-				<h3>Remaining Chars</h3>  
-<p:inputTextarea rows="5" cols="30" counter="counter" maxlength="10"       
-    counterTemplate="{0} characters remaining." autoResize="false"/>  
-  
-<h:outputText id="counter" />  
-			</h:form>
-		</p:layoutUnit>
-
-	</p:layout>
+		</p:layout>
+	</h:form>
 </h:body>
 </html>
