@@ -20,6 +20,7 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	
 	<navigation-rule>
 		<display-name>profile.xhtml</display-name>
 		<from-view-id>/profile.xhtml</from-view-id>
@@ -52,6 +53,5 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
-
 
 </faces-config>
