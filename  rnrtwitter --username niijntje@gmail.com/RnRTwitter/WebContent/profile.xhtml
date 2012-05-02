@@ -87,10 +87,12 @@
 
 		</h:form>
 	</p:panel>
+	<p:spacer height="15px" />
 	<p:panel header="#{msgs.recentTweets}">
 		<h:form>
 
-			<h:dataTable value="#{userBean.displayedTweets}" var="tweet" border="0">
+			<h:dataTable value="#{userBean.displayedTweets}" var="tweet"
+				border="0">
 
 				<h:column>
 					<p:fieldset legend="#{tweet.user}">

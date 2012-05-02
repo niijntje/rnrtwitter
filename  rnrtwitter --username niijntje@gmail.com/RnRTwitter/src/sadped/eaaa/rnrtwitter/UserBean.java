@@ -289,13 +289,9 @@ public class UserBean implements Serializable {
 		this.displayedTweets = service.tweetFeed(currentUser, 20);
 		return displayedTweets;
 	}
-	
-	public void countRemainingCharacters(){
-		this.remainingCharacters--;
-	}
 
 	public int getRemainingCharacters() {
-		return remainingCharacters;
+		return remainingCharacters-getNewTweetText().length();
 	}
 
 	public void setRemainingCharacters(int remainingCharacters) {
