@@ -23,7 +23,7 @@ public class UserBean implements Serializable {
 	private User currentUser;
 	private User viewedUser;
 	private String userNameSearch; // Til at holde paa indtastning i soegefeltet
-	private String newTweetText; // til indtastning af ny tweet p� home.xhtml
+	private String newTweetText; // til indtastning af ny tweet p� home.xhtml
 	private List<Tweet> displayedTweets;
 	private int remainingCharacters;
 	private @Inject
@@ -51,7 +51,7 @@ public class UserBean implements Serializable {
 
 	public void setViewedUser(User viewedUser) {
 		this.viewedUser = viewedUser;
-//		this.displayedTweets = service.recentTweets(viewedUser, 20);
+		//		this.displayedTweets = service.recentTweets(viewedUser, 20);
 	}
 
 	public void createNewUser() {
@@ -72,7 +72,7 @@ public class UserBean implements Serializable {
 		if (!service.userNameAvailable(proposedUserName)) {
 			throw new ValidatorException(new FacesMessage(
 					"Userbean says: Username not available")); // Only there for
-																// debugging-purposes
+			// debugging-purposes
 		}
 	}
 
@@ -107,7 +107,11 @@ public class UserBean implements Serializable {
 		User u = new User(currentUser.getUserName(), (String) value,
 				"");
 		if (!service.verifyUser(u)) {
+
+			System.out.println("Wrong user: "+u.getUserName()+" "+u.getPassword());
+
 			resetCurrentUser();
+
 			throw new ValidatorException(new FacesMessage(
 					"Userbean says: Wrong password!"));
 		}
@@ -120,10 +124,16 @@ public class UserBean implements Serializable {
 	 * @return
 	 */
 	public String verifyUser() {
-		System.out.println(currentUser);
 		if (service.verifyUser(currentUser)) {
 			currentUser = service.getCleanCopy(currentUser);
-//			viewedUser = currentUser;
+			if (viewedUser == null || viewedUser.getUserName().equals("")) {
+				// Hvis der allerede findes en viewedUser, går vi ud fra, at
+				// personen ønsker at
+				// se dennes profil igen efter login - altså fortsætte hvor man
+				// kom fra
+				setViewedUser(service.getCleanCopy(currentUser));
+			}
+
 			return "login";
 		} else {			 
 			return "";
@@ -190,7 +200,6 @@ public class UserBean implements Serializable {
 				setViewedUser(currentUser);
 			} else {
 				setViewedUser(service.getUserToView(userNameSearch));
-
 			}
 			this.userNameSearch = "";
 		}
@@ -247,8 +256,12 @@ public class UserBean implements Serializable {
 	}
 
 	public List<Tweet> recentTweets(){
-		System.out.println("UserBean får: "+service.recentTweets(viewedUser, 20));
 		return service.recentTweets(viewedUser, 20);
+	}
+	
+	public String viewUser(User u){
+		setViewedUser(service.getCleanCopy(u));
+		return "profile";
 	}
 
 	public String viewUser(Tweet t){
@@ -276,6 +289,7 @@ public class UserBean implements Serializable {
 	}
 
 
+
 	public String getNewTweetText() {
 		return newTweetText;
 	}
@@ -284,11 +298,20 @@ public class UserBean implements Serializable {
 		this.newTweetText = newTweetText;
 	}
 
-	
 	public List<Tweet> getTweetStream(){
 		this.displayedTweets = service.tweetFeed(currentUser, 20);
 		return displayedTweets;
 	}
+
+	public List<User> getSubscriptions(){
+		System.out.println(viewedUser+"'s subscriptions: "+service.getSubscriptions(viewedUser));
+		return service.getSubscriptions(viewedUser);
+	}
+	
+	public String getLastTweet(User u){
+		return service.getLastTweet(u);
+	}
+
 
 	public int getRemainingCharacters() {
 		return remainingCharacters-getNewTweetText().length();
@@ -297,5 +320,6 @@ public class UserBean implements Serializable {
 	public void setRemainingCharacters(int remainingCharacters) {
 		this.remainingCharacters = remainingCharacters;
 	}
+
 
 }
