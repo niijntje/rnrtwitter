@@ -107,8 +107,7 @@ public class UserBean implements Serializable {
 		User u = new User(currentUser.getUserName(), (String) value,
 				"");
 		if (!service.verifyUser(u)) {
-			setCurrentUser(new User(currentUser.getUserName(), "", ""));
-			resetViewedUser();
+			resetCurrentUser();
 			throw new ValidatorException(new FacesMessage(
 					"Userbean says: Wrong password!"));
 		}
