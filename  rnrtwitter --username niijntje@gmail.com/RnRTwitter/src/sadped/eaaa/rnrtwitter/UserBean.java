@@ -237,13 +237,8 @@ public class UserBean implements Serializable {
 	}
 
 	public List<Tweet> recentTweets(){
-		return new ArrayList<Tweet>();
-//		System.out.println("UserBean får: "+service.recentTweets(viewedUser, 20));
-//		return service.recentTweets(viewedUser, 20);
-	}
-
-	public Tweet oneTweet(){
-		return new Tweet("Test-tweet", new User("Gunnar","",""));
+		System.out.println("UserBean får: "+service.recentTweets(viewedUser, 20));
+		return service.recentTweets(viewedUser, 20);
 	}
 
 	public String viewUser(Tweet t){
@@ -262,11 +257,16 @@ public class UserBean implements Serializable {
 	}
 
 	public List<Tweet> getDisplayedTweets() {
-//		this.displayedTweets = service.recentTweets(viewedUser, 20);
+		this.displayedTweets = service.recentTweets(viewedUser, 20);
 		return displayedTweets;
 	}
 
 	public void setDisplayedTweets(List<Tweet> displayedTweets) {
 		this.displayedTweets = displayedTweets;
+	}
+	
+	public List<Tweet> getTweetStream(){
+		this.displayedTweets = service.tweetFeed(currentUser, 20);
+		return displayedTweets;
 	}
 }

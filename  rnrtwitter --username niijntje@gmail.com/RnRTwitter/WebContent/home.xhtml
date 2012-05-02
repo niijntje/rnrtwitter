@@ -22,42 +22,26 @@
 
 
 	<p:layout style="min-width:800px;min-height:400px;" id="layout">
-		<p:layoutUnit header="Tweet Stream" position="west" 
-			maxSize="400" minSize="350">
+		<p:layoutUnit header="#{msgs.tweetStream}" position="west" maxSize="600"
+			minSize="350">
 
 			<h:panelGroup styleClass="tweet">
 				<p:spacer height="10px" />
-				<p:panel header="UserName">
-					<h:outputText styleClass="tweets"
-						value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."></h:outputText>
-				</p:panel>
+				<p:spacer height="10px" />
+
+							<h:form>
+						<h:dataTable value="#{userBean.tweetStream}" var="tweet"
+							border="0">
+							<h:column>
+								<p:fieldset legend="#{tweet.user}"  >
+									<h:outputText value="#{tweet.text}" styleClass="tweets"></h:outputText>
+								</p:fieldset>
+							</h:column>
+						</h:dataTable>
+					</h:form>
+
 
 				<p:spacer height="10px" />
-				<p:panel header="UserName">
-					<h:outputText styleClass="tweets"
-						value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."></h:outputText>
-				</p:panel>
-				<p:spacer height="10px" />
-				<p:panel header="UserName">
-					<h:outputText styleClass="tweets"
-						value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."></h:outputText>
-				</p:panel>
-
-				<p:spacer height="10px" />
-				<p:panel header="UserName">
-					<h:outputText styleClass="tweets"
-						value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."></h:outputText>
-				</p:panel>
-				<p:spacer height="10px" />
-				<p:panel header="UserName">
-					<h:outputText styleClass="tweets"
-						value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."></h:outputText>
-				</p:panel>
-				<p:spacer height="10px" />
-				<p:panel header="UserName">
-					<h:outputText styleClass="tweets"
-						value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."></h:outputText>
-				</p:panel>
 			</h:panelGroup>
 		</p:layoutUnit>
 
@@ -68,6 +52,5 @@
 			</h:panelGroup>
 		</p:layoutUnit>
 	</p:layout>
-	<h4>#{userBean.currentUser}</h4>
 </h:body>
 </html>

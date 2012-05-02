@@ -1,20 +1,22 @@
 package sadped.eaaa.rnrtwitter;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 public class User {
 
 	//Login-info
 	private String userName;
 	private String password;
-	
+
 	//Profile-info
 	private String realName;
 	private String email;
 	private String profileText;
 	//Andre forslag: alder, køn, dato for oprettelse
-	
+
 	private List<Tweet> tweets;
 	private List<User> subscriptions;
 
@@ -24,8 +26,9 @@ public class User {
 		this.realName = "";
 		this.email = "";
 		this.profileText = profileText;
-		this.tweets = new ArrayList<Tweet>();
+		this.tweets = new LinkedList<Tweet>();	//Rita: Jeg foreslår at vi bruger en linkedList og så altid indsætter ved index 0;
 		this.subscriptions = new ArrayList<User>();
+		subscriptions.add(this);
 	}
 
 	public String getUserName() {
@@ -46,7 +49,7 @@ public class User {
 	}
 
 	public void addTweet(String text){
-		this.tweets.add(new Tweet(text,this));
+		this.tweets.add(0, new Tweet(text,this));
 	}
 	public void removeTweet(Tweet t){
 		tweets.remove(t);
@@ -58,7 +61,7 @@ public class User {
 		this.tweets = tweets;
 	}
 
-	public void addSubscriptions(User u){
+	public void addSubscription(User u){
 		subscriptions.add(u);
 	}
 	public void removeSubscription(User u){
@@ -79,7 +82,7 @@ public class User {
 		this.profileText = profileText;
 		System.out.println(this.profileText);
 	}
-	
+
 
 	public String getRealName() {
 		return realName;
@@ -133,6 +136,14 @@ public class User {
 		} else if (!userName.equals(other.userName))
 			return false;
 		return true;
+	}
+
+	public Stack<Tweet> getTweetStack(int howMany){
+		Stack<Tweet> tweetStack = new Stack<Tweet>();
+		for (int i = Math.min(howMany-1, tweets.size()-1); i >= 0; i--){
+			tweetStack.push(tweets.get(i));
+		}
+		return tweetStack;
 	}
 
 }
