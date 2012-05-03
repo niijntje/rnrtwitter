@@ -289,7 +289,7 @@ public class Service implements Serializable {
 		User u3 = createUser(new User("Jonas", "pw", ""));
 		User u4 = createUser(new User("Erik", "pw", ""));
 		User u5 = createUser(new User("Jorn", "pw", ""));
-		u5.setRealName("Jörn");
+		u5.setRealName("J�rn");
 		u1.addSubscription(u2);
 		u1.addSubscription(u5);
 		u2.addSubscription(u1);
@@ -304,14 +304,14 @@ public class Service implements Serializable {
 //		u4.setProfilePicFileName("Erik.png");
 //		u5.setProfilePicFileName("Jörn.png");
 
-		Tweet t1 = createNewTweet("Min allerførste tweet", u1);
+		Tweet t1 = createNewTweet("Min allerfoerste tweet", u1);
 		t1.getTime().setHours(t1.getTime().getHours()-10);
-		t1 = createNewTweet("Jeg kan også tweete!", u2);
+		t1 = createNewTweet("Jeg kan ogsaa tweete!", u2);
 		t1.getTime().setHours(t1.getTime().getHours()-9);
 		t1 = createNewTweet(
 				"Og her er MIN anden (eller er det 'mit andet?') tweet :-D", u2);
 		t1.getTime().setHours(t1.getTime().getHours()-8);
-		t1 = createNewTweet("Min anden tweet - nu vil jeg også tagge nogen: @Rita", u1);
+		t1 = createNewTweet("Min anden tweet - nu vil jeg ogsaa tagge nogen: @Rita", u1);
 		t1.getTime().setHours(t1.getTime().getHours()-7);
 		t1 = createNewTweet(
 				"CNN's Geek Out on Joss: Master of the Whedonverse http://t.co/wb0k3UXG #awesomesauce", u3);
@@ -322,9 +322,9 @@ public class Service implements Serializable {
 		t1.getTime().setHours(t1.getTime().getHours()-11);
 		t1 = createNewTweet("Thinking about becoming a summer organizer? The experience could change your life: http://OFA.BO/sKUzQE #SumOrg12", u5);
 		t1.getTime().setHours(t1.getTime().getHours()-10);
-		t1 = createNewTweet("Gad vide om mine studerende har fattet noget som helst om træer...?", u5);
+		t1 = createNewTweet("Gad vide om mine studerende har fattet noget som helst om traeer...?", u5);
 		t1.getTime().setHours(t1.getTime().getHours()-6);
-		t1 = createNewTweet("Jeg glæder mig helt vildt til at se de seje PrimeFaces-projekter i 11V i dag!", u4);
+		t1 = createNewTweet("Jeg glaeder mig helt vildt til at se de seje PrimeFaces-projekter i 11V i dag!", u4);
 		t1.getTime().setHours(t1.getTime().getHours()-5);
 		t1 = createNewTweet("Vi er bare alt for seje her hos RnR!", u1);
 		t1.getTime().setHours(t1.getTime().getHours()-4);
