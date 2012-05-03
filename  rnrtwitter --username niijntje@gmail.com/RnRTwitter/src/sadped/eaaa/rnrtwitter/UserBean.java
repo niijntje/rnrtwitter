@@ -320,6 +320,23 @@ public class UserBean implements Serializable {
 	public void setRemainingCharacters(int remainingCharacters) {
 		this.remainingCharacters = remainingCharacters;
 	}
+	
+	public boolean alreadySubscribed(){
+		return service.alreadySubscribed(currentUser, viewedUser);
+	}
+	
+	public boolean notSubscribed(){
+		return service.notSubscribed(currentUser, viewedUser);
+	}
 
+	public String subscribe(){
+		service.subscribe(currentUser, viewedUser);
+		return "profile";
+	}
+	
+	public String unSubscribe(){
+		service.unSubscribe(currentUser, viewedUser);
+		return "profile";
+	}
 
 }

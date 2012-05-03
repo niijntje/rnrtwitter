@@ -14,27 +14,47 @@
 </h:head>
 
 <h:body>
+
 	<h:panelGroup styleClass="toolbar">
 		<ui:insert name="header">
 			<ui:include src="/resources/templates/toolbar.xhtml" />
 		</ui:insert>
 	</h:panelGroup>
 
+	<p:notificationBar position="top" effect="slide" effectSpeed="slow"
+		widgetVar="subscribedBar" styleClass="top">
+		<h:outputText value="#{msgs.subscriptionAdded} #{userBean.viewedUser.userName}"
+			style="color:#FFCC00;font-size:36px;" />
+	</p:notificationBar>
+	<p:notificationBar position="top" effect="slide" effectSpeed="slow"
+		widgetVar="unSubscribedBar" styleClass="top">
+		<h:outputText value="#{msgs.unSubscribed} #{userBean.viewedUser.userName}"
+			style="color:#FFCC00;font-size:36px;" />
+	</p:notificationBar>
+	
 	<p:panel header="#{userBean.viewedUser.userName}">
 		<h:form>
 			<h:panelGrid columns="3" styleClass="infoGrid">
 				<p:commandButton value="#{msgs.subscribe}"
 					action="#{userBean.subscribe}"
-					rendered="#{userBean.otherUsersProfile()}"></p:commandButton>
+					rendered="#{userBean.otherUsersProfile()}" disabled="#{userBean.alreadySubscribed()}" ajax="false"
+					onmousedown="subscribedBar.show()"
+					onmouseout="subscribedBar.hide()" />
+				<p:commandButton value="#{msgs.unSubscribe}"
+					action="#{userBean.unSubscribe}"
+					rendered="#{userBean.otherUsersProfile()}" disabled="#{userBean.notSubscribed()}"  ajax="false"
+					onmousedown="unSubscribedBar.show()"
+					onmouseout="unSubscribedBar.hide()" />
+				<p:spacer></p:spacer>
 				<h:outputLabel value="#{msgs.editUser}"
 					rendered="#{userBean.ownProfile()}"></h:outputLabel>
-				<p:spacer></p:spacer>
-				<p:spacer></p:spacer>
+				<p:spacer rendered="#{userBean.ownProfile()}"></p:spacer>
+				
 
 				<h:outputText for="userName" value="#{msgs.userName}" />
 				<h:outputText value="#{userBean.viewedUser.userName}" />
-				<h:graphicImage library="profilePics" name="Rita.png"
-					styleClass="mediumImage" height="100" width="100" />
+
+				<h:graphicImage library="profilePics" name="#{userBean.viewedUser.userName}.png" height="100" width="100" />
 
 
 				<h:outputLabel for="password" value="#{msgs.changePassword}"
@@ -60,11 +80,11 @@
 					rendered="#{userBean.ownProfile()}"></p:message>
 
 				<h:outputText for="realName" value="#{msgs.realName}" />
-				<p:inplace emptyLabel="#{msgs.optional}" editor="true"
+				<p:inplace emptyLabel="#{userBean.viewedUser.userName} #{msgs.noRealName}" editor="true"
 					saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}"
 					disabled="#{userBean.otherUsersProfile()}">
 					<p:inputText id="realName" value="#{userBean.viewedUser.realName}"></p:inputText>
-					<p:watermark for="realName" value="#{msgs.realName}" />
+					<p:watermark for="realName" value="#{msgs.tellUsYourRealName}" />
 					<p:ajax event="save" listener="#{userBean.saveRealName}" />
 				</p:inplace>
 				<p:spacer></p:spacer>
@@ -80,7 +100,7 @@
 				<p:spacer></p:spacer>
 
 				<h:outputText for="aboutUser" value="#{msgs.aboutUser}  "></h:outputText>
-				<p:inplace emptyLabel="#{msgs.hasntWritten}" editor="true"
+				<p:inplace emptyLabel="#{userBean.viewedUser.userName} #{msgs.hasntWritten}" editor="true"
 					saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}"
 					disabled="#{userBean.otherUsersProfile()}">
 					<p:inputTextarea id="aboutUser" label="#{aboutUser}"
@@ -129,7 +149,7 @@
 							<p:panelGrid columns="2" header="#{subscription.userName}">
 								<p:commandLink action="#{userBean.setViewedUser(subscription)}"
 									ajax="false">
-									<h:graphicImage library="profilePics" name="Rita.png"
+									<h:graphicImage library="profilePics" name="#{subscription.userName}.png"
 										styleClass="smallImage" height="50" width="50" />
 									<h:outputText value="#{subscription.userName}"></h:outputText>
 								</p:commandLink>
@@ -146,15 +166,5 @@
 		</p:layoutUnit>
 	</p:layout>
 	<p:spacer height="20px" />
-	<p:panel rendered="#{userBean.ownProfile()}">
-		<h:form enctype="multipart/form-data">
-			<p:fileUpload
-				fileUploadListener="#{fileUploadController.handleFileUpload}"
-				mode="advanced" update="messages" sizeLimit="100000"
-				allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-
-			<p:growl id="messages" showDetail="true" />
-		</h:form>
-	</p:panel>
 </h:body>
 </html>

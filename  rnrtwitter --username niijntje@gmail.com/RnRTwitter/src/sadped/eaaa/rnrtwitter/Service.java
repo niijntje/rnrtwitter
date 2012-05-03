@@ -26,9 +26,10 @@ public class Service implements Serializable {
 		return newUser;
 	}
 
-	public void createNewTweet(String tweetText, User user){
+	public Tweet createNewTweet(String tweetText, User user){
 		User realUser = findUser(user);
-		realUser.addTweet(tweetText);
+		Tweet t = realUser.addTweet(tweetText);
+		return t;
 	}
 
 	private User findUser(User u) {
@@ -224,40 +225,11 @@ public class Service implements Serializable {
 	}
 
 
-	public void createSomeData(){
-		User u1 = createUser(new User("Rasmus", "pw", ""));
-		User u2 = createUser(new User("Rita", "pw", ""));
-		User u3 = createUser(new User("Jonas", "pw", ""));
-		User u4 = createUser(new User("Erik", "pw", ""));
-		User u5 = createUser(new User("Jörn", "pw", ""));
-		u1.addSubscription(u2);
-		u2.addSubscription(u1);
-		u2.addSubscription(u3);
-		u2.addSubscription(u4);
-		u2.addSubscription(u5);
-
-		createNewTweet("Min allerførste tweet", u1);
-		createNewTweet("Jeg kan også tweete!", u2);
-		createNewTweet(
-				"Og her er MIN anden (eller er det 'mit andet?') tweet :-D", u2);
-		createNewTweet("Min anden tweet - nu vil jeg også tagge nogen: @Rita", u1);
-		createNewTweet(
-				"CNN's Geek Out on Joss: Master of the Whedonverse http://t.co/wb0k3UXG #awesomesauce", u3);
-		createNewTweet("Need a place to store your ideas and projects? We think Wunderkit is the perfect tool for the job: http://t.co/xedRpERf", u3);
-		createNewTweet("Thanks for all your comments on the new mag so far! If you haven't seen the issue yet, it's officially on sale from tomorrow!", u4);
-		createNewTweet("Thinking about becoming a summer organizer? The experience could change your life: http://OFA.BO/sKUzQE #SumOrg12", u5);
-		createNewTweet("Gad vide om mine studerende har fattet noget som helst om træer...?", u5);
-		createNewTweet("Jeg glæder mig helt vildt til at se de seje PrimeFaces-projekter i 11V i dag!", u4);
-		createNewTweet("Vi er bare alt for seje her hos RnR!", u1);
-		createNewTweet("RT @Rasmus: Vi er bare alt for seje her hos RnR!", u2);
-		createNewTweet("@Rita Det er fordi vi bruger Mac! ;-)", u1);
-	}
-
 	public String getLastTweet(User u) {
 		User realUser = findUser(u);
 		String lastTweet = " ";
 		if (realUser==null){
-//			throw new RuntimeException("User not found :-(");
+			//			throw new RuntimeException("User not found :-(");
 			lastTweet = "Service says: Didn't find user :-(";
 		}
 		else if(realUser.getTweets().size()>0){
@@ -276,5 +248,91 @@ public class Service implements Serializable {
 		}
 		return subscriptions;
 	}
+
+	public void subscribe(User currentUser, User subscription) {
+		User realCurrent = findUser(currentUser);
+		User realSubscription = findUser(subscription);
+		realCurrent.addSubscription(realSubscription);
+	}
+	
+	public void unSubscribe(User currentUser, User viewedUser) {
+		User realCurrent = findUser(currentUser);
+		User realViewed = findUser(viewedUser);
+		realCurrent.removeSubscription(realViewed);
+	}
+
+	public boolean alreadySubscribed(User currentUser, User viewedUser) {
+		User realCurrent = findUser(currentUser);
+		User realViewed = findUser(viewedUser);
+		if (realCurrent!=null && realViewed != null){
+			return realCurrent.getSubscriptions().contains(realViewed);
+		}
+		else return true;
+	}
+	
+	public boolean notSubscribed(User currentUser, User viewedUser){
+		User realCurrent = findUser(currentUser);
+		User realViewed = findUser(viewedUser);
+		if (realCurrent!=null && realViewed != null){
+			return !realCurrent.getSubscriptions().contains(realViewed);
+		}
+		else return true;
+	}
+
+	
+
+
+	public void createSomeData(){
+		User u1 = createUser(new User("Rasmus", "pw", ""));
+		User u2 = createUser(new User("Rita", "pw", ""));
+		User u3 = createUser(new User("Jonas", "pw", ""));
+		User u4 = createUser(new User("Erik", "pw", ""));
+		User u5 = createUser(new User("Jorn", "pw", ""));
+		u5.setRealName("Jörn");
+		u1.addSubscription(u2);
+		u1.addSubscription(u5);
+		u2.addSubscription(u1);
+		u2.addSubscription(u3);
+		u2.addSubscription(u4);
+		u3.addSubscription(u2);
+		u4.addSubscription(u2);
+		u5.addSubscription(u2);
+//		u1.setProfilePicFileName("Rasmus.jpg");
+//		u2.setProfilePicFileName("Rita.png");
+//		u3.setProfilePicFileName("Jonas.jpg");
+//		u4.setProfilePicFileName("Erik.png");
+//		u5.setProfilePicFileName("Jörn.png");
+
+		Tweet t1 = createNewTweet("Min allerførste tweet", u1);
+		t1.getTime().setHours(t1.getTime().getHours()-10);
+		t1 = createNewTweet("Jeg kan også tweete!", u2);
+		t1.getTime().setHours(t1.getTime().getHours()-9);
+		t1 = createNewTweet(
+				"Og her er MIN anden (eller er det 'mit andet?') tweet :-D", u2);
+		t1.getTime().setHours(t1.getTime().getHours()-8);
+		t1 = createNewTweet("Min anden tweet - nu vil jeg også tagge nogen: @Rita", u1);
+		t1.getTime().setHours(t1.getTime().getHours()-7);
+		t1 = createNewTweet(
+				"CNN's Geek Out on Joss: Master of the Whedonverse http://t.co/wb0k3UXG #awesomesauce", u3);
+		t1.getTime().setHours(t1.getTime().getHours()-13);
+		t1 = createNewTweet("Need a place to store your ideas and projects? We think Wunderkit is the perfect tool for the job: http://t.co/xedRpERf", u3);
+		t1.getTime().setHours(t1.getTime().getHours()-12);
+		t1 = createNewTweet("Thanks for all your comments on the new mag so far! If you haven't seen the issue yet, it's officially on sale from tomorrow!", u4);
+		t1.getTime().setHours(t1.getTime().getHours()-11);
+		t1 = createNewTweet("Thinking about becoming a summer organizer? The experience could change your life: http://OFA.BO/sKUzQE #SumOrg12", u5);
+		t1.getTime().setHours(t1.getTime().getHours()-10);
+		t1 = createNewTweet("Gad vide om mine studerende har fattet noget som helst om træer...?", u5);
+		t1.getTime().setHours(t1.getTime().getHours()-6);
+		t1 = createNewTweet("Jeg glæder mig helt vildt til at se de seje PrimeFaces-projekter i 11V i dag!", u4);
+		t1.getTime().setHours(t1.getTime().getHours()-5);
+		t1 = createNewTweet("Vi er bare alt for seje her hos RnR!", u1);
+		t1.getTime().setHours(t1.getTime().getHours()-4);
+		t1 = createNewTweet("RT @Rasmus: Vi er bare alt for seje her hos RnR!", u2);
+		t1.getTime().setHours(t1.getTime().getHours()-3);
+		t1 = createNewTweet("@Rita Det er fordi vi bruger Mac! ;-)", u1);
+		t1.getTime().setHours(t1.getTime().getHours()-2);
+		
+	}
+
 
 }

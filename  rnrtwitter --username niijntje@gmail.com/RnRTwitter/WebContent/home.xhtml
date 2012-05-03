@@ -24,7 +24,7 @@
 	<p:spacer height="15px" />
 	<h:form id="tweetStreamForm">
 		<p:layout style="min-width:700px;min-height:300px;" id="layout">
-			<p:layoutUnit header="#{msgs.tweetStream}" position="west"
+			<p:layoutUnit header="#{msgs.tweetStream}" position="center"
 				maxSize="500" minSize="500">
 
 				<h:panelGroup styleClass="tweet">
@@ -34,16 +34,21 @@
 
 					<h:dataTable value="#{userBean.tweetStream}" var="tweet" border="0">
 						<h:column>
+						
 							<p:fieldset legend="#{tweet.user}">
+							<h:panelGrid columns="2" >
+							<h:graphicImage library="profilePics" name="#{tweet.user}.png"
+										styleClass="smallImage" height="50" width="50" />
 								<h:outputText value="#{tweet.text}" styleClass="tweets"></h:outputText>
+							</h:panelGrid>
 							</p:fieldset>
 						</h:column>
 					</h:dataTable>
 					<p:spacer height="10px" />
 				</h:panelGroup>
 			</p:layoutUnit>
-			<p:layoutUnit position="center" header="#{msgs.tweet}" minSize="200"
-				maxSize="200">
+			<p:layoutUnit position="east" header="#{msgs.tweet}" minSize="200"
+				maxSize="500">
 				<p:watermark for="newTweetTxt" value="#{msgs.writeTweet}" />
 				<h:panelGrid columns="2">
 					<p:inputTextarea id="newTweetTxt" value="#{userBean.newTweetText}"
