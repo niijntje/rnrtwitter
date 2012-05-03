@@ -264,7 +264,7 @@ public class UserBean implements Serializable {
 		return "profile";
 	}
 
-	public String viewUser(Tweet t){
+	public String viewTweetUser(Tweet t){
 		setViewedUser(service.getCleanCopy(t.getUser()));
 		return "profile";
 	}
