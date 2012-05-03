@@ -21,6 +21,7 @@ public class User implements Serializable{
 	private String realName;
 	private String email;
 	private String profileText;
+	private String profilePicFileName;
 	//Andre forslag: alder, køn, dato for oprettelse
 
 	private List<Tweet> tweets;
@@ -54,8 +55,10 @@ public class User implements Serializable{
 		this.password = password;
 	}
 
-	public void addTweet(String text){
-		this.tweets.add(0, new Tweet(text,this));
+	public Tweet addTweet(String text){
+		Tweet t = new Tweet(text,this);
+		this.tweets.add(0, t);
+		return t;
 	}
 	public void removeTweet(Tweet t){
 		tweets.remove(t);
@@ -149,6 +152,14 @@ public class User implements Serializable{
 			tweetStack.push(tweets.get(i));
 		}
 		return tweetStack;
+	}
+
+	public String getProfilePicFileName() {
+		return profilePicFileName;
+	}
+
+	public void setProfilePicFileName(String profilePicFileName) {
+		this.profilePicFileName = profilePicFileName;
 	}
 
 }
