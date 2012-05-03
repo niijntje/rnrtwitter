@@ -22,53 +22,53 @@
 	<p:panel header="Welcome #{userBean.currentUser.userName}!"
 		collapsed="true" />
 	<p:spacer height="15px" />
-<h:form id="tweetStreamForm">
-	<p:layout style="min-width:700px;min-height:700px;" id="layout">
-		<p:layoutUnit header="#{msgs.tweetStream}" position="center"
-			maxSize="500" minSize="500">
+	<h:form id="tweetStreamForm">
+		<p:layout style="min-width:700px;min-height:700px;" id="layout">
+			<p:layoutUnit header="#{msgs.tweetStream}" position="center"
+				maxSize="500" minSize="500">
 
-			<h:panelGroup styleClass="tweet">
-				<p:spacer height="10px" />
-				<p:spacer height="10px" />
+				<h:panelGroup styleClass="tweet">
+					<p:spacer height="10px" />
+					<p:spacer height="10px" />
 
-				
+
 					<h:dataTable value="#{userBean.tweetStream}" var="tweet" border="0">
 						<h:column>
-
-							<p:fieldset legend="#{tweet.user}">
-								<h:panelGrid columns="2">
-									<h:graphicImage library="profilePics" name="#{tweet.user}.png"
-										styleClass="smallImage" height="50" width="50" />
-									<h:outputText value="#{tweet.text}" styleClass="tweets"></h:outputText>
-								</h:panelGrid>
-							</p:fieldset>
+							<p:commandLink action="#{userBean.viewTweetUser(tweet)}">
+								<p:fieldset legend="#{tweet.user}">
+									<h:panelGrid columns="2">
+										<h:graphicImage library="profilePics" name="#{tweet.user}.png"
+											styleClass="smallImage" height="50" width="50" />
+										<h:outputText value="#{tweet.text}" styleClass="tweets"></h:outputText>
+									</h:panelGrid>
+								</p:fieldset>
+							</p:commandLink>
 						</h:column>
 					</h:dataTable>
-				
-				<p:spacer height="10px" />
-			</h:panelGroup>
-		</p:layoutUnit>
 
-		<p:layoutUnit position="east" minSize="200" maxSize="500">
+					<p:spacer height="10px" />
+				</h:panelGroup>
+			</p:layoutUnit>
 
-			<p:panel header="#{msgs.tweet}">
-			
-				<p:watermark for="newTweetTxt" value="#{msgs.writeTweet}" />
-				<h:panelGrid columns="2">
-					<p:inputTextarea id="newTweetTxt" value="#{userBean.newTweetText}"
-						rows="2" cols="45" maxlength="144">
-						<p:ajax event="keyup" update="remainingCharacters" />
-					</p:inputTextarea>
-					<p:commandButton value="#{msgs.tweet}"
-						action="#{userBean.createNewTweet}" update="tweetStreamForm" />
-					<h:outputText styleClass="tweet" id="remainingCharacters"
-						value="Remaining characters: #{userBean.remainingCharacters}" />
-				</h:panelGrid>
-			
-			</p:panel>
-			<p:spacer height="20px"></p:spacer>
-			<p:panel header="#{msgs.subscriptions}">
-				
+			<p:layoutUnit position="east" minSize="200" maxSize="500">
+
+				<p:panel header="#{msgs.tweet}">
+
+					<p:watermark for="newTweetTxt" value="#{msgs.writeTweet}" />
+					<h:panelGrid columns="2">
+						<p:inputTextarea id="newTweetTxt" value="#{userBean.newTweetText}"
+							rows="2" cols="45" maxlength="144">
+							<p:ajax event="keyup" update="remainingCharacters" />
+						</p:inputTextarea>
+						<p:commandButton value="#{msgs.tweet}"
+							action="#{userBean.createNewTweet}" update="tweetStreamForm" />
+						<h:outputText styleClass="tweet" id="remainingCharacters"
+							value="Remaining characters: #{userBean.remainingCharacters}" />
+					</h:panelGrid>
+
+				</p:panel>
+				<p:spacer height="20px"></p:spacer>
+				<p:panel header="#{msgs.subscriptions}">
 					<p:dataGrid columns="2" value="#{userBean.getMySubscriptions()}"
 						var="subscription" border="0">
 						<h:column>
@@ -85,16 +85,16 @@
 
 						</h:column>
 					</p:dataGrid>
-				
-			</p:panel>
+
+				</p:panel>
 
 
 
-		</p:layoutUnit>
+			</p:layoutUnit>
 
 
-	</p:layout>
-</h:form>
+		</p:layout>
+	</h:form>
 
 
 </h:body>
