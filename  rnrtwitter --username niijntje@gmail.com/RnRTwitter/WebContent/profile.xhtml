@@ -146,8 +146,8 @@
 					<p:dataGrid columns="2" value="#{userBean.getSubscriptions()}"
 						var="subscription" border="0">
 						<h:column>
-							<p:panelGrid columns="2" header="#{subscription.userName}">
-								<p:commandLink action="#{userBean.setViewedUser(subscription)}"
+							<p:panelGrid columns="2">
+								<p:commandLink action="#{userBean.viewUser(subscription)}"
 									ajax="false">
 									<h:graphicImage library="profilePics" name="#{subscription.userName}.png"
 										styleClass="smallImage" height="50" width="50" />
