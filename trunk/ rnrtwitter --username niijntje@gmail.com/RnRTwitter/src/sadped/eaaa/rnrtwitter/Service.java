@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 @Named
-@SessionScoped
+@ApplicationScoped
 public class Service implements Serializable {
 
 	private ArrayList<User> registeredUsers;
