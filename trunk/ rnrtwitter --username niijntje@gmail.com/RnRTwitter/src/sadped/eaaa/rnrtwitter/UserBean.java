@@ -265,7 +265,7 @@ public class UserBean implements Serializable {
 	}
 
 	public String viewUser(Tweet t){
-		viewedUser = service.getCleanCopy(t.getUser());
+		setViewedUser(service.getCleanCopy(t.getUser()));
 		return "profile";
 	}
 
@@ -304,8 +304,12 @@ public class UserBean implements Serializable {
 	}
 
 	public List<User> getSubscriptions(){
-		System.out.println(viewedUser+"'s subscriptions: "+service.getSubscriptions(viewedUser));
 		return service.getSubscriptions(viewedUser);
+	}
+	
+	public List<User> getMySubscriptions(){
+		setViewedUser(currentUser);
+		return getSubscriptions();
 	}
 	
 	public String getLastTweet(User u){

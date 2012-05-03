@@ -245,6 +245,7 @@ public class Service implements Serializable {
 			for (User u: realUser.getSubscriptions()){
 				subscriptions.add(getCleanCopy(u));
 			}
+			subscriptions.remove(realUser);
 		}
 		return subscriptions;
 	}
