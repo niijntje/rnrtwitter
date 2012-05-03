@@ -73,7 +73,7 @@
 				<p:message id="pwrepeaterror" for="repeatpassword"></p:message>
 			</h:panelGrid>
 			<p:commandButton value="#{msgs.createNewUser}"
-				action="#{userBean.createNew}" ajax="false"></p:commandButton>
+				action="#{userBean.createNew}" update="pwrepeaterror"></p:commandButton>
 		</p:panel>
 	</h:form>
 </h:body>
