@@ -42,7 +42,7 @@
 			<p:commandButton value="#{msgs.login}"
 				action="#{userBean.verifyUser}" update="userNameError pwError">
 				<p:effect id="effect" event="click" type="shake" for="password"
-					speed="200" />
+					speed="200" delay="500"/>
 			</p:commandButton>
 		</p:panel>
 	</h:form>
