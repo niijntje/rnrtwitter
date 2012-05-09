@@ -56,8 +56,8 @@
 				<p:spacer />
 
 				<h:outputLabel value="#{msgs.editUser}"
-					rendered="#{userBean.ownProfile()}"></h:outputLabel>
-				<p:spacer rendered="#{userBean.ownProfile()}"></p:spacer>
+					rendered="#{userBean.ownProfile()}"/>
+				<p:spacer rendered="#{userBean.ownProfile()}"/>
 
 
 				<h:outputText for="userName" value="#{msgs.userName}" />
@@ -76,7 +76,7 @@
 					<p:ajax event="keyup" render="pwerror"></p:ajax>
 				</p:password>
 				<p:message id="pwerror" for="password"
-					rendered="#{userBean.ownProfile()}"></p:message>
+					rendered="#{userBean.ownProfile()}"/>
 
 				<h:outputLabel for="repeatpassword" value="#{msgs.repeatPassword}"
 					rendered="#{userBean.ownProfile()}" />
@@ -84,19 +84,19 @@
 					value="#{userBean.viewedUser.password}" required="true"
 					match="password" immediate="true"
 					rendered="#{userBean.ownProfile()}">
-					<p:ajax event="keyup" render="pwrepeaterror"></p:ajax>
+					<p:ajax event="keyup" render="pwrepeaterror"/>
 				</p:password>
 				<p:message id="pwrepeaterror" for="repeatpassword"
-					rendered="#{userBean.ownProfile()}"></p:message>
+					rendered="#{userBean.ownProfile()}"/>
 
 				<h:outputText for="realName" value="#{msgs.realName}" />
 				<p:inplace
 					emptyLabel="#{userBean.viewedUser.userName} #{msgs.noRealName}"
 					editor="true" saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}"
 					disabled="#{userBean.otherUsersProfile()}">
-					<p:inputText id="realName" value="#{userBean.viewedUser.realName}"></p:inputText>
-					<p:watermark for="realName" value="#{msgs.tellUsYourRealName}" />
-					<p:ajax event="save" listener="#{userBean.saveRealName}" />
+					<p:inputText id="realName" value="#{userBean.viewedUser.realName}"/>
+					<p:watermark for="realName" value="#{msgs.tellUsYourRealName}"/>
+					<p:ajax event="save" listener="#{userBean.saveRealName}"/>
 				</p:inplace>
 				<p:spacer></p:spacer>
 
@@ -104,13 +104,13 @@
 				<p:inplace emptyLabel="#{msgs.noMail}" editor="true"
 					saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}"
 					disabled="#{userBean.otherUsersProfile()}">
-					<p:inputText id="email" value="#{userBean.viewedUser.email}"></p:inputText>
+					<p:inputText id="email" value="#{userBean.viewedUser.email}"/>
 					<p:watermark for="email" value="#{msgs.yourEmail}" />
 					<p:ajax event="save" listener="#{userBean.saveEmail}" />
 				</p:inplace>
 				<p:spacer></p:spacer>
 
-				<h:outputText for="aboutUser" value="#{msgs.aboutUser}  "></h:outputText>
+				<h:outputText for="aboutUser" value="#{msgs.aboutUser}  "/>
 				<p:inplace
 					emptyLabel="#{userBean.viewedUser.userName} #{msgs.hasntWritten}"
 					editor="true" saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}"
@@ -121,7 +121,7 @@
 						rows="5" cols="45"/>
 
 					<!-- p:resizable for="aboutUser" minWidth="20" minHeight="40" maxWidth="50" maxHeight="100"></p:resizable-->
-					<p:watermark for="aboutUser" value="#{msgs.writeSomething}"></p:watermark>
+					<p:watermark for="aboutUser" value="#{msgs.writeSomething}"/>
 					<p:ajax event="save" listener="#{userBean.saveProfileText}" />
 					<p:ajax event="cancel" listener="#{userBean.cancelProfileTextEdit}" />
 				</p:inplace>
@@ -171,7 +171,7 @@
 									<h:graphicImage library="profilePics"
 										name="#{subscription.userName}.png" styleClass="smallImage"
 										height="50" width="50" />
-									<h:outputText value="#{subscription.userName}"></h:outputText>
+									<h:outputText value="#{subscription.userName}"/>
 								</p:commandLink>
 
 							</p:panelGrid>

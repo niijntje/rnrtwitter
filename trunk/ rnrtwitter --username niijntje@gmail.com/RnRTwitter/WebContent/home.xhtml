@@ -77,7 +77,7 @@
 									<h:graphicImage library="profilePics"
 										name="#{subscription.userName}.png" styleClass="smallImage"
 										height="50" width="50" />
-									<h:outputText value="#{subscription.userName}"></h:outputText>
+									<h:outputText value="#{subscription.userName}"/>
 								</p:commandLink>
 
 							</p:panelGrid>
@@ -86,7 +86,7 @@
 					</p:dataGrid>
 				
 				</p:panel>
-				<p:spacer height="20px"></p:spacer>
+				<p:spacer height="20px"/>
 				<p:panel header="#{msgs.tagCloud}">
 					<p:tagCloud model="#{service.tagCloudModel}"/>
 				</p:panel>
