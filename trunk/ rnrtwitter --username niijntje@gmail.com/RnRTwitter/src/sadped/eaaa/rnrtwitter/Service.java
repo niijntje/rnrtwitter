@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.SessionScoped;
@@ -29,8 +31,36 @@ public class Service implements Serializable {
 
 	public Tweet createNewTweet(String tweetText, User user){
 		User realUser = findUser(user);
-		Tweet t = realUser.addTweet(tweetText);
-		return t;
+		String regEx="@[A-Za-z0-9]+";
+		Pattern pattern = Pattern.compile(regEx);
+		Matcher matcher = pattern.matcher(tweetText);
+		ArrayList<User> taggedUsers = new ArrayList<User>();
+		while (matcher.find()){
+			String tagged = matcher.group().substring(1);
+			User u = findUser(tagged);
+			if (u != null){
+				taggedUsers.add(u);
+			}
+		}
+		Tweet tweet = realUser.addTweet(tweetText, taggedUsers);
+		for (User tagged : taggedUsers){
+			tagged.addMention(tweet);
+		}
+		return tweet;
+	}
+	
+	public User findUser(String userName){
+		User found = null;
+		int i = 0;
+		while (found == null && i < registeredUsers.size()){
+			if (registeredUsers.get(i).getUserName().equalsIgnoreCase(userName)){
+				
+				found = registeredUsers.get(i);
+				
+			}
+			i++;
+		}
+		return found;
 	}
 
 	private User findUser(User u) {
@@ -176,14 +206,10 @@ public class Service implements Serializable {
 
 	public List<Tweet> recentTweets(User viewedUser, int howMany) {
 		User u = findUser(viewedUser);
-		System.out.println("User-parameter fra userbean: "+viewedUser);
-		System.out.println("Service.findUser: "+ u);
 		List<Tweet> tweets = new ArrayList<Tweet>();
 		if (u != null){
 			tweets = u.getTweets();
-			System.out.println(tweets);
 		}
-		System.out.println(tweets);
 		if (tweets.size() < howMany){
 			return tweets;
 		}
@@ -290,7 +316,7 @@ public class Service implements Serializable {
 		User u3 = createUser(new User("Jonas", "pw", ""));
 		User u4 = createUser(new User("Erik", "pw", ""));
 		User u5 = createUser(new User("Jorn", "pw", ""));
-		u5.setRealName("Jšrn");
+		u5.setRealName("Jï¿½rn");
 		u1.addSubscription(u2);
 		u1.addSubscription(u5);
 		u2.addSubscription(u1);

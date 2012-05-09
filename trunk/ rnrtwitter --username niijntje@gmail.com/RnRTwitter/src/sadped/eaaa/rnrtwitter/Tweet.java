@@ -1,5 +1,6 @@
 package sadped.eaaa.rnrtwitter;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -8,11 +9,13 @@ public class Tweet implements Comparable<Tweet>{
 	private String text;
 	private User user;
 	private Date time;
+	private ArrayList<User> taggedUsers;
 	
-	public Tweet(String text, User user) {
+	public Tweet(String text, User user, ArrayList<User> taggedUsers) {
 		this.text = text;
 		this.user = user;
 		this.time = new Date();
+		this.setTaggedUsers(taggedUsers);
 	}
 
 	public String getText() {
@@ -47,5 +50,13 @@ public class Tweet implements Comparable<Tweet>{
 	@Override
 	public int compareTo(Tweet otherTweet) {
 		return this.time.compareTo(otherTweet.getTime());
+	}
+
+	public ArrayList<User> getTaggedUsers() {
+		return taggedUsers;
+	}
+
+	public void setTaggedUsers(ArrayList<User> taggedUsers) {
+		this.taggedUsers = taggedUsers;
 	}
 }

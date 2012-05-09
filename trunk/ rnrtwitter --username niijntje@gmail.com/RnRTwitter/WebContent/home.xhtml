@@ -32,15 +32,20 @@
 
 					<h:dataTable value="#{userBean.tweetStream}" var="tweet" border="0">
 						<h:column>
-							<p:commandLink action="#{userBean.viewTweetUser(tweet)}">
-								<p:fieldset legend="#{tweet.user}">
-									<h:panelGrid columns="2">
+
+							<p:fieldset legend="#{tweet.user}">
+								<h:panelGrid columns="2">
+									<p:commandLink action="#{userBean.viewTweetUser(tweet)}">
 										<h:graphicImage library="profilePics" name="#{tweet.user}.png"
 											styleClass="smallImage" height="50" width="50" />
-										<h:outputText value="#{tweet.text}" styleClass="tweets"/>
-									</h:panelGrid>
-								</p:fieldset>
-							</p:commandLink>
+									</p:commandLink>
+									<h:outputText value="#{tweet.text}" styleClass="tweets"
+										escape="false"></h:outputText>
+
+
+								</h:panelGrid>
+							</p:fieldset>
+
 						</h:column>
 					</h:dataTable>
 

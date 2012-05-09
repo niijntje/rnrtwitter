@@ -126,7 +126,7 @@
 
 					<h:column>
 						<p:fieldset legend="#{tweet.user}">
-							<h:outputText value="#{tweet.text}"></h:outputText>
+							<h:outputText value="#{tweet.text}" escape="false"></h:outputText>
 						</p:fieldset>
 					</h:column>
 				</h:dataTable>
