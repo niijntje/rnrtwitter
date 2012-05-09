@@ -12,10 +12,6 @@ import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.model.tagcloud.DefaultTagCloudItem;
-import org.primefaces.model.tagcloud.DefaultTagCloudModel;
-import org.primefaces.model.tagcloud.TagCloudModel;
-
 /**
  * @author nijntje
  * 
@@ -153,7 +149,7 @@ public class UserBean implements Serializable {
 	}
 
 	public User resetViewedUser() {
-		setViewedUser(new User(viewedUser.getUserName(), "", ""));
+		setViewedUser(new User("", "", ""));
 		return viewedUser;
 	}
 
@@ -179,16 +175,9 @@ public class UserBean implements Serializable {
 			this.newTweetText = "";
 		}
 	}
-	
-//	public void tweetTags(String tweetText){
-//		if(tweetText.contains("@")){
-//
-//		}
-//	}
 
 	public String logout() {
 		resetCurrentUser();
-		resetViewedUser();
 		return "";
 	}
 

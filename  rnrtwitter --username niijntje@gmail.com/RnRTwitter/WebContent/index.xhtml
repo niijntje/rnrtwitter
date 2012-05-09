@@ -26,7 +26,7 @@
 					required="true" requiredMessage="#{msgs.requiredUserName}"
 					validator="#{userBean.validateUserName}"
 					validatorMessage="#{msgs.validateUserName}">
-					<f:ajax render="userNameError" />
+					<f:ajax render="userNameError"/>
 				</p:inputText>
 				<p:message id="userNameError" for="userName" />
 
@@ -34,11 +34,16 @@
 				<p:password id="password" value="#{userBean.currentUser.password}"
 					required="true" requiredMessage="#{msgs.requiredPassword}"
 					validator="#{userBean.validateUserPassword}"
-					validatorMessage="#{msgs.validatePassword}" />
+					validatorMessage="#{msgs.validatePassword}">
+				</p:password>
+
 				<p:message id="pwError" for="password" />
 			</h:panelGrid>
 			<p:commandButton value="#{msgs.login}"
-				action="#{userBean.verifyUser}" update="userNameError pwError" />
+				action="#{userBean.verifyUser}" update="userNameError pwError">
+				<p:effect id="effect" event="click" type="shake" for="password"
+					speed="200" />
+			</p:commandButton>
 		</p:panel>
 	</h:form>
 	<p:spacer height="10px" />
@@ -50,15 +55,15 @@
 				<p:inputText id="userName" value="#{userBean.currentUser.userName}"
 					validator="#{userBean.validateNewUserName}"
 					validatorMessage="#{msgs.validateNewUserName}">
-					<f:ajax event="keyup" render="availableError"></f:ajax>
+					<f:ajax event="keyup" render="availableError"/>
 				</p:inputText>
-				<p:message id="availableError" for="userName" display="true"></p:message>
+				<p:message id="availableError" for="userName" display="true"/>
 
 				<h:outputLabel for="password" value="#{msgs.password}" />
 				<p:password id="password" value="#{userBean.currentUser.password}"
 					label="#{msgs.password}" required="true" feedback="true"
 					inline="true" immediate="">
-					<p:ajax event="keyup" render="pwerror"></p:ajax>
+					<p:ajax event="keyup" render="pwerror"/>
 				</p:password>
 				<p:message id="pwerror" for="password" />
 
