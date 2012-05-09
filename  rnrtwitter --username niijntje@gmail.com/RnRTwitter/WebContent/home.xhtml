@@ -15,9 +15,7 @@
 
 <h:body>
 	<h:panelGroup styleClass="toolbar">
-		<ui:insert name="header">
-			<ui:include src="/resources/templates/toolbar.xhtml" />
-		</ui:insert>
+		<ui:include src="/resources/templates/toolbar.xhtml" />
 	</h:panelGroup>
 	<p:panel header="Welcome #{userBean.currentUser.userName}!"
 		collapsed="true" />
@@ -39,7 +37,7 @@
 									<h:panelGrid columns="2">
 										<h:graphicImage library="profilePics" name="#{tweet.user}.png"
 											styleClass="smallImage" height="50" width="50" />
-										<h:outputText value="#{tweet.text}" styleClass="tweets"></h:outputText>
+										<h:outputText value="#{tweet.text}" styleClass="tweets"/>
 									</h:panelGrid>
 								</p:fieldset>
 							</p:commandLink>

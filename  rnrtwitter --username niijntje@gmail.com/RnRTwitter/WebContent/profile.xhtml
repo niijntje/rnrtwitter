@@ -14,11 +14,8 @@
 </h:head>
 
 <h:body>
-
 	<h:panelGroup styleClass="toolbar">
-		<ui:insert name="header">
 			<ui:include src="/resources/templates/toolbar.xhtml" />
-		</ui:insert>
 	</h:panelGroup>
 
 	<p:notificationBar position="top" effect="slide" effectSpeed="slow"
@@ -105,7 +102,7 @@
 					disabled="#{userBean.otherUsersProfile()}">
 					<p:inputTextarea id="aboutUser" label="#{aboutUser}"
 						value="#{userBean.viewedUser.profileText}"
-						styleClass="largeTextArea"></p:inputTextarea>
+						styleClass="largeTextArea"/>
 					<!-- p:resizable for="aboutUser" minWidth="20" minHeight="40" maxWidth="50" maxHeight="100"></p:resizable-->
 					<p:watermark for="aboutUser" value="#{msgs.writeSomething}"></p:watermark>
 					<p:ajax event="save" listener="#{userBean.saveProfileText}" />
