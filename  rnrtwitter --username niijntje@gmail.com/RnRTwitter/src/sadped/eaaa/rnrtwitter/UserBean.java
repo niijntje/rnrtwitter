@@ -153,7 +153,7 @@ public class UserBean implements Serializable {
 	}
 
 	public User resetViewedUser() {
-		setViewedUser(new User("", "", ""));
+		setViewedUser(new User(viewedUser.getUserName(), "", ""));
 		return viewedUser;
 	}
 
@@ -189,7 +189,7 @@ public class UserBean implements Serializable {
 	public String logout() {
 		resetCurrentUser();
 		resetViewedUser();
-		return "index";
+		return "";
 	}
 
 	public List<String> autoCompleteSearch(String input) {

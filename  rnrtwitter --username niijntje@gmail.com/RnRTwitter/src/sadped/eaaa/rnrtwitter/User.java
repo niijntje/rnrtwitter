@@ -27,9 +27,9 @@ public class User {
 		this.realName = "";
 		this.email = "";
 		this.profileText = profileText;
-		this.tweets = new LinkedList<Tweet>(); // Rita: Jeg foreslår at vi
-												// bruger en linkedList og så
-												// altid indsætter ved index 0;
+		this.tweets = new LinkedList<Tweet>(); // Rita: Jeg foreslaar at vi
+												// bruger en linkedList og saa
+												// altid indsaetter ved index 0;
 		this.subscriptions = new ArrayList<User>();
 		subscriptions.add(this);
 	}
