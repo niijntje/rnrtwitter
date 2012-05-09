@@ -20,6 +20,15 @@ public class User {
 
 	private List<Tweet> tweets;
 	private List<User> subscriptions;
+	private List<Tweet> mentions;
+
+	public List<Tweet> getMentions() {
+		return mentions;
+	}
+
+	public void setMentions(List<Tweet> mentions) {
+		this.mentions = mentions;
+	}
 
 	public User(String userName, String password, String profileText) {
 		this.userName = userName;
@@ -30,6 +39,7 @@ public class User {
 		this.tweets = new LinkedList<Tweet>(); // Rita: Jeg foreslaar at vi
 												// bruger en linkedList og saa
 												// altid indsaetter ved index 0;
+		this.mentions = new LinkedList<Tweet>();
 		this.subscriptions = new ArrayList<User>();
 		subscriptions.add(this);
 	}
@@ -55,8 +65,10 @@ public class User {
 		this.password = password;
 	}
 
-	public Tweet addTweet(String text) {
-		Tweet t = new Tweet(text, this);
+
+	public Tweet addTweet(String text, ArrayList<User> taggedUsers){
+		Tweet t = new Tweet(text,this,taggedUsers);
+
 		this.tweets.add(0, t);
 		return t;
 	}
@@ -165,6 +177,11 @@ public class User {
 
 	public void setProfilePicFileName(String profilePicFileName) {
 		this.profilePicFileName = profilePicFileName;
+	}
+
+	public void addMention(Tweet tweet) {
+		mentions.add(tweet);
+		
 	}
 
 }
