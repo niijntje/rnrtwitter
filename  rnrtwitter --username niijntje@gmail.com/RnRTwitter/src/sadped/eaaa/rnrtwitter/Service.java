@@ -44,7 +44,7 @@ public class Service implements Serializable {
 
 	public Tweet createNewTweet(String tweetText, User user){
 		User realUser = findUser(user);
-		
+
 		//Tagging af usere med @:
 		String userTagRegEx="@[A-Za-z0-9]+";
 		Pattern userTagPattern = Pattern.compile(userTagRegEx);
@@ -62,7 +62,7 @@ public class Service implements Serializable {
 		for (User tagged : taggedUsers){
 			tagged.addMention(tweet);
 		}
-		
+
 		//Tagging af emner med #:
 		String subjectTagRegEx="#[A-Za-z0-9]+";
 		Pattern subjectTagPattern = Pattern.compile(subjectTagRegEx);
@@ -247,12 +247,19 @@ public class Service implements Serializable {
 		Stack<Tweet> mentionStack = realUser.getMentionStack(howMany);
 
 		while (tweetsAndMentions.size() < howMany && tweetStack.size()>0 && mentionStack.size()>0){
-			if (tweetStack.peek().compareTo(mentionStack.peek())>0){
-				tweetsAndMentions.add(tweetStack.pop());
+			if (tweetStack.peek().compareTo(mentionStack.peek())>0 ){
+				if (!tweetsAndMentions.contains(tweetStack.peek())){
+					tweetsAndMentions.add(tweetStack.pop());
+				}
+				else tweetStack.pop();
 			}
-			else {
+			else if (!tweetsAndMentions.contains(mentionStack.peek())){
 				tweetsAndMentions.add(mentionStack.pop());
 			}
+			else {
+				mentionStack.pop();
+			}
+
 		}
 		while (tweetStack.size()>0 && tweetsAndMentions.size()<howMany){
 			tweetsAndMentions.add(tweetStack.pop());
@@ -436,7 +443,7 @@ public class Service implements Serializable {
 		t1 = createNewTweet("@Rita Det er fordi vi bruger Mac! ;-) #RnR", u1);
 		t1.getTime().setHours(t1.getTime().getHours()-2);
 		t1 = createNewTweet("Hej med dig @Rita :-)", u5);
-		
+
 	}
 
 
