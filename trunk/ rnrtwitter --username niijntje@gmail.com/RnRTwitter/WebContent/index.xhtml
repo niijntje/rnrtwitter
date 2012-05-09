@@ -15,13 +15,11 @@
 
 <h:body>
 	<h:panelGroup styleClass="toolbar">
-		<ui:insert name="header">
-			<ui:include src="/resources/templates/toolbar.xhtml" />
-		</ui:insert>
+		<ui:include src="/resources/templates/toolbar.xhtml" />
 	</h:panelGroup>
 	<h:form>
 		<p:panel header="#{msgs.existingUser}">
-			
+
 			<h:panelGrid columns="3">
 				<h:outputLabel for="userName" value="#{msgs.userName}" />
 				<p:inputText id="userName" value="#{userBean.currentUser.userName}"
@@ -43,7 +41,7 @@
 				action="#{userBean.verifyUser}" update="userNameError pwError" />
 		</p:panel>
 	</h:form>
-	<p:spacer height="10px"/>
+	<p:spacer height="10px" />
 	<h:form>
 		<p:panel header="#{msgs.newUser}" toggleable="true" collapsed="true">
 			<!-- <p:messages id="messages" showDetail="true" autoUpdate="true"/>  -->
@@ -62,7 +60,7 @@
 					inline="true" immediate="">
 					<p:ajax event="keyup" render="pwerror"></p:ajax>
 				</p:password>
-				<p:message id="pwerror" for="password"/>
+				<p:message id="pwerror" for="password" />
 
 				<h:outputLabel for="repeatpassword" value="#{msgs.repeatPassword}" />
 				<p:password id="repeatpassword" label="#{msgs.repeatPassword}"
@@ -73,7 +71,7 @@
 				<p:message id="pwrepeaterror" for="repeatpassword"></p:message>
 			</h:panelGrid>
 			<p:commandButton value="#{msgs.createNewUser}"
-				action="#{userBean.createNew}" update="pwrepeaterror"/>
+				action="#{userBean.createNew}" update="pwrepeaterror" />
 		</p:panel>
 	</h:form>
 </h:body>

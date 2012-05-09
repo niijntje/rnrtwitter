@@ -1,28 +1,22 @@
 package sadped.eaaa.rnrtwitter;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
+public class User {
 
-@Named
-@SessionScoped
-public class User implements Serializable{
-
-	//Login-info
+	// Login-info
 	private String userName;
 	private String password;
 
-	//Profile-info
+	// Profile-info
 	private String realName;
 	private String email;
 	private String profileText;
 	private String profilePicFileName;
-	//Andre forslag: alder, køn, dato for oprettelse
+	// Andre forslag: alder, køn, dato for oprettelse
 
 	private List<Tweet> tweets;
 	private List<User> subscriptions;
@@ -33,7 +27,9 @@ public class User implements Serializable{
 		this.realName = "";
 		this.email = "";
 		this.profileText = profileText;
-		this.tweets = new LinkedList<Tweet>();	//Rita: Jeg foreslår at vi bruger en linkedList og så altid indsætter ved index 0;
+		this.tweets = new LinkedList<Tweet>(); // Rita: Jeg foreslår at vi
+												// bruger en linkedList og så
+												// altid indsætter ved index 0;
 		this.subscriptions = new ArrayList<User>();
 		subscriptions.add(this);
 	}
@@ -41,44 +37,54 @@ public class User implements Serializable{
 	public String getUserName() {
 		return userName;
 	}
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
-	public boolean verifyPassword(String password) {	//Formentlig overflødig pga. equals-metode
-		return this.password==password;
+	public boolean verifyPassword(String password) { // Formentlig overflødig
+														// pga. equals-metode
+		return this.password == password;
 	}
-	public String getPassword(){	//Formentlig overflødig pga. equals-metode
+
+	public String getPassword() { // Formentlig overflødig pga. equals-metode
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public Tweet addTweet(String text){
-		Tweet t = new Tweet(text,this);
+	public Tweet addTweet(String text) {
+		Tweet t = new Tweet(text, this);
 		this.tweets.add(0, t);
 		return t;
 	}
-	public void removeTweet(Tweet t){
+
+	public void removeTweet(Tweet t) {
 		tweets.remove(t);
 	}
+
 	public List<Tweet> getTweets() {
 		return tweets;
 	}
+
 	public void setTweets(List<Tweet> tweets) {
 		this.tweets = tweets;
 	}
 
-	public void addSubscription(User u){
+	public void addSubscription(User u) {
 		subscriptions.add(u);
 	}
-	public void removeSubscription(User u){
+
+	public void removeSubscription(User u) {
 		subscriptions.remove(u);
 	}
+
 	public List<User> getSubscriptions() {
 		return subscriptions;
 	}
+
 	public void setSubscriptions(List<User> subscriptions) {
 		this.subscriptions = subscriptions;
 	}
@@ -90,7 +96,6 @@ public class User implements Serializable{
 	public void setProfileText(String profileText) {
 		this.profileText = profileText;
 	}
-
 
 	public String getRealName() {
 		return realName;
@@ -109,7 +114,7 @@ public class User implements Serializable{
 	}
 
 	@Override
-	public String toString(){
+	public String toString() {
 		return userName;
 	}
 
@@ -146,9 +151,9 @@ public class User implements Serializable{
 		return true;
 	}
 
-	public Stack<Tweet> getTweetStack(int howMany){
+	public Stack<Tweet> getTweetStack(int howMany) {
 		Stack<Tweet> tweetStack = new Stack<Tweet>();
-		for (int i = Math.min(howMany-1, tweets.size()-1); i >= 0; i--){
+		for (int i = Math.min(howMany - 1, tweets.size() - 1); i >= 0; i--) {
 			tweetStack.push(tweets.get(i));
 		}
 		return tweetStack;

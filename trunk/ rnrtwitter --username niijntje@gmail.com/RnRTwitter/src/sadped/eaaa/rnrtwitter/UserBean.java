@@ -27,7 +27,7 @@ public class UserBean implements Serializable {
 	private User currentUser;
 	private User viewedUser;
 	private String userNameSearch; // Til at holde paa indtastning i soegefeltet
-	private String newTweetText; // til indtastning af ny tweet p� home.xhtml
+	private String newTweetText; // til indtastning af ny tweet paa home.xhtml
 	private List<Tweet> displayedTweets;
 	private int remainingCharacters;
 	
@@ -56,7 +56,7 @@ public class UserBean implements Serializable {
 
 	public void setViewedUser(User viewedUser) {
 		this.viewedUser = viewedUser;
-		//		this.displayedTweets = service.recentTweets(viewedUser, 20);
+		// this.displayedTweets = service.recentTweets(viewedUser, 20);
 	}
 
 	public void createNewUser() {
@@ -109,11 +109,11 @@ public class UserBean implements Serializable {
 	 */
 	public void validateUserPassword(FacesContext context,
 			UIComponent component, Object value) throws ValidatorException {
-		User u = new User(currentUser.getUserName(), (String) value,
-				"");
+		User u = new User(currentUser.getUserName(), (String) value, "");
 		if (!service.verifyUser(u)) {
 
-			System.out.println("Wrong user: "+u.getUserName()+" "+u.getPassword());
+			System.out.println("Wrong user: " + u.getUserName() + " "
+					+ u.getPassword());
 
 			resetCurrentUser();
 
@@ -134,13 +134,14 @@ public class UserBean implements Serializable {
 			if (viewedUser == null || viewedUser.getUserName().equals("")) {
 				// Hvis der allerede findes en viewedUser, går vi ud fra, at
 				// personen ønsker at
-				// se dennes profil igen efter login - altså fortsætte hvor man
+				// se dennes profil igen efter login - altså fortsætte hvor
+				// man
 				// kom fra
 				setViewedUser(service.getCleanCopy(currentUser));
 			}
 
 			return "login";
-		} else {			 
+		} else {
 			return "";
 		}
 
@@ -163,21 +164,27 @@ public class UserBean implements Serializable {
 		service.createUser(currentUser);
 		currentUser = service.getCleanCopy(currentUser);
 		if (viewedUser == null || viewedUser.getUserName().equals("")) {
-			// Hvis der allerede findes en viewedUser, går vi ud fra, at
-			// personen ønsker at
-			// se dennes profil igen efter login - altså fortsætte hvor man
+			// Hvis der allerede findes en viewedUser, gaar vi ud fra, at
+			// personen oensker at
+			// se dennes profil igen efter login - altsaa fortsaette hvor man
 			// kom fra
 			setViewedUser(service.getCleanCopy(currentUser));
 		}
 		return "login";
 	}
-	
-	public void createNewTweet(){
-		if(loggedIn()){
+
+	public void createNewTweet() {
+		if (loggedIn()) {
 			service.createNewTweet(newTweetText, currentUser);
 			this.newTweetText = "";
 		}
 	}
+	
+//	public void tweetTags(String tweetText){
+//		if(tweetText.contains("@")){
+//
+//		}
+//	}
 
 	public String logout() {
 		resetCurrentUser();
@@ -260,16 +267,16 @@ public class UserBean implements Serializable {
 		currentUser = service.getCleanCopy(currentUser);
 	}
 
-	public List<Tweet> recentTweets(){
+	public List<Tweet> recentTweets() {
 		return service.recentTweets(viewedUser, 20);
 	}
-	
-	public String viewUser(User u){
+
+	public String viewUser(User u) {
 		setViewedUser(service.getCleanCopy(u));
 		return "profile";
 	}
 
-	public String viewTweetUser(Tweet t){
+	public String viewTweetUser(Tweet t) {
 		setViewedUser(service.getCleanCopy(t.getUser()));
 		return "profile";
 	}
@@ -293,8 +300,6 @@ public class UserBean implements Serializable {
 		this.displayedTweets = displayedTweets;
 	}
 
-
-
 	public String getNewTweetText() {
 		return newTweetText;
 	}
@@ -303,47 +308,46 @@ public class UserBean implements Serializable {
 		this.newTweetText = newTweetText;
 	}
 
-	public List<Tweet> getTweetStream(){
+	public List<Tweet> getTweetStream() {
 		this.displayedTweets = service.tweetFeed(currentUser, 20);
 		return displayedTweets;
 	}
 
-	public List<User> getSubscriptions(){
+	public List<User> getSubscriptions() {
 		return service.getSubscriptions(viewedUser);
 	}
-	
-	public List<User> getMySubscriptions(){
+
+	public List<User> getMySubscriptions() {
 		setViewedUser(currentUser);
 		return getSubscriptions();
 	}
-	
-	public String getLastTweet(User u){
+
+	public String getLastTweet(User u) {
 		return service.getLastTweet(u);
 	}
 
-
 	public int getRemainingCharacters() {
-		return remainingCharacters-getNewTweetText().length();
+		return remainingCharacters - getNewTweetText().length();
 	}
 
 	public void setRemainingCharacters(int remainingCharacters) {
 		this.remainingCharacters = remainingCharacters;
 	}
-	
-	public boolean alreadySubscribed(){
+
+	public boolean alreadySubscribed() {
 		return service.alreadySubscribed(currentUser, viewedUser);
 	}
-	
-	public boolean notSubscribed(){
+
+	public boolean notSubscribed() {
 		return service.notSubscribed(currentUser, viewedUser);
 	}
 
-	public String subscribe(){
+	public String subscribe() {
 		service.subscribe(currentUser, viewedUser);
 		return "profile";
 	}
-	
-	public String unSubscribe(){
+
+	public String unSubscribe() {
 		service.unSubscribe(currentUser, viewedUser);
 		return "profile";
 	}
