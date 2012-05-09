@@ -8,7 +8,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <f:metadata>
-<f:viewParam name="userName" value="#{userBean.userName}"/>
+	<f:viewParam name="userName" value="#{userBean.userName}" />
 </f:metadata>
 <h:head>
 	<title>#{msgs.windowTitle}</title>
@@ -19,6 +19,7 @@
 	<h:panelGroup styleClass="toolbar">
 		<ui:include src="/resources/templates/toolbar.xhtml" />
 	</h:panelGroup>
+
 	<h:form>
 		<p:notificationBar id="subscribedBar" position="top" effect="slide"
 			effectSpeed="slow" widgetVar="subscribedBar" styleClass="top">
@@ -35,20 +36,25 @@
 		<p:poll interval="4" listener="subscribedBar.hide()" update="subscribedBar"/>
 		<p:poll interval="4" listener="unSubscribedBar.hide()" update="unSubscribedBar"/>
 	</h:form>
+
 	<p:panel header="#{userBean.viewedUser.userName}">
 		<h:form>
 			<h:panelGrid id="infoPanel" columns="3" styleClass="infoGrid">
 				<p:commandButton value="#{msgs.subscribe}"
 					action="#{userBean.subscribe}"
+
 					rendered="#{userBean.otherUsersProfile()}"
 					disabled="#{userBean.alreadySubscribed()}"
 					onmousedown="subscribedBar.show()" update="infoPanel" />
+
 				<p:commandButton value="#{msgs.unSubscribe}"
 					action="#{userBean.unSubscribe}"
+
 					rendered="#{userBean.otherUsersProfile()}"
 					disabled="#{userBean.notSubscribed()}"
 					onmousedown="unSubscribedBar.show()" update="infoPanel" />
 				<p:spacer />
+
 				<h:outputLabel value="#{msgs.editUser}"
 					rendered="#{userBean.ownProfile()}"></h:outputLabel>
 				<p:spacer rendered="#{userBean.ownProfile()}"></p:spacer>
@@ -111,7 +117,9 @@
 					disabled="#{userBean.otherUsersProfile()}">
 					<p:inputTextarea id="aboutUser" label="#{aboutUser}"
 						value="#{userBean.viewedUser.profileText}"
-						styleClass="largeTextArea" />
+
+						rows="5" cols="45"/>
+
 					<!-- p:resizable for="aboutUser" minWidth="20" minHeight="40" maxWidth="50" maxHeight="100"></p:resizable-->
 					<p:watermark for="aboutUser" value="#{msgs.writeSomething}"></p:watermark>
 					<p:ajax event="save" listener="#{userBean.saveProfileText}" />
@@ -131,11 +139,16 @@
 
 				<h:dataTable value="#{userBean.displayedTweets}" var="tweet"
 					border="0">
-
-
 					<h:column>
-						<p:fieldset legend="#{tweet.user}">
-							<h:outputText value="#{tweet.text}" escape="false"></h:outputText>
+						<p:fieldset>
+							<h:panelGrid columns="2">
+								<p:commandLink action="#{userBean.viewTweetUser(tweet)}" ajax="false">
+									<h:graphicImage library="profilePics" name="#{tweet.user}.png"
+										styleClass="smallImage" height="50" width="50" />
+								</p:commandLink>
+								<h:outputText value="#{tweet.text}" styleClass="tweets"
+									escape="false" />
+							</h:panelGrid>
 						</p:fieldset>
 					</h:column>
 				</h:dataTable>

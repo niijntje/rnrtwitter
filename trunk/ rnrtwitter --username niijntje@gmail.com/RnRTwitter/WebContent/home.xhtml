@@ -41,17 +41,8 @@
 									</p:commandLink>
 									<h:outputText value="#{tweet.text}" styleClass="tweets"
 										escape="false" />
-									<h:dataTable value="#{tweet.taggedUsers}" var="tweetTags"
-										border="0">
-										<h:column>
-										<h:outputLabel for="tag" value="Tags: "/>
-											<p:commandLink id="tag" value="#{tweetTags}"
-												action="#{userBean.viewUser(tweetTags)}" />
-										</h:column>
-									</h:dataTable>
 								</h:panelGrid>
 							</p:fieldset>
-
 						</h:column>
 					</h:dataTable>
 
@@ -59,7 +50,7 @@
 				</h:panelGroup>
 			</p:layoutUnit>
 
-			<p:layoutUnit position="east" minSize="200" maxSize="500">
+			<p:layoutUnit position="east" minSize="200" maxSize="500" >
 
 				<p:panel header="#{msgs.tweet}">
 
@@ -93,9 +84,12 @@
 
 						</h:column>
 					</p:dataGrid>
-
+				
 				</p:panel>
-
+				<p:spacer height="20px"></p:spacer>
+				<p:panel header="#{msgs.tagCloud}">
+					<p:tagCloud model="#{service.tagCloudModel}"/>
+				</p:panel>
 
 
 			</p:layoutUnit>
