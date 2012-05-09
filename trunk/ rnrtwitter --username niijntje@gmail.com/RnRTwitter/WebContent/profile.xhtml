@@ -17,43 +17,48 @@
 
 <h:body>
 	<h:panelGroup styleClass="toolbar">
-			<ui:include src="/resources/templates/toolbar.xhtml" />
+		<ui:include src="/resources/templates/toolbar.xhtml" />
 	</h:panelGroup>
-
-	<p:notificationBar position="top" effect="slide" effectSpeed="slow"
-		widgetVar="subscribedBar" styleClass="top">
-		<h:outputText value="#{msgs.subscriptionAdded} #{userBean.viewedUser.userName}"
-			style="color:#FFCC00;font-size:36px;" />
-	</p:notificationBar>
-	<p:notificationBar position="top" effect="slide" effectSpeed="slow"
-		widgetVar="unSubscribedBar" styleClass="top">
-		<h:outputText value="#{msgs.unSubscribed} #{userBean.viewedUser.userName}"
-			style="color:#FFCC00;font-size:36px;" />
-	</p:notificationBar>
-	
+	<h:form>
+		<p:notificationBar id="subscribedBar" position="top" effect="slide"
+			effectSpeed="slow" widgetVar="subscribedBar" styleClass="top">
+			<h:outputText
+				value="#{msgs.subscriptionAdded} #{userBean.viewedUser.userName}"
+				style="color:#FFCC00;font-size:36px;" />
+		</p:notificationBar>
+		<p:notificationBar id="unSubscribedBar" position="top" effect="slide" effectSpeed="slow"
+			widgetVar="unSubscribedBar" styleClass="top">
+			<h:outputText
+				value="#{msgs.unSubscribed} #{userBean.viewedUser.userName}"
+				style="color:#FFCC00;font-size:36px;" />
+		</p:notificationBar>
+		<p:poll interval="4" listener="subscribedBar.hide()" update="subscribedBar"/>
+		<p:poll interval="4" listener="unSubscribedBar.hide()" update="unSubscribedBar"/>
+	</h:form>
 	<p:panel header="#{userBean.viewedUser.userName}">
 		<h:form>
-			<h:panelGrid columns="3" styleClass="infoGrid">
+			<h:panelGrid id="infoPanel" columns="3" styleClass="infoGrid">
 				<p:commandButton value="#{msgs.subscribe}"
 					action="#{userBean.subscribe}"
-					rendered="#{userBean.otherUsersProfile()}" disabled="#{userBean.alreadySubscribed()}" ajax="false"
-					onmousedown="subscribedBar.show()"
-					onmouseout="subscribedBar.hide()" />
+					rendered="#{userBean.otherUsersProfile()}"
+					disabled="#{userBean.alreadySubscribed()}"
+					onmousedown="subscribedBar.show()" update="infoPanel" />
 				<p:commandButton value="#{msgs.unSubscribe}"
 					action="#{userBean.unSubscribe}"
-					rendered="#{userBean.otherUsersProfile()}" disabled="#{userBean.notSubscribed()}"  ajax="false"
-					onmousedown="unSubscribedBar.show()"
-					onmouseout="unSubscribedBar.hide()" />
-				<p:spacer></p:spacer>
+					rendered="#{userBean.otherUsersProfile()}"
+					disabled="#{userBean.notSubscribed()}"
+					onmousedown="unSubscribedBar.show()" update="infoPanel" />
+				<p:spacer />
 				<h:outputLabel value="#{msgs.editUser}"
 					rendered="#{userBean.ownProfile()}"></h:outputLabel>
 				<p:spacer rendered="#{userBean.ownProfile()}"></p:spacer>
-				
+
 
 				<h:outputText for="userName" value="#{msgs.userName}" />
 				<h:outputText value="#{userBean.viewedUser.userName}" />
 
-				<h:graphicImage library="profilePics" name="#{userBean.viewedUser.userName}.png" height="100" width="100" />
+				<h:graphicImage library="profilePics"
+					name="#{userBean.viewedUser.userName}.png" height="100" width="100" />
 
 
 				<h:outputLabel for="password" value="#{msgs.changePassword}"
@@ -79,8 +84,9 @@
 					rendered="#{userBean.ownProfile()}"></p:message>
 
 				<h:outputText for="realName" value="#{msgs.realName}" />
-				<p:inplace emptyLabel="#{userBean.viewedUser.userName} #{msgs.noRealName}" editor="true"
-					saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}"
+				<p:inplace
+					emptyLabel="#{userBean.viewedUser.userName} #{msgs.noRealName}"
+					editor="true" saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}"
 					disabled="#{userBean.otherUsersProfile()}">
 					<p:inputText id="realName" value="#{userBean.viewedUser.realName}"></p:inputText>
 					<p:watermark for="realName" value="#{msgs.tellUsYourRealName}" />
@@ -99,12 +105,13 @@
 				<p:spacer></p:spacer>
 
 				<h:outputText for="aboutUser" value="#{msgs.aboutUser}  "></h:outputText>
-				<p:inplace emptyLabel="#{userBean.viewedUser.userName} #{msgs.hasntWritten}" editor="true"
-					saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}"
+				<p:inplace
+					emptyLabel="#{userBean.viewedUser.userName} #{msgs.hasntWritten}"
+					editor="true" saveLabel="#{msgs.save}" cancelLabel="#{msgs.cancel}"
 					disabled="#{userBean.otherUsersProfile()}">
 					<p:inputTextarea id="aboutUser" label="#{aboutUser}"
 						value="#{userBean.viewedUser.profileText}"
-						styleClass="largeTextArea"/>
+						styleClass="largeTextArea" />
 					<!-- p:resizable for="aboutUser" minWidth="20" minHeight="40" maxWidth="50" maxHeight="100"></p:resizable-->
 					<p:watermark for="aboutUser" value="#{msgs.writeSomething}"></p:watermark>
 					<p:ajax event="save" listener="#{userBean.saveProfileText}" />
@@ -148,8 +155,9 @@
 							<p:panelGrid columns="2">
 								<p:commandLink action="#{userBean.viewUser(subscription)}"
 									ajax="false">
-									<h:graphicImage library="profilePics" name="#{subscription.userName}.png"
-										styleClass="smallImage" height="50" width="50" />
+									<h:graphicImage library="profilePics"
+										name="#{subscription.userName}.png" styleClass="smallImage"
+										height="50" width="50" />
 									<h:outputText value="#{subscription.userName}"></h:outputText>
 								</p:commandLink>
 
