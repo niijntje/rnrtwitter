@@ -314,9 +314,6 @@ public class UserBean implements Serializable {
 		return getSubscriptions();
 	}
 
-	public String getLastTweet(User u) {
-		return service.getLastTweet(u);
-	}
 
 	public int getRemainingCharacters() {
 		return remainingCharacters - getNewTweetText().length();

@@ -3,7 +3,9 @@ package sadped.eaaa.rnrtwitter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,14 +14,24 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
+import org.primefaces.model.tagcloud.DefaultTagCloudItem;
+import org.primefaces.model.tagcloud.DefaultTagCloudModel;
+import org.primefaces.model.tagcloud.TagCloudItem;
+import org.primefaces.model.tagcloud.TagCloudModel;
+
 @Named
 @ApplicationScoped
 public class Service implements Serializable {
 
 	private ArrayList<User> registeredUsers;
+	private Map<String, Integer> tagCloudMap;
+	private TagCloudModel tagCloudModel;
 
 	public Service() {
 		this.setRegisteredUsers(new ArrayList<User>());
+		this.tagCloudModel = new DefaultTagCloudModel();
+		this.tagCloudMap = new HashMap<String, Integer>();
+		tagCloudModel.addTag(new DefaultTagCloudItem("TagCloud!", "#", 1));
 		createSomeData();
 	}
 
@@ -32,12 +44,14 @@ public class Service implements Serializable {
 
 	public Tweet createNewTweet(String tweetText, User user){
 		User realUser = findUser(user);
-		String regEx="@[A-Za-z0-9]+";
-		Pattern pattern = Pattern.compile(regEx);
-		Matcher matcher1 = pattern.matcher(tweetText);
+		
+		//Tagging af usere med @:
+		String userTagRegEx="@[A-Za-z0-9]+";
+		Pattern userTagPattern = Pattern.compile(userTagRegEx);
+		Matcher userTagMatcher = userTagPattern.matcher(tweetText);
 		ArrayList<User> taggedUsers = new ArrayList<User>();
-		while (matcher1.find()){
-			String tagged = matcher1.group();
+		while (userTagMatcher.find()){
+			String tagged = userTagMatcher.group();
 			User u = findUser(tagged.substring(1));
 			if (u != null){
 				taggedUsers.add(u);
@@ -49,6 +63,21 @@ public class Service implements Serializable {
 			tagged.addMention(tweet);
 		}
 		
+		//Tagging af emner med #:
+		String subjectTagRegEx="#[A-Za-z0-9]+";
+		Pattern subjectTagPattern = Pattern.compile(subjectTagRegEx);
+		Matcher subjectTagMatcher = subjectTagPattern.matcher(tweetText);
+		while (subjectTagMatcher.find()){
+			String tag = subjectTagMatcher.group();
+			if (!tagCloudMap.containsKey(tag)){
+				tagCloudMap.put(tag, 1);
+			}
+			else {
+				Integer tagCount = tagCloudMap.get(tag);
+				tagCloudMap.put(tag, tagCount+1);
+			}
+		}
+
 		return tweet;
 	}
 
@@ -333,8 +362,27 @@ public class Service implements Serializable {
 		else return true;
 	}
 
-
-
+	/**
+	 * @return the tagCloudModel
+	 */
+	public TagCloudModel getTagCloudModel() {
+		tagCloudModel = new DefaultTagCloudModel();
+		int totalCount = 0;
+		for (Integer value : tagCloudMap.values()){
+			totalCount += value;
+		}
+		for (String key : tagCloudMap.keySet()){
+			int strength = tagCloudMap.get(key)*3/(totalCount/tagCloudMap.size());
+			if (strength > 5){
+				strength = 5;
+			}
+			else if (strength < 1){
+				strength = 1;
+			}
+			tagCloudModel.addTag(new DefaultTagCloudItem(key, "#", strength));
+		}
+		return tagCloudModel;
+	}
 
 	public void createSomeData(){
 		User u1 = createUser(new User("Rasmus", "pw", ""));
@@ -342,7 +390,7 @@ public class Service implements Serializable {
 		User u3 = createUser(new User("Jonas", "pw", ""));
 		User u4 = createUser(new User("Erik", "pw", ""));
 		User u5 = createUser(new User("Jorn", "pw", ""));
-		u5.setRealName("J�rn");
+		u5.setRealName("Jörn");
 		u1.addSubscription(u2);
 		u1.addSubscription(u5);
 		u2.addSubscription(u1);
@@ -359,33 +407,36 @@ public class Service implements Serializable {
 
 		Tweet t1 = createNewTweet("Min allerfoerste tweet", u1);
 		t1.getTime().setHours(t1.getTime().getHours()-10);
+		t1 = createNewTweet("Jeg vil tagge en milliard gange: #PrimeFaces #PrimeFaces #PrimeFaces #PrimeFaces #PrimeFaces #RnR #RnR", u2);
+		t1.getTime().setHours(t1.getTime().getHours()-13);
 		t1 = createNewTweet("Jeg kan ogsaa tweete!", u2);
 		t1.getTime().setHours(t1.getTime().getHours()-9);
 		t1 = createNewTweet(
-				"Og her er MIN anden (eller er det 'mit andet?') tweet :-D", u2);
+				"Og her er MIN anden (eller er det 'mit andet?') #tweet :-D", u2);
 		t1.getTime().setHours(t1.getTime().getHours()-8);
-		t1 = createNewTweet("Min anden tweet - nu vil jeg ogsaa tagge nogen: @Rita", u1);
+		t1 = createNewTweet("Min anden tweet med #RnR- nu vil jeg ogsaa tagge nogen: @Rita", u1);
 		t1.getTime().setHours(t1.getTime().getHours()-7);
 		t1 = createNewTweet(
-				"CNN's Geek Out on Joss: Master of the Whedonverse http://t.co/wb0k3UXG #awesomesauce", u3);
+				"CNN's #Geek Out on Joss: Master of the Whedonverse http://t.co/wb0k3UXG awesomesauce", u3);
 		t1.getTime().setHours(t1.getTime().getHours()-13);
-		t1 = createNewTweet("Need a place to store your ideas and projects? We think Wunderkit is the perfect tool for the job: http://t.co/xedRpERf", u3);
+		t1 = createNewTweet("Need a place to store your #ideas and projects? We think Wunderkit is the perfect tool for the job: http://t.co/xedRpERf", u3);
 		t1.getTime().setHours(t1.getTime().getHours()-12);
 		t1 = createNewTweet("Thanks for all your comments on the new mag so far! If you haven't seen the issue yet, it's officially on sale from tomorrow!", u4);
 		t1.getTime().setHours(t1.getTime().getHours()-11);
-		t1 = createNewTweet("Thinking about becoming a summer organizer? The experience could change your life: http://OFA.BO/sKUzQE #SumOrg12", u5);
+		t1 = createNewTweet("Thinking about becoming a #summer organizer? The experience could change your life: http://OFA.BO/sKUzQE SumOrg12", u5);
 		t1.getTime().setHours(t1.getTime().getHours()-10);
-		t1 = createNewTweet("Gad vide om mine studerende har fattet noget som helst om traeer...?", u5);
+		t1 = createNewTweet("Gad vide om mine #studerende har fattet noget som helst om traeer...?", u5);
 		t1.getTime().setHours(t1.getTime().getHours()-6);
-		t1 = createNewTweet("Jeg glaeder mig helt vildt til at se de seje PrimeFaces-projekter i 11V i dag!", u4);
+		t1 = createNewTweet("Jeg glaeder mig helt vildt til at se de seje #PrimeFaces-projekter i 11V i dag!", u4);
 		t1.getTime().setHours(t1.getTime().getHours()-5);
-		t1 = createNewTweet("Vi er bare alt for seje her hos RnR!", u1);
+		t1 = createNewTweet("Vi er bare alt for seje her hos #RnR!", u1);
 		t1.getTime().setHours(t1.getTime().getHours()-4);
-		t1 = createNewTweet("RT @Rasmus: Vi er bare alt for seje her hos RnR!", u2);
+		t1 = createNewTweet("RT @Rasmus: Vi er bare alt for seje her hos #RnR!", u2);
 		t1.getTime().setHours(t1.getTime().getHours()-3);
-		t1 = createNewTweet("@Rita Det er fordi vi bruger Mac! ;-)", u1);
+		t1 = createNewTweet("@Rita Det er fordi vi bruger Mac! ;-) #RnR", u1);
 		t1.getTime().setHours(t1.getTime().getHours()-2);
 		t1 = createNewTweet("Hej med dig @Rita :-)", u5);
+		
 	}
 
 

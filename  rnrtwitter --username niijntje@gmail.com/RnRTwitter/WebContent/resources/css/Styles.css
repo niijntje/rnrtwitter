@@ -4,6 +4,10 @@ body{
 	font-family: arial, helvetica;
 	font-size: 0.80em;
 }
+link{
+	text-decoration: none;
+	font-style:oblique; 
+}
 
 .infoGrid {
 	border: 1px;
