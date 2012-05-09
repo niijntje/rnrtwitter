@@ -34,19 +34,21 @@ public class Service implements Serializable {
 		User realUser = findUser(user);
 		String regEx="@[A-Za-z0-9]+";
 		Pattern pattern = Pattern.compile(regEx);
-		Matcher matcher = pattern.matcher(tweetText);
+		Matcher matcher1 = pattern.matcher(tweetText);
 		ArrayList<User> taggedUsers = new ArrayList<User>();
-		while (matcher.find()){
-			String tagged = matcher.group().substring(1);
-			User u = findUser(tagged);
+		while (matcher1.find()){
+			String tagged = matcher1.group();
+			User u = findUser(tagged.substring(1));
 			if (u != null){
 				taggedUsers.add(u);
+				tweetText = tweetText.replace(tagged, "<a href=\"profile.xhtml\">"+tagged+"</a>");
 			}
 		}
 		Tweet tweet = realUser.addTweet(tweetText, taggedUsers);
 		for (User tagged : taggedUsers){
 			tagged.addMention(tweet);
 		}
+		
 		return tweet;
 	}
 
@@ -247,6 +249,11 @@ public class Service implements Serializable {
 				tweetsLeft += st.size();
 			}
 		}
+		if (realUser.getMentions().size()>0){
+			Stack<Tweet> st = realUser.getMentionStack(howMany);
+			stacks.add(st);
+			tweetsLeft += st.size(); 
+		}
 
 		while (tweetFeed.size() < howMany && tweetsLeft>0){
 			Stack<Tweet> hasMostRecent = stacks.get(0);
@@ -255,7 +262,13 @@ public class Service implements Serializable {
 					hasMostRecent = stack;
 				}
 			}
-			tweetFeed.add(hasMostRecent.pop());
+			boolean tweetAlreadyThere = tweetFeed.contains(hasMostRecent.peek());
+			if (!tweetAlreadyThere){
+				tweetFeed.add(hasMostRecent.pop());
+			}
+			else {
+				hasMostRecent.pop();
+			}			
 			tweetsLeft--;
 			if (hasMostRecent.isEmpty()){
 				stacks.remove(hasMostRecent);
@@ -372,7 +385,7 @@ public class Service implements Serializable {
 		t1.getTime().setHours(t1.getTime().getHours()-3);
 		t1 = createNewTweet("@Rita Det er fordi vi bruger Mac! ;-)", u1);
 		t1.getTime().setHours(t1.getTime().getHours()-2);
-
+		t1 = createNewTweet("Hej med dig @Rita :-)", u5);
 	}
 
 

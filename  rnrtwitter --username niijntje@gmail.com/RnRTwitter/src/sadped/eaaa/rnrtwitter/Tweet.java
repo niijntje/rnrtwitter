@@ -42,6 +42,14 @@ public class Tweet implements Comparable<Tweet>{
 		this.time = time;
 	}
 
+	public ArrayList<User> getTaggedUsers() {
+		return taggedUsers;
+	}
+
+	public void setTaggedUsers(ArrayList<User> taggedUsers) {
+		this.taggedUsers = taggedUsers;
+	}
+
 	@Override
 	public String toString(){
 		return text;
@@ -52,11 +60,47 @@ public class Tweet implements Comparable<Tweet>{
 		return this.time.compareTo(otherTweet.getTime());
 	}
 
-	public ArrayList<User> getTaggedUsers() {
-		return taggedUsers;
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((text == null) ? 0 : text.hashCode());
+		result = prime * result + ((time == null) ? 0 : time.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		return result;
 	}
 
-	public void setTaggedUsers(ArrayList<User> taggedUsers) {
-		this.taggedUsers = taggedUsers;
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Tweet other = (Tweet) obj;
+		if (text == null) {
+			if (other.text != null)
+				return false;
+		} else if (!text.equals(other.text))
+			return false;
+		if (time == null) {
+			if (other.time != null)
+				return false;
+		} else if (!time.equals(other.time))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
 	}
+
 }
