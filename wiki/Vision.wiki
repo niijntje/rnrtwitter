@@ -17,7 +17,7 @@ Rita: Overvejer om vi skal ændre vores equals-metode, så den ikke tjekker på 
  * login-felt der ryster sidelæns hvis man taster forkert (<p:effect> ;-) ) DONE
 
 ==Profile==
- * Tag-cloud
+ * Tag-cloud (DONE - findes nu iTweet Stream)
  * Profil-billede-upload (Rita)
  * Evt. regex-validering på email
  * Watermark i tekstfelter i stedet for/ud over empty-label DONE
