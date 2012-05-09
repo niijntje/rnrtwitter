@@ -41,7 +41,7 @@ public class Service implements Serializable {
 			User u = findUser(tagged.substring(1));
 			if (u != null){
 				taggedUsers.add(u);
-				tweetText = tweetText.replace(tagged, "<a href=\"profile.xhtml\">"+tagged+"</a>");
+				tweetText = tweetText.replace(tagged, "<a href=\"profile.xhtml?userName="+tagged.substring(1)+"\">"+tagged+"</a>");
 			}
 		}
 		Tweet tweet = realUser.addTweet(tweetText, taggedUsers);

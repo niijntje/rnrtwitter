@@ -22,20 +22,22 @@ public class UserBean implements Serializable {
 
 	private User currentUser;
 	private User viewedUser;
+	private String userName; //Til brug for navigation fra tweets til bruger-profil
 	private String userNameSearch; // Til at holde paa indtastning i soegefeltet
 	private String newTweetText; // til indtastning af ny tweet paa home.xhtml
 	private List<Tweet> displayedTweets;
 	private int remainingCharacters;
-	
+
 	private @Inject
 	Service service;
 
 	public UserBean() {
 		this.setCurrentUser(new User("", "", ""));
 		viewedUser = currentUser;
+		userName = "";
 		this.remainingCharacters = 144;
 		this.newTweetText = "";
-		
+
 	}
 
 	public User getCurrentUser() {
@@ -52,6 +54,7 @@ public class UserBean implements Serializable {
 
 	public void setViewedUser(User viewedUser) {
 		this.viewedUser = viewedUser;
+		this.userName = viewedUser.getUserName();
 		// this.displayedTweets = service.recentTweets(viewedUser, 20);
 	}
 
@@ -339,6 +342,18 @@ public class UserBean implements Serializable {
 	public String unSubscribe() {
 		service.unSubscribe(currentUser, viewedUser);
 		return "profile";
+	}
+
+	public String getUserName() {
+		if (viewedUser != null){
+			userName = viewedUser.getUserName();
+		}
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+		this.viewedUser = service.getCleanCopy(service.findUser(userName));
 	}
 
 }
