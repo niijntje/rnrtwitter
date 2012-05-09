@@ -7,7 +7,9 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-
+<f:metadata>
+<f:viewParam name="userName" value="#{userBean.userName}"/>
+</f:metadata>
 <h:head>
 	<title>#{msgs.windowTitle}</title>
 	<h:outputStylesheet library="css" name="Styles.css" />
