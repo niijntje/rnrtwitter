@@ -2,6 +2,7 @@ package sadped.eaaa.rnrtwitter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 import java.util.regex.Matcher;
@@ -48,15 +49,15 @@ public class Service implements Serializable {
 		}
 		return tweet;
 	}
-	
+
 	public User findUser(String userName){
 		User found = null;
 		int i = 0;
 		while (found == null && i < registeredUsers.size()){
 			if (registeredUsers.get(i).getUserName().equalsIgnoreCase(userName)){
-				
+
 				found = registeredUsers.get(i);
-				
+
 			}
 			i++;
 		}
@@ -205,18 +206,30 @@ public class Service implements Serializable {
 	}
 
 	public List<Tweet> recentTweets(User viewedUser, int howMany) {
-		User u = findUser(viewedUser);
-		List<Tweet> tweets = new ArrayList<Tweet>();
-		if (u != null){
-			tweets = u.getTweets();
+		User realUser = findUser(viewedUser);
+		if (realUser == null){
+			throw new RuntimeException("User not found :-(");
 		}
-		if (tweets.size() < howMany){
-			return tweets;
+		List<Tweet> tweetsAndMentions = new ArrayList<Tweet>();
+
+		Stack<Tweet> tweetStack = realUser.getTweetStack(howMany);
+		Stack<Tweet> mentionStack = realUser.getMentionStack(howMany);
+
+		while (tweetsAndMentions.size() < howMany && tweetStack.size()>0 && mentionStack.size()>0){
+			if (tweetStack.peek().compareTo(mentionStack.peek())>0){
+				tweetsAndMentions.add(tweetStack.pop());
+			}
+			else {
+				tweetsAndMentions.add(mentionStack.pop());
+			}
 		}
-		else
-		{
-			return tweets.subList(tweets.size()-howMany-1, tweets.size());
+		while (tweetStack.size()>0 && tweetsAndMentions.size()<howMany){
+			tweetsAndMentions.add(tweetStack.pop());
 		}
+		while (mentionStack.size()>0 && tweetsAndMentions.size()<howMany){
+			tweetsAndMentions.add(mentionStack.pop());
+		}
+		return tweetsAndMentions;
 	}
 
 	public List<Tweet> tweetFeed(User currentUser, int howMany){
@@ -282,7 +295,7 @@ public class Service implements Serializable {
 		User realSubscription = findUser(subscription);
 		realCurrent.addSubscription(realSubscription);
 	}
-	
+
 	public void unSubscribe(User currentUser, User viewedUser) {
 		User realCurrent = findUser(currentUser);
 		User realViewed = findUser(viewedUser);
@@ -297,7 +310,7 @@ public class Service implements Serializable {
 		}
 		else return true;
 	}
-	
+
 	public boolean notSubscribed(User currentUser, User viewedUser){
 		User realCurrent = findUser(currentUser);
 		User realViewed = findUser(viewedUser);
@@ -307,7 +320,7 @@ public class Service implements Serializable {
 		else return true;
 	}
 
-	
+
 
 
 	public void createSomeData(){
@@ -325,11 +338,11 @@ public class Service implements Serializable {
 		u3.addSubscription(u2);
 		u4.addSubscription(u2);
 		u5.addSubscription(u2);
-//		u1.setProfilePicFileName("Rasmus.jpg");
-//		u2.setProfilePicFileName("Rita.png");
-//		u3.setProfilePicFileName("Jonas.jpg");
-//		u4.setProfilePicFileName("Erik.png");
-//		u5.setProfilePicFileName("Jörn.png");
+		//		u1.setProfilePicFileName("Rasmus.jpg");
+		//		u2.setProfilePicFileName("Rita.png");
+		//		u3.setProfilePicFileName("Jonas.jpg");
+		//		u4.setProfilePicFileName("Erik.png");
+		//		u5.setProfilePicFileName("Jörn.png");
 
 		Tweet t1 = createNewTweet("Min allerfoerste tweet", u1);
 		t1.getTime().setHours(t1.getTime().getHours()-10);
@@ -359,7 +372,7 @@ public class Service implements Serializable {
 		t1.getTime().setHours(t1.getTime().getHours()-3);
 		t1 = createNewTweet("@Rita Det er fordi vi bruger Mac! ;-)", u1);
 		t1.getTime().setHours(t1.getTime().getHours()-2);
-		
+
 	}
 
 

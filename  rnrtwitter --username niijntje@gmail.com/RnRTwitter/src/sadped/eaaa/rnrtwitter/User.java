@@ -22,13 +22,7 @@ public class User {
 	private List<User> subscriptions;
 	private List<Tweet> mentions;
 
-	public List<Tweet> getMentions() {
-		return mentions;
-	}
 
-	public void setMentions(List<Tweet> mentions) {
-		this.mentions = mentions;
-	}
 
 	public User(String userName, String password, String profileText) {
 		this.userName = userName;
@@ -37,8 +31,8 @@ public class User {
 		this.email = "";
 		this.profileText = profileText;
 		this.tweets = new LinkedList<Tweet>(); // Rita: Jeg foreslaar at vi
-												// bruger en linkedList og saa
-												// altid indsaetter ved index 0;
+		// bruger en linkedList og saa
+		// altid indsaetter ved index 0;
 		this.mentions = new LinkedList<Tweet>();
 		this.subscriptions = new ArrayList<User>();
 		subscriptions.add(this);
@@ -53,7 +47,7 @@ public class User {
 	}
 
 	public boolean verifyPassword(String password) { // Formentlig overflødig
-														// pga. equals-metode
+		// pga. equals-metode
 		return this.password == password;
 	}
 
@@ -165,10 +159,18 @@ public class User {
 
 	public Stack<Tweet> getTweetStack(int howMany) {
 		Stack<Tweet> tweetStack = new Stack<Tweet>();
-		for (int i = Math.min(howMany - 1, tweets.size() - 1); i >= 0; i--) {
-			tweetStack.push(tweets.get(i));
-		}
+			for (int i = Math.min(howMany - 1, tweets.size() - 1); i >= 0; i--) {
+				tweetStack.push(tweets.get(i));
+			}
 		return tweetStack;
+	}
+
+	public Stack<Tweet> getMentionStack(int howMany) {
+		Stack<Tweet> mentionStack = new Stack<Tweet>();
+		for (int i = Math.min(howMany - 1, mentions.size() - 1); i >= 0; i--) {
+			mentionStack.push(mentions.get(i));
+		}
+		return mentionStack;
 	}
 
 	public String getProfilePicFileName() {
@@ -180,8 +182,16 @@ public class User {
 	}
 
 	public void addMention(Tweet tweet) {
-		mentions.add(tweet);
-		
+		mentions.add(0, tweet);
+
+	}
+
+	public List<Tweet> getMentions() {
+		return mentions;
+	}
+
+	public void setMentions(List<Tweet> mentions) {
+		this.mentions = mentions;
 	}
 
 }
