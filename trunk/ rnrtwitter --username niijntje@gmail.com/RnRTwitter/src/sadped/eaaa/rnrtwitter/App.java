@@ -90,12 +90,16 @@ public class App {
 //			userMatches.add(matcher.group());
 //		}
 		
-		Service service = new Service();
-		service.createSomeData();
-		User u = service.findUser("Rasmus");
-		service.createNewTweet("En tweet fra @Rasmus hvor @Rita er tagget", u);
-//		System.out.println(u.getTweets());
-		User u2 = service.findUser("Rita");
-		System.out.println("Tweets hvor Rita er tagget: "+u2.getMentions());
+//		Service service = new Service();
+//		service.createSomeData();
+//		User u = service.findUser("Rasmus");
+//		Tweet t = service.createNewTweet("En tweet fra @Rasmus hvor @Rita er tagget", u);
+////		System.out.println(u.getTweets());
+//		User u2 = service.findUser("Rita");
+//		System.out.println("Tweets hvor Rita er tagget: "+u2.getMentions());
+		
+//		String tweetText = "Hej @Rita, nu tagger jeg dig!";
+//		tweetText = tweetText.replaceAll("@Rita", "<a href=\"profile.xhtml\">@"+"Rita"+"</a>");
+//		System.out.println(tweetText);
 	}
 }
