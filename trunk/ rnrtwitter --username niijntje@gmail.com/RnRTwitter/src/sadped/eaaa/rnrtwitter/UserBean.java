@@ -12,6 +12,10 @@ import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.model.tagcloud.DefaultTagCloudItem;
+import org.primefaces.model.tagcloud.DefaultTagCloudModel;
+import org.primefaces.model.tagcloud.TagCloudModel;
+
 /**
  * @author nijntje
  * 
@@ -26,6 +30,7 @@ public class UserBean implements Serializable {
 	private String newTweetText; // til indtastning af ny tweet p� home.xhtml
 	private List<Tweet> displayedTweets;
 	private int remainingCharacters;
+	
 	private @Inject
 	Service service;
 
@@ -34,7 +39,7 @@ public class UserBean implements Serializable {
 		viewedUser = currentUser;
 		this.remainingCharacters = 144;
 		this.newTweetText = "";
-
+		
 	}
 
 	public User getCurrentUser() {

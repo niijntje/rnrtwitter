@@ -9,23 +9,11 @@ body{
 	border: 1px;
 	width: 90%;
 }
-.smallImage {
-	height: 50px;
-	width: 50px;
-}
-.mediumImage {
-	height: 100px;
-	width: 100px; 
-}
 
 .tweet{
 	font-size: 0.75em;
 }
 
-.largeTextArea {
-	width: 500;
-	height: 300;
-}
 .toolbar{
 	font-size: 0.75em;
 }
