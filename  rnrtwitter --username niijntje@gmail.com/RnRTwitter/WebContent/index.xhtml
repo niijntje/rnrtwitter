@@ -21,7 +21,7 @@
 		<p:panel header="#{msgs.existingUser}">
 
 			<h:panelGrid columns="3">
-				<h:outputLabel for="userName" value="#{msgs.userName}" />
+				<h:outputLabel for="userName" value="#{msgs.userName}"/>
 				<p:inputText id="userName" value="#{userBean.currentUser.userName}"
 					required="true" requiredMessage="#{msgs.requiredUserName}"
 					validator="#{userBean.validateUserName}"
@@ -71,9 +71,9 @@
 				<p:password id="repeatpassword" label="#{msgs.repeatPassword}"
 					value="#{userBean.currentUser.password}" required="true"
 					match="password" immediate="true">
-					<p:ajax event="keyup" render="pwrepeaterror"></p:ajax>
+					<p:ajax event="keyup" render="pwrepeaterror"/>
 				</p:password>
-				<p:message id="pwrepeaterror" for="repeatpassword"></p:message>
+				<p:message id="pwrepeaterror" for="repeatpassword"/>
 			</h:panelGrid>
 			<p:commandButton value="#{msgs.createNewUser}"
 				action="#{userBean.createNew}" update="pwrepeaterror" />
