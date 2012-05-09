@@ -41,6 +41,14 @@
 									</p:commandLink>
 									<h:outputText value="#{tweet.text}" styleClass="tweets"
 										escape="false" />
+									<h:dataTable value="#{tweet.taggedUsers}" var="tweetTags"
+										border="0">
+										<h:column>
+										<h:outputLabel for="tag" value="Tags: "/>
+											<p:commandLink id="tag" value="#{tweetTags}"
+												action="#{userBean.viewUser(tweetTags)}" />
+										</h:column>
+									</h:dataTable>
 								</h:panelGrid>
 							</p:fieldset>
 
