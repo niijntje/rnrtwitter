@@ -1,0 +1,1 @@
+A school project attempting to make a 'copy' of Twitter
